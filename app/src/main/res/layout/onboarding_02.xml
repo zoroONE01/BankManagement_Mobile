@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/tv_skip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/inter_medium"
+        android:text="@string/skip"
+        android:textColor="@color/black_700"
+        android:textSize="@dimen/_14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.85"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.1" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_img"
+        android:layout_width="@dimen/_282dp"
+        android:layout_height="@dimen/_282dp"
+        android:src="@drawable/img_onboarding_02"
+        app:layout_constraintBottom_toTopOf="@id/tv_tilte"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.3"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_tilte"
+        android:layout_width="@dimen/_282dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/pacifico"
+        android:lineSpacingExtra="-20dp"
+        android:text="@string/title_onboarding2"
+        android:textAlignment="center"
+        android:textColor="@color/black_700"
+        android:textSize="@dimen/_44sp"
+        app:layout_constraintBottom_toTopOf="@id/tv_description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_img" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_description"
+        android:layout_width="@dimen/_282dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/inter"
+        android:text="@string/desc_onboarding2"
+        android:layout_marginTop="@dimen/_10dp"
+        android:textAlignment="center"
+        android:textColor="@color/black_700"
+        android:textSize="@dimen/_18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_tilte" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_page_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_34dp"
+        android:fontFamily="@font/inter_medium"
+        android:text="@string/_2_3"
+        android:textAlignment="center"
+        android:textColor="@color/black_700"
+        android:textSize="@dimen/_14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/b_sign_in"
+        app:layout_constraintEnd_toStartOf="@+id/b_sign_in"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/b_sign_in" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/b_sign_in"
+        android:layout_width="@dimen/_94dp"
+        android:layout_height="@dimen/_114dp"
+        android:layout_marginEnd="@dimen/_34dp"
+        android:layout_marginBottom="@dimen/_24dp"
+        android:background="@drawable/selector_button_cirlce_blue"
+        android:fontFamily="@font/inter_medium"
+        android:paddingBottom="@dimen/_20dp"
+        android:text="@string/next"
+        android:textSize="@dimen/_14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_page_number" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

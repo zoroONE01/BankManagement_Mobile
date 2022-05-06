@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:paddingHorizontal="@dimen/_40dp">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_tilte"
+        style="@style/style_tilte_dang_ky_dang_nhap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/dang_ky"
+        app:layout_constraintBottom_toTopOf="@id/tv_desc"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.2"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_40dp"
+        android:fontFamily="@font/inter"
+        android:hint="@string/enter_your_phone"
+        android:textColor="@color/black_700"
+        android:textSize="@dimen/_18sp"
+        app:layout_constraintBottom_toTopOf="@id/et_phone_number"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_tilte" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/et_phone_number"
+        style="@style/style_text_ipnut"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_54dp"
+        android:layout_marginTop="@dimen/_10dp"
+        android:hint="@string/phone_number"
+        android:inputType="number|phone"
+        android:paddingHorizontal="@dimen/_20dp"
+        app:layout_constraintBottom_toTopOf="@id/b_next"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_desc" />
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/b_next"
+        style="@style/style_button_large_blue"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_76dp"
+        android:layout_marginTop="@dimen/_10dp"
+        android:paddingBottom="@dimen/_20dp"
+        android:text="@string/ke_tiep"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/et_phone_number" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_change_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/inter_medium"
+        android:text="@string/ban_da_co_tai_khoan"
+        android:textColor="@color/black_700"
+        android:textSize="@dimen/_14sp"
+        app:layout_constraintBottom_toTopOf="@id/b_change_login"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.9"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/b_change_login"
+        style="@style/style_button_switch_mode_authentication"
+        android:layout_width="@dimen/_120dp"
+        android:layout_height="wrap_content"
+        android:drawableEnd="@drawable/img_arrow_right_small"
+        android:text="@string/dang_nhap"
+        android:textAlignment="textStart"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_change_login" />
+</androidx.constraintlayout.widget.ConstraintLayout>

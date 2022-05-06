@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="style_tilte_dang_ky_dang_nhap">
+        <item name="android:fontFamily">@font/pacifico</item>
+        <item name="android:textSize">@dimen/_44sp</item>
+        <item name="android:textColor">@color/black_700</item>
+    </style>
+
+    <style name="style_text_ipnut">
+        <item name="android:fontFamily">@font/inter_semibold</item>
+        <item name="android:textSize">@dimen/_16sp</item>
+        <item name="android:background">@drawable/selector_text_input</item>
+        <item name="android:textColor">@color/black_700</item>
+    </style>
+
+    <style name="style_button_large_blue">
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">@font/roboto_bold</item>
+        <item name="android:textSize">@dimen/_18sp</item>|
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@drawable/selector_button_large_blue</item>
+    </style>
+
+    <style name="style_button_switch_mode_authentication">
+        <item name="android:fontFamily">@font/inter_bold</item>
+        <item name="android:textSize">@dimen/_16sp</item>|
+        <item name="android:textColor">@color/purple_700</item>
+        <item name="android:background">@drawable/button_no_background_normal</item>
+    </style>
+</resources>
