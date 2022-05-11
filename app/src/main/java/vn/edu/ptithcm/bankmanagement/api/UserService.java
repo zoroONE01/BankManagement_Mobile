@@ -9,5 +9,4 @@ import retrofit2.http.Header;
 public interface UserService {
     @GET("api-user-login")
     Call<JsonObject> login(@Header("user") String username, @Header("password") String password);
-
 }

@@ -67,6 +67,10 @@ public class TransferActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     Log.d(TAG, "transfer Response: " + (response.body() != null ? response.body().toString() : "dpwd response ok"));
                     // TODO: show transfer success activity
+                } else if (response.code() == 401) {
+                    // Handle unauthorized
+                    // TODO go back to login
+                    Log.d(TAG, "transfer 401");
                 } else {
                     try {
                         Toast.makeText(TransferActivity.this, "Chuyển tiền không thành công", Toast.LENGTH_SHORT).show();

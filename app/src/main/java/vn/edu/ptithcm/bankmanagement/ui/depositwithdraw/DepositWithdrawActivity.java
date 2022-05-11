@@ -13,9 +13,16 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
+import java.util.List;
+
+import javax.net.ssl.HttpsURLConnection;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -23,11 +30,14 @@ import retrofit2.Response;
 import vn.edu.ptithcm.bankmanagement.R;
 import vn.edu.ptithcm.bankmanagement.api.ApiClient;
 import vn.edu.ptithcm.bankmanagement.api.DepositWithdrawService;
-import vn.edu.ptithcm.bankmanagement.ui.moneytransfer.TransferActivity;
+import vn.edu.ptithcm.bankmanagement.api.UserStatisticService;
+import vn.edu.ptithcm.bankmanagement.model.TaiKhoan;
 import vn.edu.ptithcm.bankmanagement.utility.Utility;
 
 public class DepositWithdrawActivity extends AppCompatActivity {
     private String TAG = DepositWithdrawActivity.class.getName();
+
+    String sessionId;
 
     EditText sotien;
     RadioGroup radioGroup;
@@ -35,6 +45,7 @@ public class DepositWithdrawActivity extends AppCompatActivity {
 
     ApiClient apiClient;
     DepositWithdrawService depositWithdrawService;
+    UserStatisticService userStatisticService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,16 +57,6 @@ public class DepositWithdrawActivity extends AppCompatActivity {
 
     void doDepositOrWithdraw(String id, String amount, String gd) {
         DepositWithdrawService depositWithdrawService = apiClient.getDepositWithdrawService();
-
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-
-        // get session id in preference
-        String sessionId = prefs.getString(Utility.PREF_COOKIES, "");
-
-        if (sessionId.isEmpty()) {
-            // TODO: go back to login activity
-            return;
-        }
 
         HashMap<String, String> values = new HashMap<>();
         values.put(DepositWithdrawService.key1, id);
@@ -69,6 +70,10 @@ public class DepositWithdrawActivity extends AppCompatActivity {
             public void onResponse(@NonNull Call call, @NonNull Response response) {
                 if (response.isSuccessful()) {
                     Log.d(TAG, "dpwd Response: " + (response.body() != null ? response.body().toString() : "dpwd response ok"));
+                } else if (response.code() == HttpsURLConnection.HTTP_UNAUTHORIZED) {
+                    // Handle unauthorized
+                    // TODO go back to login
+                    Log.d(TAG, "dpwd 401");
                 } else {
                     try {
                         Toast.makeText(DepositWithdrawActivity.this, "Chuyển tiền không thành công", Toast.LENGTH_SHORT).show();
@@ -96,6 +101,54 @@ public class DepositWithdrawActivity extends AppCompatActivity {
     private void initComponents() {
         apiClient = new ApiClient(this);
         depositWithdrawService = apiClient.getDepositWithdrawService();
+        userStatisticService = apiClient.getUserStatisticService();
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+        // get session id in preference
+        sessionId = prefs.getString(Utility.PREF_COOKIES, "");
+
+        if (sessionId.isEmpty()) {
+            // TODO: go back to login activity
+            return;
+        }
+
+        // get list tk
+        if (Utility.LIST_TK.isEmpty()) {
+            Call<List<TaiKhoan>> call = userStatisticService.getAllTk(sessionId, Utility.USER_CMND);
+
+            call.enqueue(new Callback<List<TaiKhoan>>() {
+                @Override
+                public void onResponse(@NonNull Call call, @NonNull Response response) {
+                    if (response.isSuccessful()) {
+                        Log.d(TAG, "list tk Response: " + (response.body() != null ? response.body().toString() : "dpwd response ok"));
+
+                        List<TaiKhoan> listTK = (List<TaiKhoan>) response.body();
+                    } else if (response.code() == HttpsURLConnection.HTTP_UNAUTHORIZED) {
+                        // Handle unauthorized
+                        // TODO go back to login
+                        Log.d(TAG, "list tk 401");
+                    } else {
+                        try {
+                            if (response.errorBody() == null) {
+                                Log.d(TAG, "transfer Response Error. No message");
+                            } else if (response.errorBody().string().contains("FOREIGN")) {
+                                Toast.makeText(DepositWithdrawActivity.this, "Tài khoản không tồn tại", Toast.LENGTH_SHORT).show();
+                            } else if (response.errorBody().string().contains("CHECK")) {
+                                Toast.makeText(DepositWithdrawActivity.this, "Số dư không đủ", Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(@NonNull Call call, @NonNull Throwable t) {
+                    Log.d(TAG, "dpwd Failure");
+                }
+            });
+        }
 
         sotien = findViewById(R.id.fieldAmount);
         radioGroup = findViewById(R.id.radioGroup);
