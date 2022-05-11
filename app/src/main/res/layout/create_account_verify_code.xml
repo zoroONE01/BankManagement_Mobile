@@ -12,14 +12,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/ma_xac_thuc"
-        app:layout_constraintBottom_toTopOf="@id/tv_desc"
+        app:layout_constraintBottom_toTopOf="@id/tv_ho"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.2"
         app:layout_constraintVertical_chainStyle="packed" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_desc"
+        android:id="@+id/tv_ho"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_40dp"
@@ -44,7 +44,7 @@
         android:paddingHorizontal="@dimen/_20dp"
         app:layout_constraintBottom_toTopOf="@+id/b_confirm"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_desc" />
+        app:layout_constraintTop_toBottomOf="@id/tv_ho" />
 
 
     <androidx.appcompat.widget.AppCompatButton

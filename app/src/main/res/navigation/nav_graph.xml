@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/SignInFragment">
+
+    <fragment
+        android:id="@+id/SignInFragment"
+        android:name="vn.edu.ptithcm.bankmanagement.ui.login.LoginFragment"
+        android:label="Sign In"
+        tools:layout="@layout/sign_in">
+
+        <action
+            android:id="@+id/action_SignIn_to_SignUpFragment"
+            app:destination="@id/SignUpFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/SignUpFragment"
+        android:name="vn.edu.ptithcm.bankmanagement.ui.login.SignUpFragment"
+        android:label="Sign Up"
+        tools:layout="@layout/create_account">
+
+        <action
+            android:id="@+id/action_SignUpFragment_to_SignInFragment"
+            app:destination="@id/SignInFragment" />
+    </fragment>
+</navigation>
