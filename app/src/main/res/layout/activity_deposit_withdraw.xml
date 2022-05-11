@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.depositwithdraw.DepositWithdrawActivity">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/title"
+        style="@style/style_tilte_dang_ky_dang_nhap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/manageBalance"
+        app:layout_constraintBottom_toTopOf="@id/fieldAmount"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.2"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/fieldAmount"
+        style="@style/style_text_ipnut"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_54dp"
+        android:layout_marginTop="@dimen/_10dp"
+        android:hint="@string/soTien"
+        android:inputType="number"
+        android:paddingHorizontal="@dimen/_20dp"
+        app:layout_constraintBottom_toTopOf="@id/btnTransfer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title" />
+
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="@dimen/_10dp"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fieldAmount">
+
+        <RadioButton
+            android:id="@+id/radioGT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:checked="true"
+            android:text="Nạp tiền"
+            android:textSize="25dp" />
+
+        <RadioButton
+            android:id="@+id/radioRT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="@dimen/_20dp"
+            android:checked="false"
+            android:text="Rút tiền"
+            android:textSize="25dp" />
+
+    </RadioGroup>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnTransfer"
+        style="@style/style_button_large_blue"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_76dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="@dimen/_34dp"
+        android:paddingBottom="@dimen/_20dp"
+        android:text="@string/moneyTransfer"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+</androidx.constraintlayout.widget.ConstraintLayout>
