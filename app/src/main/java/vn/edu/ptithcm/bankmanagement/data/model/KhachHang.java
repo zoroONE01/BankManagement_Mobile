@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.security.Timestamp;
 
-public class TaiKhoan {
+public class KhachHang {
     @SerializedName("cmnd")
     String cmnd;
 
@@ -26,7 +26,7 @@ public class TaiKhoan {
     @SerializedName("soDT")
     String sdt;
 
-    public TaiKhoan(String cmnd, String ho, String ten, String diachi, String phai, Timestamp ngayCap, String sdt) {
+    public KhachHang(String cmnd, String ho, String ten, String diachi, String phai, Timestamp ngayCap, String sdt) {
         this.cmnd = cmnd;
         this.ho = ho;
         this.ten = ten;

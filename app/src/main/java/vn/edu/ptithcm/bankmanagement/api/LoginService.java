@@ -1,4 +1,4 @@
-package vn.edu.ptithcm.bankmanagement.apis;
+package vn.edu.ptithcm.bankmanagement.api;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
