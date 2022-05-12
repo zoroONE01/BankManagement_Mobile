@@ -50,45 +50,10 @@ public class TransferActivity extends AppCompatActivity {
         setContentView(R.layout.activity_transfer);
 
         initComponents();
-        doLogin("admin", "admin");
+        Helper.doLogin(this, apiClient.getUserService(), "admin", "admin");
     }
 
-    void doLogin(String username, String password) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        UserService userService = apiClient.getUserService();
 
-        Call<JsonObject> call = userService.login(username, password);
-        call.enqueue(new Callback<JsonObject>() {
-            @Override
-            public void onResponse(@NonNull Call call, @NonNull Response response) {
-                if (response.isSuccessful()) {
-                    Log.d(TAG, "login Response: " + response.body().toString());
-                    Log.d(TAG, "headers values: " + response.headers());
-
-//                    String sessionId = response.headers().get("Set-Cookie");
-                    Utility.COOKIE = response.headers().get("Set-Cookie");
-
-                    if (Utility.COOKIE == null || Utility.COOKIE.isEmpty()) {
-                        Log.d(TAG, "Error: no session id");
-
-                        return;
-                    }
-
-                    // save session id in preference
-//                    SharedPreferences.Editor editor = prefs.edit();
-//                    editor.putString(Utility.PREF_COOKIES, sessionId);
-//                    editor.apply();
-                } else {
-                    Log.d(TAG, "Login Response Error" + response.body());
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call call, @NonNull Throwable t) {
-                Log.d(TAG, "Login Failure");
-            }
-        });
-    }
 
     void doTransfer(String id, String amount, String otherId) {
         if (Utility.COOKIE.isEmpty()) {
@@ -231,7 +196,7 @@ public class TransferActivity extends AppCompatActivity {
 //                String stk = "000000000";
 //                doTransfer(stk, amount, tk);
 //                doGetAllTk("123456789");
-                List<ThongKeGD> list = Helper.doGetListTransactions(view.getContext(), apiClient, "000000000");
+                List<ThongKeGD> list = Helper.doGetListTransactions(view.getContext(), apiClient.getUserStatisticService(), "000000000");
                 Log.d(TAG, "onClick: " + list);
             }
         });
