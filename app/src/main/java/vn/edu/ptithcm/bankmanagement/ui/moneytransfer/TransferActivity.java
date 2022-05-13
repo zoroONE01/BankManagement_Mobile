@@ -50,7 +50,7 @@ public class TransferActivity extends AppCompatActivity {
         setContentView(R.layout.activity_transfer);
 
         initComponents();
-        Helper.doLogin(this, apiClient.getUserService(), "admin", "admin");
+        Helper.doLogin(this, apiClient.getUserService(), "adminCN1", "Admin1234.");
     }
 
 

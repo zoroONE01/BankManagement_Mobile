@@ -102,12 +102,12 @@ public class DepositWithdrawActivity extends AppCompatActivity {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         // get session id in preference
-        sessionId = prefs.getString(Utility.PREF_COOKIES, "");
-
-        if (sessionId.isEmpty()) {
-            // TODO: go back to login activity
-            return;
-        }
+//        sessionId = prefs.getString(Utility.PREF_COOKIES, "");
+//
+//        if (sessionId.isEmpty()) {
+//            // TODO: go back to login activity
+//            return;
+//        }
 
         // get list tk
 
