@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -12,119 +11,109 @@
         style="@style/style_tilte_dang_ky_dang_nhap"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/dang_ky"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed" />
-
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/et_cmnd"
-        style="@style/style_text_ipnut"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_54dp"
-        android:hint="@string/cmnd"
-        android:inputType="text"
-        android:paddingHorizontal="@dimen/_20dp"
-        app:layout_constraintBottom_toTopOf="@id/tv_ho"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_tilte" />
-
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/tv_ho"
-        style="@style/style_text_ipnut"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_54dp"
-        android:hint="@string/ho_va_ten"
-        android:inputType="text"
-        android:paddingHorizontal="@dimen/_20dp"
-        app:layout_constraintBottom_toTopOf="@id/et_ten"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/et_cmnd" />
-
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/et_ten"
-        style="@style/style_text_ipnut"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_54dp"
-        android:hint="@string/ten"
-        android:inputType="text"
-        android:paddingHorizontal="@dimen/_20dp"
+        android:text="@string/dang_nhap"
         app:layout_constraintBottom_toTopOf="@id/et_email"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_ho" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.2"
+        app:layout_constraintVertical_chainStyle="packed" />
+
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/et_email"
         style="@style/style_text_ipnut"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_54dp"
+        android:layout_marginTop="@dimen/_40dp"
         android:hint="@string/email"
         android:inputType="textEmailAddress"
         android:paddingHorizontal="@dimen/_20dp"
         app:layout_constraintBottom_toTopOf="@id/et_password"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/et_ten" />
+        app:layout_constraintTop_toBottomOf="@id/tv_tilte" />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/et_password"
         style="@style/style_text_ipnut"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_54dp"
+        android:layout_marginTop="@dimen/_10dp"
         android:hint="@string/mat_khau"
         android:inputType="textPassword"
         android:paddingHorizontal="@dimen/_20dp"
-        app:layout_constraintBottom_toTopOf="@id/et_confirm_password"
+        app:layout_constraintBottom_toTopOf="@id/b_sign_in"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/et_email" />
 
 
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/et_confirm_password"
-        style="@style/style_text_ipnut"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_54dp"
-        android:hint="@string/confirm_password"
-        android:inputType="textPassword"
-        android:paddingHorizontal="@dimen/_20dp"
-        app:layout_constraintBottom_toTopOf="@id/b_register"
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/cb_remember_me"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toStartOf="@id/tv_remember_me"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/et_password" />
+        app:layout_constraintTop_toBottomOf="@+id/et_password" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_remember_me"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/inter"
+        android:text="@string/remember_accout"
+        android:textColor="@color/black_200"
+        android:textSize="@dimen/_16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/cb_remember_me"
+        app:layout_constraintStart_toEndOf="@id/cb_remember_me"
+        app:layout_constraintTop_toTopOf="@id/cb_remember_me" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/b_register"
+        android:textColor="@color/purple_700"
+        android:fontFamily="@font/inter"
+        android:textSize="@dimen/_16sp"
+        android:textAllCaps="false"
+        android:background="@drawable/button_no_background_normal"
+        android:id="@+id/b_forgot_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/forgot_password"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="@+id/cb_remember_me"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/cb_remember_me" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/b_sign_in"
         style="@style/style_button_large_blue"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_76dp"
-        android:layout_marginTop="@dimen/_34dp"
+        android:layout_marginTop="@dimen/_90dp"
         android:paddingBottom="@dimen/_20dp"
-        android:text="@string/dang_ky"
+        android:text="@string/dang_nhap"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_confirm_password" />
+        app:layout_constraintTop_toBottomOf="@+id/et_password" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_change_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
         android:fontFamily="@font/inter_medium"
-        android:text="@string/ban_da_co_tai_khoan"
+        android:text="@string/ban_chua_co_tai_khoan"
         android:textColor="@color/black_700"
         android:textSize="@dimen/_14sp"
         app:layout_constraintBottom_toTopOf="@id/b_change_login"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/b_register"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.9"
         app:layout_constraintVertical_chainStyle="packed" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/b_change_login"
         style="@style/style_button_switch_mode_authentication"
-        android:layout_width="@dimen/_120dp"
+        android:layout_width="@dimen/_94dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
         android:drawableEnd="@drawable/img_arrow_right_small"
-        android:text="@string/dang_nhap"
+        android:text="@string/dang_ky"
         android:textAlignment="textStart"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

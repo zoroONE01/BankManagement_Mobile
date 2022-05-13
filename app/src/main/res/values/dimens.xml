@@ -40,4 +40,8 @@
     <dimen name="_12sp">12sp</dimen>
     <dimen name="_90dp">90dp</dimen>
     <dimen name="_13sp">13sp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="fragment_horizontal_margin">16dp</dimen>
+    <dimen name="fragment_vertical_margin">16dp</dimen>
 </resources>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+
     package="vn.edu.ptithcm.bankmanagement"
     android:targetSandboxVersion="1">
 
@@ -18,10 +19,6 @@
         <activity
             android:name=".ui.changepassword.LoadImageTestActivity"
             android:exported="true" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
         <activity
             android:name=".ui.changepassword.ChangePasswordActivity"
@@ -29,10 +26,21 @@
         <activity
             android:name=".MainActivity"
             android:exported="true" >
-
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
         <activity android:name=".ui.moneytransfer.TransferActivity" />
+        <activity
+            android:name=".BankActivity"
+            android:exported="true"
+            android:label="@string/title_activity_bank"
+            android:theme="@style/Theme.BankManagement.NoActionBar"/>
 
+        <activity
+            android:name=".ui.depositwithdraw.DepositWithdrawActivity"
+            android:exported="false" />
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
