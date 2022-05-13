@@ -3,9 +3,6 @@ package vn.edu.ptithcm.bankmanagement.data.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.math.BigDecimal;
-import java.security.Timestamp;
-
 public class TaiKhoan {
 
     @SerializedName("soTK")

@@ -41,14 +41,6 @@ public class LoggedInUser {
         this.displayName = displayName;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public void setDisplayName(String displayName) {
-        this.displayName = displayName;
-    }
-
     public String getTaiKhoan() {
         return taiKhoan;
     }
@@ -77,7 +69,26 @@ public class LoggedInUser {
         return userId;
     }
 
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
     public String getDisplayName() {
         return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
+
+    @Override
+    public String toString() {
+        return "LoggedInUser{" +
+                "userId='" + userId + '\'' +
+                ", displayName='" + displayName + '\'' +
+                ", taiKhoan='" + taiKhoan + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", khachHangID='" + khachHangID + '\'' +
+                '}';
     }
 }

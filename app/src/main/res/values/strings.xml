@@ -60,6 +60,6 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="register_failed">"Register failed"</string>
-
+    <string name="trans_history">Lịch sử giao dịch</string>
 
 </resources>

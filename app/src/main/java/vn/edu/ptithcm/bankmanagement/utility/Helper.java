@@ -1,7 +1,5 @@
 package vn.edu.ptithcm.bankmanagement.utility;
 
-import android.content.Context;
-import android.security.keystore.UserNotAuthenticatedException;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -11,25 +9,26 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 import javax.net.ssl.HttpsURLConnection;
 
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.HttpException;
 import retrofit2.Response;
-import vn.edu.ptithcm.bankmanagement.api.ApiClient;
+import vn.edu.ptithcm.bankmanagement.api.MoneyTransferService;
 import vn.edu.ptithcm.bankmanagement.api.UserService;
 import vn.edu.ptithcm.bankmanagement.api.UserStatisticService;
 import vn.edu.ptithcm.bankmanagement.data.model.TaiKhoan;
 import vn.edu.ptithcm.bankmanagement.data.model.ThongKeGD;
-import vn.edu.ptithcm.bankmanagement.exception.AuthenticatedException;
 
 public class Helper {
     static final String TAG = Helper.class.getName();
 
-    public static boolean doLogin(Context context, UserService userService, String username, String password) {
+    public static boolean doLogin(UserService userService, String username, String password) {
         Call<JsonObject> call = userService.login(username, password);
 
         call.enqueue(new Callback<JsonObject>() {
@@ -58,10 +57,10 @@ public class Helper {
         return true;
     }
 
-    public static void doGetAllTk(Context context, UserStatisticService userStatisticService, String cmnd) throws AuthenticatedException {
+    public static void doGetAllTk(UserStatisticService userStatisticService, String cmnd) {
         Utility.LIST_TK.clear();
 
-        Call<JsonArray> call = userStatisticService.getAllTk(Utility.COOKIE, "123456789");
+        Call<JsonArray> call = userStatisticService.getAllTk(Utility.COOKIE, cmnd);
 
         call.enqueue(new Callback<JsonArray>() {
             @Override
@@ -111,55 +110,109 @@ public class Helper {
         });
     }
 
-
-    public static List<ThongKeGD> doGetListTransactions(Context context, UserStatisticService userStatisticService, String stk) {
+    public static List<ThongKeGD> doGetListTransactions(UserStatisticService userStatisticService, String stk) {
         List<ThongKeGD> list = new ArrayList<>();
 
-        if (Utility.LIST_TK.isEmpty()) {
-            Call<JsonArray> call = userStatisticService.getStat(Utility.COOKIE, stk, "2022-1-1", "2025-1-1");
+        Call<JsonArray> call = userStatisticService.getStat(Utility.COOKIE, stk, "2011-1-1", "2031-1-1");
 
-            call.enqueue(new Callback<JsonArray>() {
-                @Override
-                public void onResponse(@NonNull Call call, @NonNull Response response) {
-                    if (response.isSuccessful()) {
-                        Log.d(TAG, "statistic Response: " + (response.body() != null ? response.body().toString() : "dpwd response ok"));
+        call.enqueue(new Callback<JsonArray>() {
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) {
+                if (response.isSuccessful()) {
+                    Log.d(TAG, "statistic Response: " + (response.body() != null ? response.body().toString() : "dpwd response ok"));
 
-                        JsonArray array = (JsonArray) response.body();
+                    JsonArray array = (JsonArray) response.body();
 
-                        for (JsonElement ele : array) {
-                            JsonObject e = ele.getAsJsonObject();
-                            Log.d(TAG, "tk: " + e.toString());
-                            ThongKeGD tk = new ThongKeGD(e.get("balanceBefore").getAsLong(),
-                                    e.get("ngayGD").getAsLong(),
-                                    e.get("loaiGD").getAsString(),
-                                    e.get("soTien").getAsLong(),
-                                    e.get("balanceAfter").getAsLong());
-                            list.add(tk);
+                    for (JsonElement ele : array) {
+                        JsonObject e = ele.getAsJsonObject();
+                        Log.d(TAG, "tk: " + e.toString());
+                        ThongKeGD tk = new ThongKeGD(e.get("balanceBefore").getAsDouble(),
+                                e.get("ngayGD").getAsLong(),
+                                e.get("loaiGD").getAsString(),
+                                e.get("soTien").getAsDouble(),
+                                e.get("balanceAfter").getAsDouble());
+                        list.add(tk);
+                    }
+                } else if (response.code() == HttpsURLConnection.HTTP_UNAUTHORIZED) {
+                    // Handle unauthorized
+                    // TODO go back to login
+                    Log.d(TAG, "list tk 401");
+                } else {
+                    try {
+                        if (response.errorBody() == null) {
+                            Log.d(TAG, "transfer Response Error. No message");
+                        } else if (response.errorBody().string().contains("FOREIGN")) {
+                            Log.d(TAG, "list tk k ton tai");
                         }
-                    } else if (response.code() == HttpsURLConnection.HTTP_UNAUTHORIZED) {
-                        // Handle unauthorized
-                        // TODO go back to login
-                        Log.d(TAG, "list tk 401");
-                    } else {
-                        try {
-                            if (response.errorBody() == null) {
-                                Log.d(TAG, "transfer Response Error. No message");
-                            } else if (response.errorBody().string().contains("FOREIGN")) {
-                                Log.d(TAG, "list tk k ton tai");
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 }
+            }
 
-                @Override
-                public void onFailure(@NonNull Call call, @NonNull Throwable t) {
-                    Log.d(TAG, "list tk Failure");
-                    t.printStackTrace();
-                }
-            });
-        }
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull Throwable t) {
+                Log.d(TAG, "list tk Failure");
+                t.printStackTrace();
+            }
+        });
         return list;
+    }
+
+    public static String showGia(Double gia) {
+        return String.format(Locale.CHINESE, "%,.0fđ", gia);
+    }
+
+    public static String getNgayFromEpoch(long epoch) {
+        Date date = new Date(epoch);
+
+        return Utility.DATE_FORMAT.format(date);
+    }
+
+    public void doTransfer(MoneyTransferService transferService, String id, String amount, String otherId) {
+        if (Utility.COOKIE.isEmpty()) {
+            // TODO: go back to login activity
+            Log.d(TAG, "Session id empty");
+            return;
+        }
+
+        HashMap<String, String> values = new HashMap<>();
+        values.put(MoneyTransferService.key1, id);
+        values.put(MoneyTransferService.key2, amount);
+        values.put(MoneyTransferService.key3, otherId);
+
+        Call<JsonObject> call = transferService.doTransfer(Utility.COOKIE, values);
+
+        call.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) {
+                if (response.isSuccessful()) {
+                    Log.d(TAG, "transfer Response: " + (response.body() != null ? response.body().toString() : "dpwd response ok"));
+                    // TODO: show transfer success activity
+                } else if (response.code() == 401) {
+                    // Handle unauthorized
+                    // TODO go back to login
+                    Log.d(TAG, "transfer 401");
+                } else {
+                    try {
+                        if (response.errorBody() == null) {
+                            Log.d(TAG, "transfer Response Error. No message");
+                        } else if (response.errorBody().string().contains("FOREIGN KEY")) {
+                            Log.d(TAG, "tai khoan k ton tai");
+                        } else if (response.errorBody().string().contains("CONSTRAINT")) {
+                            Log.d(TAG, "tai khoan k du tien");
+                        }
+                        Log.d(TAG, "transfer Response Error: " + response.errorBody().charStream());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull Throwable t) {
+                Log.d(TAG, "Transfer Failure");
+            }
+        });
     }
 }

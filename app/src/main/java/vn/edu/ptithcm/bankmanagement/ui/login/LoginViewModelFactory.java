@@ -2,11 +2,10 @@ package vn.edu.ptithcm.bankmanagement.ui.login;
 
 import android.content.Context;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.annotation.NonNull;
 
-import vn.edu.ptithcm.bankmanagement.data.LoginDataSource;
 import vn.edu.ptithcm.bankmanagement.data.LoginRepository;
 
 /**
@@ -20,6 +19,7 @@ public class LoginViewModelFactory implements ViewModelProvider.Factory {
     public LoginViewModelFactory(Context context) {
         this.context = context;
     }
+
     @NonNull
     @Override
     @SuppressWarnings("unchecked")

@@ -11,24 +11,22 @@ import vn.edu.ptithcm.bankmanagement.data.model.LoggedInUser;
 public class LoginRepository {
 
     private static volatile LoginRepository instance;
-
-    private LoginDataSource dataSource;
     private final LoginRemote loginRemote;
-
-    private MutableLiveData<LoggedInUser> loginInUser ;
-        // If user credentials will be cached in local storage, it is recommended it be encrypted
+    private LoginDataSource dataSource;
+    private MutableLiveData<LoggedInUser> loginInUser;
+    // If user credentials will be cached in local storage, it is recommended it be encrypted
     // @see https://developer.android.com/training/articles/keystore
     private LoggedInUser user = null;
 
     // private constructor : singleton access
     private LoginRepository(LoginDataSource dataSource) {
         this.dataSource = dataSource;
-        this.loginRemote=LoginRemote.getInstance();
+        this.loginRemote = LoginRemote.getInstance();
 
     }
 
     public LoginRepository() {
-        this.loginRemote=LoginRemote.getInstance();
+        this.loginRemote = LoginRemote.getInstance();
     }
 
     public static LoginRepository getInstance(LoginDataSource dataSource) {
@@ -37,6 +35,7 @@ public class LoginRepository {
         }
         return instance;
     }
+
     public static LoginRepository getInstance() {
         if (instance == null) {
             instance = new LoginRepository();
@@ -56,15 +55,16 @@ public class LoginRepository {
         user = null;
         dataSource.logout();
     }
+
     private void setLoggedInUser(LoggedInUser user) {
         this.user = user;
         // If user credentials will be cached in local storage, it is recommended it be encrypted
         // @see https://developer.android.com/training/articles/keystore
     }
 
-    public Result<LoggedInUser> login(String username, String password,OnCompleteCallBack onCompleteCallBack) {
+    public Result<LoggedInUser> login(String username, String password, OnCompleteCallBack onCompleteCallBack) {
         // handle login
-        loginRemote.login(username,password,onCompleteCallBack);
+        loginRemote.login(username, password, onCompleteCallBack);
 
 
         return null;
@@ -75,9 +75,10 @@ public class LoginRepository {
         }
         return result;*/
     }
-    public Result<LoggedInUser> register(String cmnd,String ho,String ten,String taiKhoan, String matKhau,OnCompleteCallBack onCompleteCallBack) {
+
+    public Result<LoggedInUser> register(String cmnd, String ho, String ten, String taiKhoan, String matKhau, OnCompleteCallBack onCompleteCallBack) {
         // handle login
-        loginRemote.register(cmnd,ho,ten,taiKhoan,matKhau,onCompleteCallBack);
+        loginRemote.register(cmnd, ho, ten, taiKhoan, matKhau, onCompleteCallBack);
         return null;
        /* Result<LoggedInUser> result ;
 

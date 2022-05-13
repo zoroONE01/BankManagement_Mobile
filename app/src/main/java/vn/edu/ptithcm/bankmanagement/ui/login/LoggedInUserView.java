@@ -5,8 +5,8 @@ package vn.edu.ptithcm.bankmanagement.ui.login;
  */
 class LoggedInUserView {
     private final String displayName;
-    private  String id;
-    private  String khachHangID;
+    private String id;
+    private String khachHangID;
     //... other data fields that may be accessible to the UI
 
     LoggedInUserView(String displayName) {

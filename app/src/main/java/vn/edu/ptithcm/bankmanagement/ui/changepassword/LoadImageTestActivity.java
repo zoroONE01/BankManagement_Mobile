@@ -1,5 +1,21 @@
 package vn.edu.ptithcm.bankmanagement.ui.changepassword;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.Toast;
+
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
@@ -9,38 +25,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import android.Manifest;
-import android.app.Activity;
-import android.content.Context;
-import android.content.ContextWrapper;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteException;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
-import android.os.Build;
-import android.os.Bundle;
-import android.os.FileUtils;
-import android.preference.PreferenceManager;
-import android.provider.MediaStore;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.RadioGroup;
-import android.widget.Toast;
-
 import com.google.gson.JsonObject;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.HashMap;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -51,10 +38,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import vn.edu.ptithcm.bankmanagement.R;
 import vn.edu.ptithcm.bankmanagement.api.ApiClient;
-import vn.edu.ptithcm.bankmanagement.api.DepositWithdrawService;
 import vn.edu.ptithcm.bankmanagement.api.LoadImageService;
-import vn.edu.ptithcm.bankmanagement.ui.depositwithdraw.DepositWithdrawActivity;
-import vn.edu.ptithcm.bankmanagement.utility.Utility;
 
 public class LoadImageTestActivity extends AppCompatActivity {
 
@@ -64,8 +48,33 @@ public class LoadImageTestActivity extends AppCompatActivity {
 
     ApiClient apiClient;
     LoadImageService loadImageService;
+    ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        // There are no request codes
+                        Intent data = result.getData();
+                        Uri selectedImage = data.getData();
+                        String[] filePathColumn = {MediaStore.Images.Media.DATA};
 
+                        Cursor cursor = getContentResolver().query(selectedImage,
+                                filePathColumn, null, null, null);
+                        cursor.moveToFirst();
 
+                        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                        String picturePath = cursor.getString(columnIndex);
+                        cursor.close();
+
+                        Log.d("picturePath", picturePath);
+                        filePath = picturePath;
+                        Bitmap bitmap = BitmapFactory.decodeFile(picturePath);
+                        ImageView avatar = (ImageView) findViewById(R.id.iv_jpg);
+                        avatar.setImageBitmap(bitmap);
+                    }
+                }
+            });
 
     public void onLoadPicture(View view) {
         //request permission to stored
@@ -83,7 +92,6 @@ public class LoadImageTestActivity extends AppCompatActivity {
     }
 
     public void onClickSave(View view) {
-
         File file = new File(filePath);
 
         RequestBody requestFile =
@@ -143,36 +151,8 @@ public class LoadImageTestActivity extends AppCompatActivity {
         return result == PackageManager.PERMISSION_GRANTED;
     }
 
-    ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            new ActivityResultCallback<ActivityResult>() {
-                @Override
-                public void onActivityResult(ActivityResult result) {
-                    if (result.getResultCode() == Activity.RESULT_OK) {
-                        // There are no request codes
-                        Intent data = result.getData();
-                        Uri selectedImage = data.getData();
-                        String[] filePathColumn = {MediaStore.Images.Media.DATA};
-
-                        Cursor cursor = getContentResolver().query(selectedImage,
-                                filePathColumn, null, null, null);
-                        cursor.moveToFirst();
-
-                        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                        String picturePath = cursor.getString(columnIndex);
-                        cursor.close();
-
-                        Log.d("picturePath", picturePath);
-                        filePath = picturePath;
-                        Bitmap bitmap = BitmapFactory.decodeFile(picturePath);
-                        ImageView avatar = (ImageView) findViewById(R.id.iv_jpg);
-                        avatar.setImageBitmap(bitmap);
-                    }
-                }
-            });
-
     private void initComponents() {
-        apiClient = new ApiClient(this);
+        apiClient = new ApiClient();
         loadImageService = apiClient.getImageService();
 
         iv_jpg = findViewById(R.id.iv_jpg);

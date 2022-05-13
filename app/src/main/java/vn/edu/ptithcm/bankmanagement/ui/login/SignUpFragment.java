@@ -1,16 +1,6 @@
 package vn.edu.ptithcm.bankmanagement.ui.login;
 
-import androidx.annotation.StringRes;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,14 +8,22 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
+
 import vn.edu.ptithcm.bankmanagement.R;
 import vn.edu.ptithcm.bankmanagement.databinding.CreateAccountBinding;
-import vn.edu.ptithcm.bankmanagement.databinding.FragmentLoginBinding;
 
 public class SignUpFragment extends Fragment {
 
     private LoginViewModel loginViewModel;
     private CreateAccountBinding binding;
+
     public static SignUpFragment newInstance() {
         return new SignUpFragment();
     }
@@ -43,16 +41,16 @@ public class SignUpFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        final Button btChangeLogin=binding.bChangeLogin;
+        final Button btChangeLogin = binding.bChangeLogin;
         loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory(getContext()))
                 .get(LoginViewModel.class);
-       final Button registerBt=binding.bRegister;
-       final EditText cmndEd=binding.etCmnd;
-       final EditText hoEd=binding.tvHo;
-       final EditText tenEd=binding.etTen;
-       final  EditText taiKhoanEd=binding.etEmail;
-       final EditText matKhauEd=binding.etPassword;
-       final EditText matKhauXacNhanEd=binding.etConfirmPassword;
+        final Button registerBt = binding.bRegister;
+        final EditText cmndEd = binding.etCmnd;
+        final EditText hoEd = binding.tvHo;
+        final EditText tenEd = binding.etTen;
+        final EditText taiKhoanEd = binding.etEmail;
+        final EditText matKhauEd = binding.etPassword;
+        final EditText matKhauXacNhanEd = binding.etConfirmPassword;
         loginViewModel.getRegisterResult().observe(getViewLifecycleOwner(), new Observer<LoginResult>() {
             @Override
             public void onChanged(@Nullable LoginResult loginResult) {
@@ -73,8 +71,8 @@ public class SignUpFragment extends Fragment {
             public void onClick(View v) {
                 //   loadingProgressBar.setVisibility(View.VISIBLE);
                 loginViewModel.register(cmndEd.getText().toString(),
-                        hoEd.getText().toString(),tenEd.getText().toString(),
-                        taiKhoanEd.getText().toString(),matKhauEd.getText().toString());
+                        hoEd.getText().toString(), tenEd.getText().toString(),
+                        taiKhoanEd.getText().toString(), matKhauEd.getText().toString());
             }
         });
         btChangeLogin.setOnClickListener(new View.OnClickListener() {
@@ -88,9 +86,10 @@ public class SignUpFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        loginViewModel= new ViewModelProvider(this).get(LoginViewModel.class);
+        loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
         // TODO: Use the ViewModel
     }
+
     private void updateUiWithUser(LoggedInUserView model) {
         String welcome = getString(R.string.welcome) + model.getDisplayName();
         // TODO : initiate successful logged in experience

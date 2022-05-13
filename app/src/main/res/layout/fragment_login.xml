@@ -67,16 +67,16 @@
         app:layout_constraintTop_toTopOf="@id/cb_remember_me" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:textColor="@color/purple_700"
-        android:fontFamily="@font/inter"
-        android:textSize="@dimen/_16sp"
-        android:textAllCaps="false"
-        android:background="@drawable/button_no_background_normal"
         android:id="@+id/b_forgot_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/button_no_background_normal"
+        android:fontFamily="@font/inter"
         android:text="@string/forgot_password"
         android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@color/purple_700"
+        android:textSize="@dimen/_16sp"
         app:layout_constraintBottom_toBottomOf="@+id/cb_remember_me"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/cb_remember_me" />

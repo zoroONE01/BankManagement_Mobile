@@ -1,29 +1,29 @@
 package vn.edu.ptithcm.bankmanagement.ui.login;
 
+import android.util.Patterns;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import android.util.Patterns;
-
+import vn.edu.ptithcm.bankmanagement.R;
 import vn.edu.ptithcm.bankmanagement.data.LoginRepository;
 import vn.edu.ptithcm.bankmanagement.data.OnCompleteCallBack;
-import vn.edu.ptithcm.bankmanagement.data.Result;
 import vn.edu.ptithcm.bankmanagement.data.model.LoggedInUser;
-import vn.edu.ptithcm.bankmanagement.R;
 
 public class LoginViewModel extends ViewModel {
 
     private final MutableLiveData<LoginFormState> loginFormState = new MutableLiveData<>();
     private final MutableLiveData<LoginResult> loginResult = new MutableLiveData<>();
-    private final MutableLiveData<LoginResult>registerResult = new MutableLiveData<>();
+    private final MutableLiveData<LoginResult> registerResult = new MutableLiveData<>();
+    private final LoginRepository loginRepository;
     private MutableLiveData<LoggedInUser> loggedInUser;
     private MutableLiveData<LoggedInUser> registerInUser;
-    private final LoginRepository loginRepository;
 
     LoginViewModel(LoginRepository loginRepository) {
         this.loginRepository = loginRepository;
     }
+
     LoginViewModel() {
         this.loginRepository = LoginRepository.getInstance();
     }
@@ -44,39 +44,37 @@ public class LoginViewModel extends ViewModel {
     LiveData<LoggedInUser> getRegisterInUser() {
         return registerInUser;
     }
+
     LiveData<LoginResult> getRegisterResult() {
         return registerResult;
     }
+
     public void login(String username, String password) {
         // can be launched in a separate asynchronous job
-     loginRepository.login(username, password, new OnCompleteCallBack() {
-         @Override
-         public void done(Object o) {
-                LoggedInUser logged= (LoggedInUser) o;
-             if(logged!=null)
-             {
-                 loginResult.setValue(new LoginResult(new LoggedInUserView(logged.getTaiKhoan(),logged.getUserId(),logged.getKhachHangID())));
-             }
-             else{
-                 loginResult.setValue(new LoginResult(R.string.login_failed));
-             }
-         }
-     });
+        loginRepository.login(username, password, new OnCompleteCallBack() {
+            @Override
+            public void done(Object o) {
+                LoggedInUser logged = (LoggedInUser) o;
+                if (logged != null) {
+                    loginResult.setValue(new LoginResult(new LoggedInUserView(logged.getTaiKhoan(), logged.getUserId(), logged.getKhachHangID())));
+                } else {
+                    loginResult.setValue(new LoginResult(R.string.login_failed));
+                }
+            }
+        });
 
 
     }
 
-    public void register(String cmnd,String ho,String ten,String taiKhoan, String matKhau) {
+    public void register(String cmnd, String ho, String ten, String taiKhoan, String matKhau) {
         // can be launched in a separate asynchronous job
-        loginRepository.register(cmnd, ho, ten,taiKhoan,matKhau, new OnCompleteCallBack() {
+        loginRepository.register(cmnd, ho, ten, taiKhoan, matKhau, new OnCompleteCallBack() {
             @Override
             public void done(Object o) {
-                LoggedInUser logged= (LoggedInUser) o;
-                if(logged!=null)
-                {
-                    registerResult.setValue(new LoginResult(new LoggedInUserView(logged.getTaiKhoan(),logged.getUserId(),logged.getKhachHangID())));
-                }
-                else{
+                LoggedInUser logged = (LoggedInUser) o;
+                if (logged != null) {
+                    registerResult.setValue(new LoginResult(new LoggedInUserView(logged.getTaiKhoan(), logged.getUserId(), logged.getKhachHangID())));
+                } else {
                     registerResult.setValue(new LoginResult(R.string.register_failed));
                 }
             }
@@ -84,6 +82,7 @@ public class LoginViewModel extends ViewModel {
 
 
     }
+
     public void loginDataChanged(String username, String password) {
         if (!isUserNameValid(username)) {
             loginFormState.setValue(new LoginFormState(R.string.invalid_username, null));
