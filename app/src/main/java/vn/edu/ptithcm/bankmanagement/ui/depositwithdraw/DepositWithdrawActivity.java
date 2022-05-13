@@ -31,7 +31,7 @@ import vn.edu.ptithcm.bankmanagement.data.model.KhachHang;
 import vn.edu.ptithcm.bankmanagement.utility.Utility;
 
 public class DepositWithdrawActivity extends AppCompatActivity {
-    private String TAG = DepositWithdrawActivity.class.getName();
+    private final String TAG = DepositWithdrawActivity.class.getName();
 
     String sessionId;
 

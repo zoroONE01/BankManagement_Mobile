@@ -4,7 +4,7 @@ package vn.edu.ptithcm.bankmanagement.ui.login;
  * Class exposing authenticated user details to the UI.
  */
 class LoggedInUserView {
-    private String displayName;
+    private final String displayName;
     private  String id;
     private  String khachHangID;
     //... other data fields that may be accessible to the UI

@@ -38,6 +38,10 @@
     <string name="ban_chua_co_tai_khoan">Bạn chưa có tài khoản?</string>
     <string name="forgot_password"><u>Quên Mật Khẩu?</u></string>
     <string name="quen_mat_khau">Quên Mật Khẩu</string>
+    <string name="manageBalance">Quản lý số dư</string>
+    <string name="soTien">Số tiền</string>
+    <string name="moneyTransfer">Chuyển tiền</string>
+    <string name="so_tk">Số TK</string>
     <string name="desc_forgot_password">Vui lòng nhập <b>địa chỉ email</b> của bạn để khôi phục mật khẩu</string>
 
     <string name="title_activity_bank">BankActivity</string>
@@ -56,9 +60,6 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="register_failed">"Register failed"</string>
-    <string name="so_tk">Số tài khoản</string>
-    <string name="moneyTransfer">Chuyển tiền</string>
-    <string name="soTien">Số tiền</string>
-    <string name="manageBalance">Số dư</string>
+
 
 </resources>

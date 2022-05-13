@@ -2,6 +2,7 @@ package vn.edu.ptithcm.bankmanagement.data;
 
 import android.os.SystemClock;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
 import java.io.IOException;
@@ -18,14 +19,14 @@ import vn.edu.ptithcm.bankmanagement.api.LoginService;
 import vn.edu.ptithcm.bankmanagement.data.model.LoggedInUser;
 import vn.edu.ptithcm.bankmanagement.data.model.LoginRequest;
 import vn.edu.ptithcm.bankmanagement.data.model.RegisterRequest;
-
+import vn.edu.ptithcm.bankmanagement.utility.Utility;
 
 public class LoginRemote {
 
-    private LoginService loginService;
+    private final LoginService loginService;
     private static LoginRemote instance;
-    private MutableLiveData<LoggedInUser> loginInUser = new MutableLiveData<>();
-    private MutableLiveData<LoggedInUser> registeredInUser = new MutableLiveData<>();
+    private final MutableLiveData<LoggedInUser> loginInUser = new MutableLiveData<>();
+    private final MutableLiveData<LoggedInUser> registeredInUser = new MutableLiveData<>();
 
     public LoginRemote() {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
@@ -39,7 +40,7 @@ public class LoginRemote {
         };
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
 
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://10.0.3.2:8080").client(client)
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://localhost:8080/web_forbank/").client(client)
                 .addConverterFactory(GsonConverterFactory.create()).build();
         loginService = retrofit.create(LoginService.class);
     }
@@ -59,7 +60,7 @@ public class LoginRemote {
         try {
             LoginRequest loginRequest = new LoginRequest(username, password);
             // TODO: handle loggedInUser authentication
-            loginService.login(loginRequest).enqueue(new Callback<LoggedInUser>() {
+            loginService.login(Utility.COOKIE, loginRequest).enqueue(new Callback<LoggedInUser>() {
                 @Override
                 public void onResponse(Call<LoggedInUser> call, retrofit2.Response<LoggedInUser> response) {
                     if (response.body() != null) {
@@ -73,7 +74,7 @@ public class LoginRemote {
                 }
 
                 @Override
-                public void onFailure(Call<LoggedInUser> call, Throwable t) {
+                public void onFailure(@NonNull Call<LoggedInUser> call, Throwable t) {
                     onCompleteCallBack.done(null);
                 }
             });
@@ -86,9 +87,9 @@ public class LoginRemote {
         try {
             RegisterRequest registerRequest = new RegisterRequest(cmnd, ho, ten, username, password);
             // TODO: handle loggedInUser authentication
-            loginService.register(registerRequest).enqueue(new Callback<LoggedInUser>() {
+            loginService.register(Utility.COOKIE, registerRequest).enqueue(new Callback<LoggedInUser>() {
                 @Override
-                public void onResponse(Call<LoggedInUser> call, retrofit2.Response<LoggedInUser> response) {
+                public void onResponse(@NonNull Call<LoggedInUser> call, retrofit2.Response<LoggedInUser> response) {
                     if (response.body() != null) {
                         LoggedInUser logged = response.body();
                         registeredInUser.setValue(logged);

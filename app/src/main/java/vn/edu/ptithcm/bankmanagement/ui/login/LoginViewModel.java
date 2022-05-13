@@ -14,12 +14,12 @@ import vn.edu.ptithcm.bankmanagement.R;
 
 public class LoginViewModel extends ViewModel {
 
-    private MutableLiveData<LoginFormState> loginFormState = new MutableLiveData<>();
-    private MutableLiveData<LoginResult> loginResult = new MutableLiveData<>();
-    private MutableLiveData<LoginResult>registerResult = new MutableLiveData<>();
+    private final MutableLiveData<LoginFormState> loginFormState = new MutableLiveData<>();
+    private final MutableLiveData<LoginResult> loginResult = new MutableLiveData<>();
+    private final MutableLiveData<LoginResult>registerResult = new MutableLiveData<>();
     private MutableLiveData<LoggedInUser> loggedInUser;
     private MutableLiveData<LoggedInUser> registerInUser;
-    private  LoginRepository loginRepository;
+    private final LoginRepository loginRepository;
 
     LoginViewModel(LoginRepository loginRepository) {
         this.loginRepository = loginRepository;

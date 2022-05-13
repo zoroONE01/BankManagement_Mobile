@@ -13,7 +13,7 @@ public class LoginRepository {
     private static volatile LoginRepository instance;
 
     private LoginDataSource dataSource;
-    private LoginRemote loginRemote;
+    private final LoginRemote loginRemote;
 
     private MutableLiveData<LoggedInUser> loginInUser ;
         // If user credentials will be cached in local storage, it is recommended it be encrypted

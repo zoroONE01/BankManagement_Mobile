@@ -39,8 +39,12 @@ public class ApiClient {
         return retrofit.create(MoneyTransferService.class);
     }
 
+
+    public LoadImageService getImageService() {
+        return retrofit.create(LoadImageService.class);
+    }
+
     public UserStatisticService getUserStatisticService() {
         return retrofit.create(UserStatisticService.class);
     }
-
 }

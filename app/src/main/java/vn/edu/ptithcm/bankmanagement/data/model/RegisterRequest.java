@@ -1,11 +1,11 @@
 package vn.edu.ptithcm.bankmanagement.data.model;
 
 public class RegisterRequest {
-    private  String cmnd;
-    private String ho;
-    private String ten;
-    private  String taiKhoan;
-    private  String matKhau;
+    private final String cmnd;
+    private final String ho;
+    private final String ten;
+    private final String taiKhoan;
+    private final String matKhau;
 
     public RegisterRequest(String cmnd, String ho, String ten, String taiKhoan, String matKhau) {
         this.cmnd = cmnd;

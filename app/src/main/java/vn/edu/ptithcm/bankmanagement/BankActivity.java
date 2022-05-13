@@ -13,7 +13,9 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import vn.edu.ptithcm.bankmanagement.api.ApiClient;
 import vn.edu.ptithcm.bankmanagement.databinding.ActivityBankBinding;
+import vn.edu.ptithcm.bankmanagement.utility.Helper;
 
 public class BankActivity extends AppCompatActivity {
 
@@ -25,21 +27,24 @@ public class BankActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         binding = ActivityBankBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
 
-        setSupportActionBar(binding.toolbar);
+        setContentView(binding.getRoot());
+        ApiClient api = new ApiClient(this);
+        Helper.doLogin(this, api.getUserService(), "adminCN1", "Admin1234." );
+
+//        setSupportActionBar(binding.toolbar);
 
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_bank);
-        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+//        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
+//        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
-        binding.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+//        binding.fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
     }
 
     @Override

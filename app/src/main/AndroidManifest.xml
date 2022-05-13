@@ -1,38 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="vn.edu.ptithcm.bankmanagement">
+
+    package="vn.edu.ptithcm.bankmanagement"
+    android:targetSandboxVersion="1">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.BankManagement">
+        android:theme="@style/Theme.BankManagement"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".ui.changepassword.LoadImageTestActivity"
+            android:exported="true" >
+        </activity>
+        <activity
+            android:name=".ui.changepassword.ChangePasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true" >
 
+        </activity>
         <activity
             android:name=".BankActivity"
             android:exported="true"
             android:label="@string/title_activity_bank"
-            android:theme="@style/Theme.BankManagement.NoActionBar"/>
+            android:theme="@style/Theme.BankManagement">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
 
         <activity
             android:name=".ui.depositwithdraw.DepositWithdrawActivity"
             android:exported="false" />
         <activity
             android:name=".ui.moneytransfer.TransferActivity"
-            android:exported="true">
-         <intent-filter>
-                    <action android:name="android.intent.action.MAIN" />
-                    <category android:name="android.intent.category.LAUNCHER" />
-                </intent-filter>
-        </activity>
-
-        <activity
-            android:name=".MainActivity"
             android:exported="true">
         </activity>
 

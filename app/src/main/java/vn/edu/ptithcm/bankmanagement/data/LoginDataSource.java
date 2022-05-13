@@ -12,7 +12,7 @@ import java.io.IOException;
  * Class that handles authentication w/ login credentials and retrieves user information.
  */
 public class LoginDataSource  {
-    private Context context;
+    private final Context context;
     private SQLiteDatabase mDatabase;
     public LoginDataSource(Context context) {
         this.context = context;
