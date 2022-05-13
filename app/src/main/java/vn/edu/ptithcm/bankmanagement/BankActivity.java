@@ -19,7 +19,7 @@ import vn.edu.ptithcm.bankmanagement.utility.Helper;
 
 public class BankActivity extends AppCompatActivity {
 
-    private AppBarConfiguration appBarConfiguration;
+    private AppBarConfiguration  appBarConfiguration;
     private ActivityBankBinding binding;
 
     @Override
@@ -32,19 +32,7 @@ public class BankActivity extends AppCompatActivity {
         ApiClient api = new ApiClient(this);
         Helper.doLogin(this, api.getUserService(), "adminCN1", "Admin1234." );
 
-//        setSupportActionBar(binding.toolbar);
-
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_bank);
-//        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-//        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-
-//        binding.fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
     }
 
     @Override

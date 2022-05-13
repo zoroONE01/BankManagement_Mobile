@@ -65,6 +65,8 @@ public class LoginRepository {
     public Result<LoggedInUser> login(String username, String password,OnCompleteCallBack onCompleteCallBack) {
         // handle login
         loginRemote.login(username,password,onCompleteCallBack);
+
+
         return null;
        /* Result<LoggedInUser> result ;
 
