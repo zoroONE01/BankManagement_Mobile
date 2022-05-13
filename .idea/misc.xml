@@ -51,6 +51,11 @@
         <entry key="..\:/Workspace/AndroidStudioProjects/BankManagement/app/src/main/res/layout/verified.xml" value="0.2" />
         <entry key="..\:/Workspace/AndroidStudioProjects/BankManagement/app/src/main/res/layout/welcome.xml" value="0.152" />
         <entry key="..\:/Workspace/AndroidStudioProjects/BankManagement/app/src/main/res/menu/menu_toolbar.xml" value="0.264" />
+        <entry key="app/src/main/res/layout/activity_change_password.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_deposit_withdraw.xml" value="0.1875" />
+        <entry key="app/src/main/res/layout/activity_load_image_test.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_transfer.xml" value="0.1" />
+        <entry key="app/src/main/res/xml/network_security_config.xml" value="0.19375" />
       </map>
     </option>
   </component>

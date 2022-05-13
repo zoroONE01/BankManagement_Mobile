@@ -47,6 +47,12 @@ public class ApiClient {
         return retrofit.create(MoneyTransferService.class);
     }
 
+    public LoadImageService getImageService() {
+        return retrofit.create(LoadImageService.class);
+    }
+
+
+
 
 //    private static class SessionCookieJar implements CookieJar {
 //

@@ -25,7 +25,8 @@ import vn.edu.ptithcm.bankmanagement.api.UserService;
 import vn.edu.ptithcm.bankmanagement.utility.Utility;
 
 public class MainActivity extends AppCompatActivity {
-    static String TAG = MainActivity.class.getName();
+//    static String TAG = MainActivity.class.getName();
+    static String TAG = "----------";
     Button button;
 
     UserService userService;
@@ -40,20 +41,20 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.sign_in);
 
         // DEMO dang nhap + nap tien
-//        apiClient = new ApiClient(this);
-//        userService = apiClient.getUserService();
-//        transferService = apiClient.getMoneyTransferService();
-//        depositWithdrawService = apiClient.getDepositWithdrawService();
-//
-//        button = findViewById(R.id.b_sign_in);
-//        button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                doDepositOrWithdraw("000000000", "1000321", "GT");
-//            }
-//        });
-//
-//        doLogin("admin", "admin");
+        apiClient = new ApiClient(this);
+        userService = apiClient.getUserService();
+        transferService = apiClient.getMoneyTransferService();
+        depositWithdrawService = apiClient.getDepositWithdrawService();
+
+        button = findViewById(R.id.b_sign_in);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                doDepositOrWithdraw("000000000", "1000321", "GT");
+            }
+        });
+
+        doLogin("adminCN1", "Admin1234.");
     }
 
     private void doLogin(String username, String password) {
@@ -86,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(@NonNull Call call, @NonNull Throwable t) {
-                Log.d(TAG, "Login Failure");
+                Log.d(TAG, t.getMessage());
             }
         });
     }
