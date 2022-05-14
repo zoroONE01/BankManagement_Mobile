@@ -1,29 +1,37 @@
 package vn.edu.ptithcm.bankmanagement.data.model;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
 
 public class KhachHang {
     @SerializedName("cmnd")
+    @Expose
     String cmnd;
 
     @SerializedName("ho")
+    @Expose
     String ho;
 
     @SerializedName("ten")
+    @Expose
     String ten;
 
     @SerializedName("diaChi")
+    @Expose
     String diachi;
 
     @SerializedName("phai")
+    @Expose
     String phai;
 
     @SerializedName("ngayCap")
+    @Expose
     Timestamp ngayCap;
 
     @SerializedName("soDT")
+    @Expose
     String sdt;
 
     public KhachHang(String cmnd, String ho, String ten, String diachi, String phai, Timestamp ngayCap, String sdt) {

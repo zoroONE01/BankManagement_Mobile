@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import vn.edu.ptithcm.bankmanagement.data.model.LoggedInUser;
 import vn.edu.ptithcm.bankmanagement.data.model.TaiKhoan;
 
 public class Utility {
@@ -12,4 +13,5 @@ public class Utility {
     public static List<TaiKhoan> LIST_TK = new ArrayList<>();
     public static String USER_CMND = "";
     public static String COOKIE = "";
+    public static LoggedInUser USER = new LoggedInUser();
 }
