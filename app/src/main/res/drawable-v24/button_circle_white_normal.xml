@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:top="@dimen/_20dp">
+    <item android:top="@dimen/_20dp">
         <bitmap android:src="@drawable/shadow_button_circle" />
     </item>
     <item android:bottom="@dimen/_18dp">

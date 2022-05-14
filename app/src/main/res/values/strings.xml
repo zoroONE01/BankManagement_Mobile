@@ -60,6 +60,7 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="register_failed">"Register failed"</string>
+
     <string name="action_show_more">action_show_more</string>
     <string name="action_show_nav">action_show_nav</string>
     <string name="nguyen_thanh_tu">Nguyễn Thanh Tú</string>
@@ -80,4 +81,6 @@
     <string name="action_recharge">Nạp Tiền</string>
     <string name="action_withdraw">Rút Tiền</string>
     <string name="action_tranfer">Chuyển Tiền</string>
+    <string name="trans_history">Lịch sử giao dịch</string>
+
 </resources>

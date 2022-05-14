@@ -4,14 +4,11 @@ package vn.edu.ptithcm.bankmanagement.data.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.math.BigDecimal;
-import java.security.Timestamp;
-
 public class ThongKeGD {
 
     @SerializedName("balanceBefore")
     @Expose
-    private Long balanceBefore;
+    private Double balanceBefore;
 
     @SerializedName("ngayGD")
     @Expose
@@ -23,17 +20,25 @@ public class ThongKeGD {
 
     @SerializedName("soTien")
     @Expose
-    private Long soTien;
+    private Double soTien;
 
     @SerializedName("balanceAfter")
     @Expose
-    private Long balanceAfter;
+    private Double balanceAfter;
 
-    public Long getBalanceBefore() {
+    public ThongKeGD(Double balanceBefore, Long ngayGD, String loaiGD, Double soTien, Double balanceAfter) {
+        this.balanceBefore = balanceBefore;
+        this.ngayGD = ngayGD;
+        this.loaiGD = loaiGD;
+        this.soTien = soTien;
+        this.balanceAfter = balanceAfter;
+    }
+
+    public Double getBalanceBefore() {
         return balanceBefore;
     }
 
-    public void setBalanceBefore(Long balanceBefore) {
+    public void setBalanceBefore(Double balanceBefore) {
         this.balanceBefore = balanceBefore;
     }
 
@@ -53,27 +58,19 @@ public class ThongKeGD {
         this.loaiGD = loaiGD;
     }
 
-    public Long getSoTien() {
+    public Double getSoTien() {
         return soTien;
     }
 
-    public void setSoTien(Long soTien) {
+    public void setSoTien(Double soTien) {
         this.soTien = soTien;
     }
 
-    public Long getBalanceAfter() {
+    public Double getBalanceAfter() {
         return balanceAfter;
     }
 
-    public void setBalanceAfter(Long balanceAfter) {
-        this.balanceAfter = balanceAfter;
-    }
-
-    public ThongKeGD(Long balanceBefore, Long ngayGD, String loaiGD, Long soTien, Long balanceAfter) {
-        this.balanceBefore = balanceBefore;
-        this.ngayGD = ngayGD;
-        this.loaiGD = loaiGD;
-        this.soTien = soTien;
+    public void setBalanceAfter(Double balanceAfter) {
         this.balanceAfter = balanceAfter;
     }
 

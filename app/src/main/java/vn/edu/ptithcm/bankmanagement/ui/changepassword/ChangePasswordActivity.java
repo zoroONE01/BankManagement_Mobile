@@ -1,16 +1,14 @@
 package vn.edu.ptithcm.bankmanagement.ui.changepassword;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioGroup;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import vn.edu.ptithcm.bankmanagement.R;
 import vn.edu.ptithcm.bankmanagement.api.ApiClient;
 import vn.edu.ptithcm.bankmanagement.api.ChangePasswordService;
-import vn.edu.ptithcm.bankmanagement.api.DepositWithdrawService;
 
 public class ChangePasswordActivity extends AppCompatActivity {
 

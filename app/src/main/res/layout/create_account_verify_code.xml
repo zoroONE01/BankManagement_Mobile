@@ -32,7 +32,6 @@
         app:layout_constraintTop_toBottomOf="@id/tv_tilte" />
 
 
-
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/et_phone_number"
         style="@style/style_text_ipnut"
@@ -52,17 +51,14 @@
         style="@style/style_button_large_blue"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_76dp"
-        android:paddingBottom="@dimen/_20dp"
         android:layout_marginTop="@dimen/_10dp"
+        android:paddingBottom="@dimen/_20dp"
         android:text="@string/xac_nhan"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_phone_number"
-         />
+        app:layout_constraintTop_toBottomOf="@+id/et_phone_number" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        app:layout_constraintVertical_bias="0.9"
-        app:layout_constraintVertical_chainStyle="packed"
         android:id="@+id/tv_change_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -72,7 +68,9 @@
         android:textSize="@dimen/_14sp"
         app:layout_constraintBottom_toTopOf="@id/b_change_login"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.9"
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/b_change_login"

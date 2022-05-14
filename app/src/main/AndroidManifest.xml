@@ -17,7 +17,7 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".ui.home.HomeActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,30 +26,45 @@
         </activity>
         <activity
             android:name=".ui.changepassword.LoadImageTestActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
+
         <activity
             android:name=".ui.changepassword.ChangePasswordActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
+
         <activity
             android:name=".BankActivity"
             android:exported="true"
             android:label="@string/title_activity_bank"
             android:theme="@style/Theme.BankManagement">
 
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
+
         <activity
             android:name=".ui.depositwithdraw.DepositWithdrawActivity"
             android:exported="false" />
+
         <activity
             android:name=".ui.moneytransfer.TransferActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
+
+        <activity
+            android:name=".ui.transactionhistory.ActivityTransactionHistory"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.transactionhistory.TransactionItemView"
+            android:exported="false" />
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
     </application>
-
 </manifest>

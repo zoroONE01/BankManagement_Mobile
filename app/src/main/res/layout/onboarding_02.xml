@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
@@ -52,9 +51,9 @@
         android:id="@+id/tv_description"
         android:layout_width="@dimen/_282dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10dp"
         android:fontFamily="@font/inter"
         android:text="@string/desc_onboarding2"
-        android:layout_marginTop="@dimen/_10dp"
         android:textAlignment="center"
         android:textColor="@color/black_700"
         android:textSize="@dimen/_18sp"

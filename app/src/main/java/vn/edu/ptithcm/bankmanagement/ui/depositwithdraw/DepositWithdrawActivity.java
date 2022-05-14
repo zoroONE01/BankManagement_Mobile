@@ -1,8 +1,6 @@
 package vn.edu.ptithcm.bankmanagement.ui.depositwithdraw;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -16,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.gson.JsonObject;
 
 import java.util.HashMap;
-import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -27,8 +24,6 @@ import vn.edu.ptithcm.bankmanagement.R;
 import vn.edu.ptithcm.bankmanagement.api.ApiClient;
 import vn.edu.ptithcm.bankmanagement.api.DepositWithdrawService;
 import vn.edu.ptithcm.bankmanagement.api.UserStatisticService;
-import vn.edu.ptithcm.bankmanagement.data.model.KhachHang;
-import vn.edu.ptithcm.bankmanagement.utility.Utility;
 
 public class DepositWithdrawActivity extends AppCompatActivity {
     private final String TAG = DepositWithdrawActivity.class.getName();
@@ -95,22 +90,9 @@ public class DepositWithdrawActivity extends AppCompatActivity {
     }
 
     private void initComponents() {
-        apiClient = new ApiClient(this);
+        apiClient = new ApiClient();
         depositWithdrawService = apiClient.getDepositWithdrawService();
         userStatisticService = apiClient.getUserStatisticService();
-
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-
-        // get session id in preference
-//        sessionId = prefs.getString(Utility.PREF_COOKIES, "");
-//
-//        if (sessionId.isEmpty()) {
-//            // TODO: go back to login activity
-//            return;
-//        }
-
-        // get list tk
-
 
         sotien = findViewById(R.id.fieldAmount);
         radioGroup = findViewById(R.id.radioGroup);

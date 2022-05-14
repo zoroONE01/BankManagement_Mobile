@@ -13,4 +13,5 @@
         android:orderInCategory="1"
         android:title="@string/action_show_more"
         app:showAsAction="always" />
+
 </menu>

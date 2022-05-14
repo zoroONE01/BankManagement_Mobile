@@ -1,13 +1,5 @@
 package vn.edu.ptithcm.bankmanagement.ui.login;
 
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
-
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -18,13 +10,19 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import vn.edu.ptithcm.bankmanagement.databinding.FragmentLoginBinding;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
 
 import vn.edu.ptithcm.bankmanagement.R;
+import vn.edu.ptithcm.bankmanagement.databinding.FragmentLoginBinding;
 
 public class LoginFragment extends Fragment {
 
@@ -51,7 +49,7 @@ public class LoginFragment extends Fragment {
         final EditText usernameEditText = binding.etEmail;
         final EditText passwordEditText = binding.etPassword;
         final Button loginButton = binding.bSignIn;
-        final Button btChangeLogin= binding.bChangeLogin;
+        final Button btChangeLogin = binding.bChangeLogin;
         //final ProgressBar loadingProgressBar = binding.;
 
         loginViewModel.getLoginFormState().observe(getViewLifecycleOwner(), new Observer<LoginFormState>() {
@@ -120,7 +118,7 @@ public class LoginFragment extends Fragment {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-             //   loadingProgressBar.setVisibility(View.VISIBLE);
+                //   loadingProgressBar.setVisibility(View.VISIBLE);
                 loginViewModel.login(usernameEditText.getText().toString(),
                         passwordEditText.getText().toString());
             }
