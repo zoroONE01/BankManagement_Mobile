@@ -3,9 +3,11 @@ package vn.edu.ptithcm.bankmanagement.ui.depositwithdraw;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -14,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.gson.JsonObject;
 
 import java.util.HashMap;
+import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -24,11 +27,10 @@ import vn.edu.ptithcm.bankmanagement.R;
 import vn.edu.ptithcm.bankmanagement.api.ApiClient;
 import vn.edu.ptithcm.bankmanagement.api.DepositWithdrawService;
 import vn.edu.ptithcm.bankmanagement.api.UserStatisticService;
+import vn.edu.ptithcm.bankmanagement.utility.Utility;
 
 public class DepositWithdrawActivity extends AppCompatActivity {
     private final String TAG = DepositWithdrawActivity.class.getName();
-
-    String sessionId;
 
     EditText sotien;
     RadioGroup radioGroup;
@@ -54,7 +56,7 @@ public class DepositWithdrawActivity extends AppCompatActivity {
         values.put(DepositWithdrawService.key2, amount);
         values.put(DepositWithdrawService.key3, gd);
 
-        Call<JsonObject> call = depositWithdrawService.depositOrWithdraw(sessionId, values);
+        Call<JsonObject> call = depositWithdrawService.depositOrWithdraw(Utility.COOKIE, values);
 
         call.enqueue(new Callback<JsonObject>() {
             @Override
@@ -115,8 +117,7 @@ public class DepositWithdrawActivity extends AppCompatActivity {
 
                 int selectedId = radioGroup.getCheckedRadioButtonId();
 
-                // TODO: get stk from logged user
-                String stk = "00000000000";
+                String stk = Utility.LIST_TK.get(0).getCmnd();
 
                 if (selectedId == R.id.radioGT) {
                     doDepositOrWithdraw(stk, DepositWithdrawActivity.this.sotien.getText().toString(), "GT");

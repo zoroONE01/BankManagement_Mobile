@@ -267,7 +267,7 @@ public class ProfileActivity extends AppCompatActivity {
         dpNgayCap = findViewById(R.id.ngayCap);
         txtSdt = findViewById(R.id.sdt);
 
-        loadCustomer(Utility.USER_CMND);
+        loadCustomer(Utility.USER.getKhachHangID());
         Image.doLoadImage(imageService, Utility.USER.getImageUrl(), avatar);
     }
 }

@@ -13,7 +13,6 @@ public class Utility {
     public static final SimpleDateFormat API_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINESE);
 
     public static List<TaiKhoan> LIST_TK = new ArrayList<>();
-    public static String USER_CMND = "";
     public static String COOKIE = "";
     public static LoggedInUser USER = new LoggedInUser();
 }

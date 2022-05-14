@@ -1,33 +1,49 @@
 package vn.edu.ptithcm.bankmanagement.ui.home;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.net.ssl.HttpsURLConnection;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import vn.edu.ptithcm.bankmanagement.R;
+import vn.edu.ptithcm.bankmanagement.api.ApiClient;
+import vn.edu.ptithcm.bankmanagement.api.ProfileService;
+import vn.edu.ptithcm.bankmanagement.api.UserStatisticService;
 import vn.edu.ptithcm.bankmanagement.data.model.KhachHang;
+import vn.edu.ptithcm.bankmanagement.data.model.TaiKhoan;
 import vn.edu.ptithcm.bankmanagement.data.model.ThongKeGD;
+import vn.edu.ptithcm.bankmanagement.utility.Helper;
+import vn.edu.ptithcm.bankmanagement.utility.Image;
+import vn.edu.ptithcm.bankmanagement.utility.Utility;
 
 public class HomeActivity extends AppCompatActivity {
+    final String TAG = HomeActivity.class.getName();
+
     private RecyclerView rvRecentTransaction;
     private RecentTransactionAdapter recentTransactionAdapter;
-    private List<ThongKeGD> transactions;
+    private List<ThongKeGD> transactions = new ArrayList<>();
     private KhachHang user;
     private TextView tvUserCardName, tvUserCardDesc, tvBalanceValue, tvTranferValue;
     private ImageView ivUserAvatar;
@@ -36,10 +52,22 @@ public class HomeActivity extends AppCompatActivity {
     private AppCompatImageButton bOpenDrawer;
     private AppCompatImageButton bOpenProfile;
 
+    ApiClient apiClient;
+    ProfileService profileService;
+    UserStatisticService userStatisticService;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        apiClient = new ApiClient();
+        profileService = apiClient.getProfileService();
+        userStatisticService = apiClient.getUserStatisticService();
+
+        loadCustomer(Utility.USER.getKhachHangID());
+        loadThongTinTaiKhoan(Utility.USER.getKhachHangID());
+
         setUpUi();
     }
 
@@ -73,21 +101,152 @@ public class HomeActivity extends AppCompatActivity {
         bOpenDrawer.setOnClickListener(v ->
                 dlDrawer.openDrawer(nvNav)
         );
-//        tvUserCardName.setText(String.valueOf(user.getHo() + " " + user.getTen()));
-//        tvUserCardDesc.setText(String.valueOf("account ending with " + user.getCmnd().substring(user.getCmnd().length() - 4, user.getCmnd().length())));
-        fakeData();
+
         recentTransactionAdapter = new RecentTransactionAdapter(transactions);
         rvRecentTransaction.setLayoutManager(new LinearLayoutManager(this));
         rvRecentTransaction.setAdapter(recentTransactionAdapter);
+
+        Image.doLoadImage(apiClient.getImageService(), Utility.USER.getImageUrl(), ivUserAvatar);
     }
 
-
-    public void fakeData(){
-        user = new KhachHang("123123123", "Bùi Minh", "Tơ", "Thủ Đức, TP. Hồ Chí Minh", "nam", new Timestamp(0L), "0929123123");
-        transactions = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            ThongKeGD transaction = new ThongKeGD(0d, 1353453l, "thien muon 5 chuc", 1000d, 1000d);
-            transactions.add(transaction);
+    void loadCustomer(String cmnd) {
+        Log.d("-----customer", "cmnd: " + cmnd);
+        if (Utility.COOKIE.isEmpty()) {
+            Toast.makeText(this, "Error: no session id", Toast.LENGTH_SHORT).show();
+            return;
         }
+
+        profileService.getCustomer(Utility.COOKIE, cmnd).enqueue(new Callback<KhachHang>() {
+
+            @Override
+            public void onResponse(@NonNull Call<KhachHang> call, @NonNull retrofit2.Response<KhachHang> response) {
+                if (response.body() != null) {
+                    user = response.body();
+
+                    tvUserCardName.setText(String.valueOf(user.getHo() + " " + user.getTen()));
+                    tvUserCardDesc.setText(String.valueOf("account ending with " + user.getCmnd().substring(user.getCmnd().length() - 4, user.getCmnd().length())));
+
+                } else {
+                    Log.d("-----customer", "get customer response body fail");
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<KhachHang> call, Throwable t) {
+                Log.d("-----customer", "Failure " + t.getMessage());
+            }
+        });
+    }
+
+    void loadThongTinTaiKhoan(String cmnd) {
+        Call<JsonArray> call = userStatisticService.getAllTk(Utility.COOKIE, cmnd);
+
+        call.enqueue(new Callback<JsonArray>() {
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) {
+                if (response.isSuccessful()) {
+                    Log.d(TAG, "list tk Response: " + (response.body() != null ? response.body().toString() : "list tk response ok"));
+
+                    JsonArray listTK = (JsonArray) response.body();
+                    Utility.LIST_TK.clear();
+
+                    for (JsonElement ele : listTK) {
+                        JsonObject e = ele.getAsJsonObject();
+                        Log.d(TAG, "tk: " + e.toString());
+
+                        TaiKhoan tk = new TaiKhoan(e.get("soTK").getAsString(),
+                                e.get("cmnd").getAsString(),
+                                e.get("soDu").getAsDouble(),
+                                e.get("maCN").getAsString().trim(),
+                                e.get("ngayMoTK").getAsLong());
+
+                        Utility.LIST_TK.add(tk);
+                        Log.d(TAG, tk.toString());
+                    }
+
+                    if (!Utility.LIST_TK.isEmpty()) {
+                        String sodu = Helper.showGia(Utility.LIST_TK.get(0).getSoDu());
+                        tvBalanceValue.setText(String.valueOf(sodu + " đ"));
+
+                        doGetListTransactions(userStatisticService, Utility.LIST_TK.get(0).getSoTK());
+                    }
+                } else if (response.code() == HttpsURLConnection.HTTP_UNAUTHORIZED) {
+                    // Handle unauthorized
+                    // TODO go back to login
+                    Log.d(TAG, "list tk 401");
+                } else {
+                    try {
+                        if (response.errorBody() == null) {
+                            Log.d(TAG, "list tk Response Error. No message");
+                        } else if (response.errorBody().string().contains("FOREIGN")) {
+                            Log.d(TAG, "list tk k ton tai");
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull Throwable t) {
+                Log.d(TAG, "list tk Failure");
+                t.printStackTrace();
+            }
+        });
+    }
+
+    void doGetListTransactions(UserStatisticService userStatisticService, String stk) {
+        List<ThongKeGD> list = new ArrayList<>();
+
+        Call<JsonArray> call = userStatisticService.getTransactionHistory(Utility.COOKIE, stk, "2011-1-1", "2031-1-1");
+
+        call.enqueue(new Callback<JsonArray>() {
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) {
+                if (response.isSuccessful()) {
+                    Log.d(TAG, "statistic Response: " + (response.body() != null ? response.body().toString() : "dpwd response ok"));
+
+                    JsonArray array = (JsonArray) response.body();
+
+                    for (JsonElement ele : array) {
+                        JsonObject e = ele.getAsJsonObject();
+                        Log.d(TAG, "tk: " + e.toString());
+
+                        ThongKeGD tk = new ThongKeGD(
+                                e.get("balanceBefore").getAsDouble(),
+                                e.get("ngayGD").getAsLong(),
+                                e.get("loaiGD").getAsString(),
+                                e.get("soTien").getAsDouble(),
+                                e.get("balanceAfter").getAsDouble());
+                        list.add(tk);
+                    }
+                    transactions = list;
+                    rvRecentTransaction.setAdapter(new RecentTransactionAdapter(transactions));
+
+                    String tongtien = Helper.showGia(Helper.getTongTienGiaoDich(list));
+                    tvTranferValue.setText(String.valueOf(tongtien + " đ"));
+                } else if (response.code() == HttpsURLConnection.HTTP_UNAUTHORIZED) {
+                    // Handle unauthorized
+                    // TODO go back to login
+                    Log.d(TAG, "list tk 401");
+                } else {
+                    try {
+                        if (response.errorBody() == null) {
+                            Log.d(TAG, "list transfer Response Error. No message");
+                        } else if (response.errorBody().string().contains("FOREIGN")) {
+                            Log.d(TAG, "so tk k ton tai");
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull Throwable t) {
+                Log.d(TAG, "list tk Failure");
+                t.printStackTrace();
+            }
+        });
     }
 }

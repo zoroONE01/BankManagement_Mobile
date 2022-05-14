@@ -49,7 +49,6 @@ public class LoginRemote {
                     if (response.body() != null) {
                         LoggedInUser logged = response.body();
                         Log.d("LoginRemote", "user login Response: " + response.body().toString());
-                        Utility.USER_CMND = logged.getKhachHangID();
 
                         Utility.USER.setUserId(logged.getUserId());
                         Utility.USER.setImageUrl(logged.getImageUrl());
