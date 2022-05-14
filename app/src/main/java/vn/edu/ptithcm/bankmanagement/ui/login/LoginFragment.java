@@ -25,7 +25,6 @@ import androidx.navigation.fragment.NavHostFragment;
 import vn.edu.ptithcm.bankmanagement.R;
 import vn.edu.ptithcm.bankmanagement.databinding.FragmentLoginBinding;
 import vn.edu.ptithcm.bankmanagement.ui.home.HomeActivity;
-import vn.edu.ptithcm.bankmanagement.ui.profile.ProfileActivity;
 
 public class LoginFragment extends Fragment {
 
@@ -77,11 +76,10 @@ public class LoginFragment extends Fragment {
                 if (loginResult == null) {
                     return;
                 }
-                //loadingProgressBar.setVisibility(View.GONE);
+
                 if (loginResult.getError() != null) {
                     showLoginFailed(loginResult.getError());
-                }
-                if (loginResult.getSuccess() != null) {
+                } else if (loginResult.getSuccess() != null) {
                     updateUiWithUser(loginResult.getSuccess());
                 }
             }
@@ -100,7 +98,8 @@ public class LoginFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                loginViewModel.loginDataChanged(usernameEditText.getText().toString(),
+                loginViewModel.loginDataChanged(
+                        usernameEditText.getText().toString(),
                         passwordEditText.getText().toString());
             }
         };
@@ -111,8 +110,7 @@ public class LoginFragment extends Fragment {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    loginViewModel.login(usernameEditText.getText().toString(),
-                            passwordEditText.getText().toString());
+                    loginViewModel.login(usernameEditText.getText().toString(), passwordEditText.getText().toString());
                 }
                 return false;
             }
@@ -121,9 +119,7 @@ public class LoginFragment extends Fragment {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //   loadingProgressBar.setVisibility(View.VISIBLE);
-                loginViewModel.login(usernameEditText.getText().toString(),
-                        passwordEditText.getText().toString());
+                loginViewModel.login(usernameEditText.getText().toString(), passwordEditText.getText().toString());
             }
         });
 
@@ -136,10 +132,11 @@ public class LoginFragment extends Fragment {
     }
 
     private void updateUiWithUser(LoggedInUserView model) {
-        String welcome = getString(R.string.welcome) + model.getDisplayName();
-        // TODO : initiate successful logged in experience
+        String welcome = "Xin chào " + model.getDisplayName();
+
         if (getContext() != null && getContext().getApplicationContext() != null) {
             Toast.makeText(getContext().getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
+
             Intent i = new Intent(getActivity(), HomeActivity.class);
             getActivity().startActivity(i);
         }
@@ -147,13 +144,9 @@ public class LoginFragment extends Fragment {
 
     private void showLoginFailed(@StringRes Integer errorString) {
         if (getContext() != null && getContext().getApplicationContext() != null) {
-            Toast.makeText(
-                    getContext().getApplicationContext(),
-                    errorString,
-                    Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext().getApplicationContext(), errorString, Toast.LENGTH_LONG).show();
         }
     }
-
 
     @Override
     public void onDestroyView() {
