@@ -82,6 +82,19 @@
     <string name="action_withdraw">Rút Tiền</string>
     <string name="action_tranfer">Chuyển Tiền</string>
     <string name="trans_history">Lịch sử giao dịch</string>
+    <string name="thong_tin_ca_nhan">Thông tin cá nhân</string>
+    <string name="thay_doi_anh_dai_dien">Thay Đổi Ảnh Đại Diện</string>
+    <string name="ho">Họ</string>
+    <string name="dia_chi">Địa chỉ</string>
+    <string name="gioi_tinh">Giới tính</string>
+    <string name="ngay_cap_cmnd">Ngày cấp CMND</string>
+    <string name="so_dien_thoai">Số điện thoại</string>
+    <string name="cap_nhat">Cập Nhật</string>
+    <string name="so_tien_giao_dich">SỐ TIỀN GIAO DỊCH</string>
+    <string name="_0">0</string>
+    <string name="_d">đ</string>
+    <string name="so_tai_khoan">Số tài khoản</string>
+    <string name="gui_den">Chuyển đến</string>
 
     <string-array name="phai">
         <item>Nam</item>

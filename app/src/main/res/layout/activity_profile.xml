@@ -1,77 +1,205 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.customer.CustomerFormActivity"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:isScrollContainer="true">
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/b_menu"
+            android:layout_width="@dimen/_47dp"
+            android:layout_height="@dimen/_47dp"
+            android:layout_marginStart="@dimen/_40dp"
+            android:layout_marginTop="@dimen/_20dp"
+            android:background="@drawable/selector_button_small_white"
+            android:elevation="@dimen/_40dp"
+            android:src="@drawable/ic_back" />
+
+        <TextView
+            android:layout_marginTop="@dimen/_10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_40dp"
+            android:fontFamily="@font/pacifico"
+            android:text="@string/thong_tin_ca_nhan"
+            android:textColor="@color/black_700"
+            android:textSize="@dimen/_37sp" />
+
         <ImageView
+            android:layout_marginTop="@dimen/_20dp"
             android:id="@+id/avatar"
-            android:layout_width="190dp"
-            android:layout_height="190dp" />
+            android:layout_width="@dimen/_97dp"
+            android:layout_height="@dimen/_97dp"
+            android:layout_gravity="center"
+            android:background="@drawable/card_user" />
+
+        <TextView
+            android:layout_marginTop="@dimen/_5dp"
+            android:id="@+id/cmnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/inter"
+            android:text="@string/cmnd"
+            android:textColor="@color/black_200"
+            android:textSize="@dimen/_12sp" />
 
         <Button
             android:id="@+id/buttonLoadPicture"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/inter_semibold"
             android:onClick="onLoadPicture"
-            android:text="Tải ảnh lên" />
-
+            android:text="@string/thay_doi_anh_dai_dien"
+            android:textAllCaps="false"
+            android:textColor="@color/black_500" />
 
         <TextView
-            android:id="@+id/cmnd"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="CMND"/>
+            android:layout_marginStart="@dimen/_40dp"
+            android:layout_marginTop="@dimen/_10dp"
+            android:layout_marginBottom="@dimen/_5dp"
+            android:fontFamily="@font/inter_semibold"
+            android:labelFor="@+id/ho"
+            android:text="@string/ho"
+            android:textColor="@color/black_500"
+            android:textSize="@dimen/_12sp" />
 
         <EditText
             android:id="@+id/ho"
+            style="@style/style_text_ipnut"
             android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_marginHorizontal="@dimen/_40dp"
+            android:hint="@string/ho"
+            android:paddingHorizontal="@dimen/_20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Họ" />
+            android:layout_marginStart="@dimen/_40dp"
+            android:layout_marginTop="@dimen/_10dp"
+            android:layout_marginBottom="@dimen/_5dp"
+            android:fontFamily="@font/inter_semibold"
+            android:labelFor="@+id/ten"
+            android:text="@string/ten"
+            android:textColor="@color/black_500"
+            android:textSize="@dimen/_12sp" />
 
         <EditText
             android:id="@+id/ten"
+            style="@style/style_text_ipnut"
             android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_marginHorizontal="@dimen/_40dp"
+            android:hint="@string/ten"
+            android:paddingHorizontal="@dimen/_20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Tên"/>
+            android:layout_marginStart="@dimen/_40dp"
+            android:layout_marginTop="@dimen/_10dp"
+            android:layout_marginBottom="@dimen/_5dp"
+            android:fontFamily="@font/inter_semibold"
+            android:labelFor="@+id/diaChi"
+            android:text="@string/dia_chi"
+            android:textColor="@color/black_500"
+            android:textSize="@dimen/_12sp" />
 
         <EditText
             android:id="@+id/diaChi"
+            style="@style/style_text_ipnut"
             android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_marginHorizontal="@dimen/_40dp"
+            android:hint="@string/dia_chi"
+            android:paddingHorizontal="@dimen/_20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Địa chỉ" />
+            android:layout_marginStart="@dimen/_40dp"
+            android:layout_marginTop="@dimen/_10dp"
+            android:layout_marginBottom="@dimen/_5dp"
+            android:fontFamily="@font/inter_semibold"
+            android:labelFor="@+id/phai"
+            android:text="@string/gioi_tinh"
+            android:textColor="@color/black_500"
+            android:textSize="@dimen/_12sp" />
+
         <Spinner
             android:id="@+id/phai"
+            style="@style/style_text_ipnut"
             android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_marginHorizontal="@dimen/_40dp"
+            android:entries="@array/phai"
+            android:hint="@string/dia_chi"
+            android:paddingHorizontal="@dimen/_15dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:entries="@array/phai" />
+            android:layout_marginStart="@dimen/_40dp"
+            android:layout_marginTop="@dimen/_10dp"
+            android:layout_marginBottom="@dimen/_5dp"
+            android:fontFamily="@font/inter_semibold"
+            android:labelFor="@+id/sdt"
+            android:text="@string/so_dien_thoai"
+            android:textColor="@color/black_500"
+            android:textSize="@dimen/_12sp" />
+
+        <EditText
+            android:id="@+id/sdt"
+            style="@style/style_text_ipnut"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_marginHorizontal="@dimen/_40dp"
+            android:entries="@array/phai"
+            android:hint="@string/so_dien_thoai"
+            android:paddingHorizontal="@dimen/_20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_40dp"
+            android:layout_marginTop="@dimen/_10dp"
+            android:layout_marginBottom="@dimen/_5dp"
+            android:fontFamily="@font/inter_semibold"
+            android:labelFor="@+id/ngayCap"
+            android:text="@string/ngay_cap_cmnd"
+            android:textColor="@color/black_500"
+            android:textSize="@dimen/_12sp" />
+
         <DatePicker
             android:id="@+id/ngayCap"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Ngày cấp"
+            android:layout_gravity="center"
+            android:calendarViewShown="false"
             android:datePickerMode="spinner"
-            android:calendarViewShown="false" />
-        <EditText
-            android:id="@+id/sdt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Số điện thoại" />
+            android:hint="@string/ngay_cap_cmnd" />
 
 
         <Button
+            style="@style/style_button_large_blue"
             android:id="@+id/btnUpdate"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/_76dp"
+            android:layout_marginHorizontal="@dimen/_40dp"
+            android:layout_marginVertical="@dimen/_20dp"
             android:onClick="onClickUpdate"
-            android:text="Cập nhật" />
+            android:paddingBottom="@dimen/_20dp"
+            android:text="@string/cap_nhat"
+            android:textAllCaps="false" />
 
     </LinearLayout>
 </ScrollView>
