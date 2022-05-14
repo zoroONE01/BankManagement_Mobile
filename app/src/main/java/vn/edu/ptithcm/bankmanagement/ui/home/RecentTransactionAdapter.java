@@ -14,9 +14,10 @@ import java.util.List;
 
 import vn.edu.ptithcm.bankmanagement.R;
 import vn.edu.ptithcm.bankmanagement.data.model.ThongKeGD;
+import vn.edu.ptithcm.bankmanagement.utility.Helper;
 
 public class RecentTransactionAdapter extends RecyclerView.Adapter<RecentTransactionViewHolder> {
-
+    Context context;
     private List<ThongKeGD> items;
 
     public RecentTransactionAdapter(List<ThongKeGD> items) {
@@ -26,7 +27,7 @@ public class RecentTransactionAdapter extends RecyclerView.Adapter<RecentTransac
     @NonNull
     @Override
     public RecentTransactionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        Context context = parent.getContext();
+        context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View item = inflater.inflate(R.layout.item_recent_transaction, parent, false);
         return new RecentTransactionViewHolder(item);
@@ -39,20 +40,24 @@ public class RecentTransactionAdapter extends RecyclerView.Adapter<RecentTransac
         TextView tvTransactionValue = holder.tvTransactionValue;
         TextView tvTransactionTitle = holder.tvTransactionTitle;
 
-        tvTransactionTitle.setText(items.get(position).getLoaiGD());
-        tvTransactionValue.setText(String.valueOf(items.get(position).getSoTien())); //Todo: format lại tiền dùm e
-        tvTransactionTime.setText(""); //Todo: ngay giao dich
-        switch (items.get(position).getLoaiGD()){
-            case "Chuyển tiền":
-                isUserImage.setImageResource(R.drawable.ic_tranfer);
-                break;
-            case "Gửi tiền":
-                isUserImage.setImageResource(R.drawable.ic_recharge);
-                break;
-            case "Rút tiền":
-                isUserImage.setImageResource(R.drawable.ic_withdraw);
-                break;
-        }
+        ThongKeGD tk = items.get(position);
+
+        tvTransactionTitle.setText(tk.getLoaiGD());
+        tvTransactionValue.setText(String.valueOf(Helper.showGia(tk.getSoTien()) + "đ"));
+        tvTransactionTime.setText(Helper.getNgayFromEpoch(tk.getNgayGD()));
+
+//        switch (items.get(position).getLoaiGD()){
+//            case "Chuyển tiền":
+//                isUserImage.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_tranfer));
+//                break;
+//            case "Gửi tiền":
+//                isUserImage.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_recharge));
+//
+//                break;
+//            case "Rút tiền":
+//                isUserImage.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_withdraw));
+//                break;
+//        }
 //        holder.itemView.setOnClickListener(view -> { //Todo: click vào chuyển qua chi tiết giao dịch
 //        });
     }

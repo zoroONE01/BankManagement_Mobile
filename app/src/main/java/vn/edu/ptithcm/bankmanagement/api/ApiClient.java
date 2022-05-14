@@ -1,5 +1,15 @@
 package vn.edu.ptithcm.bankmanagement.api;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
+
+import java.lang.reflect.Type;
+import java.sql.Timestamp;
+
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -9,9 +19,18 @@ public class ApiClient {
     Retrofit retrofit;
 
     public ApiClient() {
+        GsonBuilder builder = new GsonBuilder();
+
+        builder.registerTypeAdapter(Timestamp.class, new JsonDeserializer<Timestamp>() {
+            public Timestamp deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+                return new Timestamp(json.getAsJsonPrimitive().getAsLong());
+            }
+        });
+
+        Gson gson = builder.create();
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
     }
 
@@ -27,8 +46,8 @@ public class ApiClient {
         return retrofit.create(MoneyTransferService.class);
     }
 
-    public LoadImageService getImageService() {
-        return retrofit.create(LoadImageService.class);
+    public ImageService getImageService() {
+        return retrofit.create(ImageService.class);
     }
 
     public UserStatisticService getUserStatisticService() {
@@ -41,5 +60,9 @@ public class ApiClient {
 
     public UserInfoService getUserInfoService() {
         return retrofit.create(UserInfoService.class);
+    }
+
+    public ProfileService getProfileService() {
+        return retrofit.create(ProfileService.class);
     }
 }

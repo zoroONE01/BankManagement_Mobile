@@ -20,6 +20,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import vn.edu.ptithcm.bankmanagement.api.MoneyTransferService;
+import vn.edu.ptithcm.bankmanagement.api.ProfileService;
 import vn.edu.ptithcm.bankmanagement.api.UserInfoService;
 import vn.edu.ptithcm.bankmanagement.api.UserService;
 import vn.edu.ptithcm.bankmanagement.api.UserStatisticService;
@@ -261,15 +262,15 @@ public class Helper {
         });
     }
 
-    public static void doGetUserData(UserInfoService userInfoService, String cmnd) {
-        Call<JsonObject> call = userInfoService.getInfo(Utility.COOKIE, cmnd);
+    public static void doGetUserData(ProfileService userInfoService, String cmnd) {
+        Call<KhachHang> call = userInfoService.getCustomer(Utility.COOKIE, cmnd);
 
-        call.enqueue(new Callback<JsonObject>() {
+        call.enqueue(new Callback<KhachHang>() {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) {
                 if (response.isSuccessful()) {
                     Log.d(TAG, "user data Response: " + response.body().toString());
-                    getKhachHangFromResponse(response);
+                    KhachHang kh = (KhachHang) response.body();
                 } else {
                     Log.d(TAG, "user data Error" + response.body());
                 }
@@ -281,18 +282,6 @@ public class Helper {
                 t.printStackTrace();
             }
         });
-    }
-
-    public static KhachHang getKhachHangFromResponse(Response<JsonObject> response) {
-        JsonObject object = (JsonObject) response.body();
-
-        return new KhachHang(object.get("cmnd").getAsString(),
-                object.get("ho").getAsString(),
-                object.get("ten").getAsString(),
-                object.get("diaChi").getAsString(),
-                object.get("phai").getAsString(),
-                object.get("ngayCap").getAsLong(),
-                object.get("sdt").getAsString());
     }
 
     public static String showGia(Double gia) {
