@@ -44,14 +44,6 @@ public class KhachHang {
         this.sdt = sdt;
     }
 
-    public Timestamp getNgayCap() {
-        return ngayCap;
-    }
-
-    public void setNgayCap(Timestamp ngayCap) {
-        this.ngayCap = ngayCap;
-    }
-
     public String getCmnd() {
         return cmnd;
     }
@@ -90,6 +82,14 @@ public class KhachHang {
 
     public void setPhai(String phai) {
         this.phai = phai;
+    }
+
+    public Timestamp getNgayCap() {
+        return ngayCap;
+    }
+
+    public void setNgayCap(Timestamp ngayCap) {
+        this.ngayCap = ngayCap;
     }
 
     public String getSdt() {

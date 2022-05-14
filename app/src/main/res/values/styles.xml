@@ -28,4 +28,9 @@
         <item name="android:textColor">@color/purple_700</item>
         <item name="android:background">@drawable/button_no_background_normal</item>
     </style>
+
+    <style name="toolbar">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
 </resources>

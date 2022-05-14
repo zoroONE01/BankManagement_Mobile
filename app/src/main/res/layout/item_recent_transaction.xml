@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_90dp"
+    >
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_item_recent_transaction"
+        android:layout_width="@dimen/_53dp"
+        android:layout_height="@dimen/_53dp"
+        android:layout_marginStart="@dimen/_40dp"
+        app:cardCornerRadius="@dimen/_10dp"
+        app:cardElevation="@dimen/_10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageSwitcher
+            android:id="@+id/iv_item_recent_transaction_img"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/iv_user_avatar"
+             />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_marginStart="@dimen/_10dp"
+        android:id="@+id/tv_item_recent_transaction_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/inter_semibold"
+        android:text="@string/chuyen_0921"
+        android:textColor="@color/black_500"
+        android:textSize="@dimen/_18sp"
+        app:layout_constraintBottom_toTopOf="@id/tv_item_recent_transaction_description"
+        app:layout_constraintStart_toEndOf="@id/cv_item_recent_transaction"
+        app:layout_constraintTop_toTopOf="@+id/cv_item_recent_transaction" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_item_recent_transaction_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/inter"
+        android:text="@string/_14_08_2022_04_29_pm"
+        android:textColor="@color/black_200"
+        android:textSize="@dimen/_12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/cv_item_recent_transaction"
+        app:layout_constraintStart_toStartOf="@id/tv_item_recent_transaction_title"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_recent_transaction_title" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_marginEnd="@dimen/_40dp"
+        android:id="@+id/tv_item_recent_transaction_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/inter_bold"
+        android:text="@string/_10_000_000"
+        android:textColor="@color/black_500"
+        android:textSize="@dimen/_14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/cv_item_recent_transaction"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/cv_item_recent_transaction" />
+</androidx.constraintlayout.widget.ConstraintLayout>
