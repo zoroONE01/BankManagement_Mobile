@@ -16,7 +16,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageSwitcher
+        <ImageView
+            android:src="@drawable/ic_tranfer"
             android:id="@+id/iv_item_recent_transaction_img"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

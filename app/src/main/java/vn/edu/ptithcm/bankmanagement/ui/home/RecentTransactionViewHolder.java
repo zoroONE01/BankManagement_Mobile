@@ -14,7 +14,7 @@ import vn.edu.ptithcm.bankmanagement.R;
 public class RecentTransactionViewHolder extends RecyclerView.ViewHolder {
 
     public TextView  tvTransactionTime, tvTransactionValue, tvTransactionTitle;
-    public ImageSwitcher isUserImage;
+    public ImageView isUserImage;
 
     public RecentTransactionViewHolder(@NonNull View itemView) {
         super(itemView);
