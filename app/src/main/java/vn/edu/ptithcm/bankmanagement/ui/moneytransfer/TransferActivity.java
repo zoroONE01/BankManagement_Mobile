@@ -19,6 +19,7 @@ import vn.edu.ptithcm.bankmanagement.utility.Helper;
 
 public class TransferActivity extends AppCompatActivity {
     final String TAG = TransferActivity.class.getName();
+
     EditText soTk;
     EditText soTien;
     Button btn;
@@ -33,7 +34,6 @@ public class TransferActivity extends AppCompatActivity {
         setContentView(R.layout.activity_transfer);
 
         initComponents();
-        Helper.doLogin(apiClient.getUserService(), "adminCN1", "Admin1234.");
     }
 
     private void initComponents() {
@@ -41,13 +41,11 @@ public class TransferActivity extends AppCompatActivity {
         transferService = apiClient.getMoneyTransferService();
         userStatisticService = apiClient.getUserStatisticService();
 
-        soTk = findViewById(R.id.fieldStk);
+        soTk = findViewById(R.id.et_send_to);
         soTien = findViewById(R.id.fieldAmount);
         btn = findViewById(R.id.btnTransfer);
 
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        btn.setOnClickListener(view -> {
 //                // check fields
 //                String tk = soTk.getText().toString();
 //                String amount = soTien.getText().toString();
@@ -70,9 +68,8 @@ public class TransferActivity extends AppCompatActivity {
 //                String stk = "000000000";
 //                doTransfer(stk, amount, tk);
 //                doGetAllTk("123456789");
-                List<ThongKeGD> list = Helper.doGetListTransactions(apiClient.getUserStatisticService(), "000000000");
-                Log.d(TAG, "onClick: " + list);
-            }
+            List<ThongKeGD> list = Helper.doGetListTransactions(apiClient.getUserStatisticService(), "000000000");
+            Log.d(TAG, "onClick: " + list);
         });
     }
 }

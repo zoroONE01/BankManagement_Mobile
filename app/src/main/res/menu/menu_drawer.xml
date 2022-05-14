@@ -5,6 +5,10 @@
         android:orderInCategory="1"
         android:title="@string/action_show_home" />
     <item
+        android:id="@+id/action_trans_history"
+        android:orderInCategory="1"
+        android:title="Lịch sử giao dịch" />
+    <item
         android:id="@+id/action_recharge"
         android:orderInCategory="1"
         android:title="@string/action_recharge" />

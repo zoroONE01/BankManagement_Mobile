@@ -1,8 +1,11 @@
 package vn.edu.ptithcm.bankmanagement.ui.home;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,6 +37,9 @@ import vn.edu.ptithcm.bankmanagement.api.UserStatisticService;
 import vn.edu.ptithcm.bankmanagement.data.model.KhachHang;
 import vn.edu.ptithcm.bankmanagement.data.model.TaiKhoan;
 import vn.edu.ptithcm.bankmanagement.data.model.ThongKeGD;
+import vn.edu.ptithcm.bankmanagement.ui.depositwithdraw.DepositWithdrawActivity;
+import vn.edu.ptithcm.bankmanagement.ui.moneytransfer.TransferActivity;
+import vn.edu.ptithcm.bankmanagement.ui.transactionhistory.ActivityTransactionHistory;
 import vn.edu.ptithcm.bankmanagement.utility.Helper;
 import vn.edu.ptithcm.bankmanagement.utility.Image;
 import vn.edu.ptithcm.bankmanagement.utility.Utility;
@@ -85,22 +91,32 @@ public class HomeActivity extends AppCompatActivity {
 
         nvNav.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
+                    @SuppressLint("NonConstantResourceId")
                     @Override
-                    public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        // set item as selected to persist highlight
-                        menuItem.setChecked(true);
+                    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                        menuItem.setChecked(!menuItem.isChecked());
+
                         // close drawer when item is tapped
                         dlDrawer.closeDrawers();
 
-                        // Add code here to update the UI based on the item selected
-                        // For example, swap UI fragments here
-
+                        Intent intent;
+                        switch (menuItem.getItemId()) {
+                            case R.id.action_show_home:
+                                // TODO: show home?
+                                break;
+                            case R.id.action_trans_history:
+                                intent = new Intent(HomeActivity.this, ActivityTransactionHistory.class);
+                                startActivity(intent);
+                                break;
+                            case R.id.action_recharge:
+                                intent = new Intent(HomeActivity.this, DepositWithdrawActivity.class);
+                                startActivity(intent);
+                                break;
+                        }
                         return true;
                     }
                 });
-        bOpenDrawer.setOnClickListener(v ->
-                dlDrawer.openDrawer(nvNav)
-        );
+        bOpenDrawer.setOnClickListener(v -> dlDrawer.openDrawer(nvNav));
 
         recentTransactionAdapter = new RecentTransactionAdapter(transactions);
         rvRecentTransaction.setLayoutManager(new LinearLayoutManager(this));
@@ -110,7 +126,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     void loadCustomer(String cmnd) {
-        Log.d("-----customer", "cmnd: " + cmnd);
+        Log.d(TAG, "cmnd: " + cmnd);
         if (Utility.COOKIE.isEmpty()) {
             Toast.makeText(this, "Error: no session id", Toast.LENGTH_SHORT).show();
             return;
@@ -125,15 +141,14 @@ public class HomeActivity extends AppCompatActivity {
 
                     tvUserCardName.setText(String.valueOf(user.getHo() + " " + user.getTen()));
                     tvUserCardDesc.setText(String.valueOf("account ending with " + user.getCmnd().substring(user.getCmnd().length() - 4, user.getCmnd().length())));
-
                 } else {
-                    Log.d("-----customer", "get customer response body fail");
+                    Log.d(TAG, "get customer response body fail");
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<KhachHang> call, Throwable t) {
-                Log.d("-----customer", "Failure " + t.getMessage());
+                Log.d(TAG, "Failure " + t.getMessage());
             }
         });
     }
