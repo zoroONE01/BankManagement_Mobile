@@ -21,12 +21,12 @@ public class KhachHang {
     String phai;
 
     @SerializedName("ngayCap")
-    Timestamp ngayCap;
+    Long ngayCap;
 
     @SerializedName("soDT")
     String sdt;
 
-    public KhachHang(String cmnd, String ho, String ten, String diachi, String phai, Timestamp ngayCap, String sdt) {
+    public KhachHang(String cmnd, String ho, String ten, String diachi, String phai, Long ngayCap, String sdt) {
         this.cmnd = cmnd;
         this.ho = ho;
         this.ten = ten;
@@ -34,14 +34,6 @@ public class KhachHang {
         this.phai = phai;
         this.ngayCap = ngayCap;
         this.sdt = sdt;
-    }
-
-    public Timestamp getNgayCap() {
-        return ngayCap;
-    }
-
-    public void setNgayCap(Timestamp ngayCap) {
-        this.ngayCap = ngayCap;
     }
 
     public String getCmnd() {
@@ -82,6 +74,14 @@ public class KhachHang {
 
     public void setPhai(String phai) {
         this.phai = phai;
+    }
+
+    public Long getNgayCap() {
+        return ngayCap;
+    }
+
+    public void setNgayCap(Long ngayCap) {
+        this.ngayCap = ngayCap;
     }
 
     public String getSdt() {

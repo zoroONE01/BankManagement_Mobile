@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_show_home"
+        android:orderInCategory="1"
+        android:title="@string/action_show_home" />
+    <item
+        android:id="@+id/action_recharge"
+        android:orderInCategory="1"
+        android:title="@string/action_recharge" />
+    <item
+        android:id="@+id/action_withdraw"
+        android:orderInCategory="1"
+        android:title="@string/action_withdraw" />
+    <item
+        android:id="@+id/action_tranfer"
+        android:orderInCategory="1"
+        android:title="@string/action_tranfer" />
+</menu>
