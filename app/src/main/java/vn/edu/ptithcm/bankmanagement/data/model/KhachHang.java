@@ -2,8 +2,6 @@ package vn.edu.ptithcm.bankmanagement.data.model;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.security.Timestamp;
-
 public class KhachHang {
     @SerializedName("cmnd")
     String cmnd;
@@ -90,5 +88,18 @@ public class KhachHang {
 
     public void setSdt(String sdt) {
         this.sdt = sdt;
+    }
+
+    @Override
+    public String toString() {
+        return "KhachHang{" +
+                "cmnd='" + cmnd + '\'' +
+                ", ho='" + ho + '\'' +
+                ", ten='" + ten + '\'' +
+                ", diachi='" + diachi + '\'' +
+                ", phai='" + phai + '\'' +
+                ", ngayCap=" + ngayCap +
+                ", sdt='" + sdt + '\'' +
+                '}';
     }
 }

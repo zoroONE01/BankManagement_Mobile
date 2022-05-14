@@ -9,7 +9,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -20,8 +20,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import vn.edu.ptithcm.bankmanagement.api.MoneyTransferService;
+import vn.edu.ptithcm.bankmanagement.api.UserInfoService;
 import vn.edu.ptithcm.bankmanagement.api.UserService;
 import vn.edu.ptithcm.bankmanagement.api.UserStatisticService;
+import vn.edu.ptithcm.bankmanagement.data.model.KhachHang;
 import vn.edu.ptithcm.bankmanagement.data.model.TaiKhoan;
 import vn.edu.ptithcm.bankmanagement.data.model.ThongKeGD;
 
@@ -113,7 +115,7 @@ public class Helper {
     public static List<ThongKeGD> doGetListTransactions(UserStatisticService userStatisticService, String stk) {
         List<ThongKeGD> list = new ArrayList<>();
 
-        Call<JsonArray> call = userStatisticService.getStat(Utility.COOKIE, stk, "2011-1-1", "2031-1-1");
+        Call<JsonArray> call = userStatisticService.getTransactionHistory(Utility.COOKIE, stk, "2011-1-1", "2031-1-1");
 
         call.enqueue(new Callback<JsonArray>() {
             @Override
@@ -126,7 +128,9 @@ public class Helper {
                     for (JsonElement ele : array) {
                         JsonObject e = ele.getAsJsonObject();
                         Log.d(TAG, "tk: " + e.toString());
-                        ThongKeGD tk = new ThongKeGD(e.get("balanceBefore").getAsDouble(),
+
+                        ThongKeGD tk = new ThongKeGD(
+                                e.get("balanceBefore").getAsDouble(),
                                 e.get("ngayGD").getAsLong(),
                                 e.get("loaiGD").getAsString(),
                                 e.get("soTien").getAsDouble(),
@@ -159,14 +163,55 @@ public class Helper {
         return list;
     }
 
-    public static String showGia(Double gia) {
-        return String.format(Locale.CHINESE, "%,.0fđ", gia);
-    }
+    public static List<ThongKeGD> doGetListTransactions(UserStatisticService userStatisticService, String stk, String date1, String date2) {
+        List<ThongKeGD> list = new ArrayList<>();
 
-    public static String getNgayFromEpoch(long epoch) {
-        Date date = new Date(epoch);
+        Call<JsonArray> call = userStatisticService.getTransactionHistory(Utility.COOKIE, stk, date1, date2);
 
-        return Utility.DATE_FORMAT.format(date);
+        call.enqueue(new Callback<JsonArray>() {
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) {
+                if (response.isSuccessful()) {
+                    Log.d(TAG, "list transaction Response: " + (response.body() != null ? response.body().toString() : "list transaction response ok"));
+
+                    JsonArray array = (JsonArray) response.body();
+
+                    for (JsonElement ele : array) {
+                        JsonObject e = ele.getAsJsonObject();
+                        Log.d(TAG, "tk: " + e.toString());
+
+                        ThongKeGD tk = new ThongKeGD(
+                                e.get("balanceBefore").getAsDouble(),
+                                e.get("ngayGD").getAsLong(),
+                                e.get("loaiGD").getAsString(),
+                                e.get("soTien").getAsDouble(),
+                                e.get("balanceAfter").getAsDouble());
+                        list.add(tk);
+                    }
+                } else if (response.code() == HttpsURLConnection.HTTP_UNAUTHORIZED) {
+                    // Handle unauthorized
+                    // TODO go back to login
+                    Log.d(TAG, "list transaction 401");
+                } else {
+                    try {
+                        if (response.errorBody() == null) {
+                            Log.d(TAG, "list transaction Error. No message");
+                        } else if (response.errorBody().string().contains("FOREIGN")) {
+                            Log.d(TAG, "list transaction k ton tai");
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull Throwable t) {
+                Log.d(TAG, "list tk Failure");
+                t.printStackTrace();
+            }
+        });
+        return list;
     }
 
     public void doTransfer(MoneyTransferService transferService, String id, String amount, String otherId) {
@@ -214,5 +259,83 @@ public class Helper {
                 Log.d(TAG, "Transfer Failure");
             }
         });
+    }
+
+    public static void doGetUserData(UserInfoService userInfoService, String cmnd) {
+        Call<JsonObject> call = userInfoService.getInfo(Utility.COOKIE, cmnd);
+
+        call.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) {
+                if (response.isSuccessful()) {
+                    Log.d(TAG, "user data Response: " + response.body().toString());
+                    getKhachHangFromResponse(response);
+                } else {
+                    Log.d(TAG, "user data Error" + response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull Throwable t) {
+                Log.d(TAG, "Login Failure");
+                t.printStackTrace();
+            }
+        });
+    }
+
+    public static KhachHang getKhachHangFromResponse(Response<JsonObject> response) {
+        JsonObject object = (JsonObject) response.body();
+
+        return new KhachHang(object.get("cmnd").getAsString(),
+                object.get("ho").getAsString(),
+                object.get("ten").getAsString(),
+                object.get("diaChi").getAsString(),
+                object.get("phai").getAsString(),
+                object.get("ngayCap").getAsLong(),
+                object.get("sdt").getAsString());
+    }
+
+    public static String showGia(Double gia) {
+        return String.format(Locale.CHINESE, "%,.0f", gia);
+    }
+
+    public static double getTongTienGiaoDich(List<ThongKeGD> data) {
+        double result = 0;
+        for (ThongKeGD gd : data) {
+            result += gd.getSoTien();
+        }
+        return result;
+    }
+
+    public static String getNgayFromEpoch(long epoch) {
+        Calendar c = Calendar.getInstance();
+        c.setTimeInMillis(epoch);
+
+        return Utility.DATE_TIME_FORMAT.format(c.getTime());
+    }
+
+    public static String getDateString() {
+        return Utility.API_DATE_FORMAT.format(Calendar.getInstance().getTime());
+    }
+
+    public static String getDateStringOneDayEarlier() {
+        Calendar c = Calendar.getInstance();
+        c.add(Calendar.DATE, -1);
+
+        return Utility.API_DATE_FORMAT.format(c.getTime());
+    }
+
+    public static String getDateStringOneWeekEarlier() {
+        Calendar c = Calendar.getInstance();
+        c.add(Calendar.DATE, -7);
+
+        return Utility.API_DATE_FORMAT.format(c.getTime());
+    }
+
+    public static String getDateStringOneMonthEarlier() {
+        Calendar c = Calendar.getInstance();
+        c.add(Calendar.MONTH, -1);
+
+        return Utility.API_DATE_FORMAT.format(c.getTime());
     }
 }

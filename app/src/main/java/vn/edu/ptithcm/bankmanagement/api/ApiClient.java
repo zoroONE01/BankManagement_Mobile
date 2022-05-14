@@ -27,7 +27,6 @@ public class ApiClient {
         return retrofit.create(MoneyTransferService.class);
     }
 
-
     public LoadImageService getImageService() {
         return retrofit.create(LoadImageService.class);
     }
@@ -40,4 +39,7 @@ public class ApiClient {
         return retrofit.create(LoginService.class);
     }
 
+    public UserInfoService getUserInfoService() {
+        return retrofit.create(UserInfoService.class);
+    }
 }
