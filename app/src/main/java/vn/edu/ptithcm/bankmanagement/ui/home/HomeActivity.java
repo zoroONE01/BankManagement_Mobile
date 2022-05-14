@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.navigation.NavigationView;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,6 +54,7 @@ public class HomeActivity extends AppCompatActivity {
         nvNav = findViewById(R.id.nv_nav_view);
         bOpenDrawer = findViewById(R.id.b_menu);
         bOpenProfile = findViewById(R.id.action_show_more);
+
         nvNav.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
@@ -73,18 +75,19 @@ public class HomeActivity extends AppCompatActivity {
         );
 //        tvUserCardName.setText(String.valueOf(user.getHo() + " " + user.getTen()));
 //        tvUserCardDesc.setText(String.valueOf("account ending with " + user.getCmnd().substring(user.getCmnd().length() - 4, user.getCmnd().length())));
-        transactions = new ArrayList<>();
+        fakeData();
         recentTransactionAdapter = new RecentTransactionAdapter(transactions);
         rvRecentTransaction.setLayoutManager(new LinearLayoutManager(this));
         rvRecentTransaction.setAdapter(recentTransactionAdapter);
     }
 
-//    public void fakeData(){
-//        user = new KhachHang("123123123", "Bùi Minh", "Tơ", "Thủ Đức, TP. Hồ Chí Minh", "nam", 0L, "0929123123");
-//        transactions = new ArrayList<>();
-//        for (int i = 0; i < 10; i++) {
-//            ThongKeGD transaction = new ThongKeGD(0L, 0L, "", 1000L, 1000L);
-//            transactions.add(transaction);
-//        }
-//    }
+
+    public void fakeData(){
+        user = new KhachHang("123123123", "Bùi Minh", "Tơ", "Thủ Đức, TP. Hồ Chí Minh", "nam", new Timestamp(0L), "0929123123");
+        transactions = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            ThongKeGD transaction = new ThongKeGD(0d, 1353453l, "thien muon 5 chuc", 1000d, 1000d);
+            transactions.add(transaction);
+        }
+    }
 }

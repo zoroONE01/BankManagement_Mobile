@@ -9,7 +9,7 @@ import retrofit2.http.Query;
 
 public interface UserStatisticService {
     @GET("api-bank-account-statement")
-    Call<JsonArray> getStat(@Header("Cookie") String sessionId, @Query("soTK") String sotk, @Query("tuNgay") String ngay1, @Query("denNgay") String ngay2);
+    Call<JsonArray> getTransactionHistory(@Header("Cookie") String sessionId, @Query("soTK") String sotk, @Query("tuNgay") String ngay1, @Query("denNgay") String ngay2);
 
     @GET("api-tk")
     Call<JsonArray> getAllTk(@Header("Cookie") String sessionId, @Query("cmnd") String cmnd);

@@ -1,32 +1,40 @@
 package vn.edu.ptithcm.bankmanagement.data.model;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
 
 public class KhachHang {
     @SerializedName("cmnd")
+    @Expose
     String cmnd;
 
     @SerializedName("ho")
+    @Expose
     String ho;
 
     @SerializedName("ten")
+    @Expose
     String ten;
 
     @SerializedName("diaChi")
+    @Expose
     String diachi;
 
     @SerializedName("phai")
+    @Expose
     String phai;
 
     @SerializedName("ngayCap")
-    Long ngayCap;
+    @Expose
+    Timestamp ngayCap;
 
     @SerializedName("soDT")
+    @Expose
     String sdt;
 
-    public KhachHang(String cmnd, String ho, String ten, String diachi, String phai, Long ngayCap, String sdt) {
+    public KhachHang(String cmnd, String ho, String ten, String diachi, String phai, Timestamp ngayCap, String sdt) {
         this.cmnd = cmnd;
         this.ho = ho;
         this.ten = ten;
@@ -76,11 +84,11 @@ public class KhachHang {
         this.phai = phai;
     }
 
-    public Long getNgayCap() {
+    public Timestamp getNgayCap() {
         return ngayCap;
     }
 
-    public void setNgayCap(Long ngayCap) {
+    public void setNgayCap(Timestamp ngayCap) {
         this.ngayCap = ngayCap;
     }
 
@@ -90,5 +98,18 @@ public class KhachHang {
 
     public void setSdt(String sdt) {
         this.sdt = sdt;
+    }
+
+    @Override
+    public String toString() {
+        return "KhachHang{" +
+                "cmnd='" + cmnd + '\'' +
+                ", ho='" + ho + '\'' +
+                ", ten='" + ten + '\'' +
+                ", diachi='" + diachi + '\'' +
+                ", phai='" + phai + '\'' +
+                ", ngayCap=" + ngayCap +
+                ", sdt='" + sdt + '\'' +
+                '}';
     }
 }

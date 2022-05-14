@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.customer.CustomerFormActivity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:isScrollContainer="true">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/avatar"
+            android:layout_width="190dp"
+            android:layout_height="190dp" />
+
+        <Button
+            android:id="@+id/buttonLoadPicture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onLoadPicture"
+            android:text="Tải ảnh lên" />
+
+
+        <TextView
+            android:id="@+id/cmnd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="CMND"/>
+
+        <EditText
+            android:id="@+id/ho"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Họ" />
+
+        <EditText
+            android:id="@+id/ten"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Tên"/>
+
+        <EditText
+            android:id="@+id/diaChi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Địa chỉ" />
+        <Spinner
+            android:id="@+id/phai"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/phai" />
+        <DatePicker
+            android:id="@+id/ngayCap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Ngày cấp"
+            android:datePickerMode="spinner"
+            android:calendarViewShown="false" />
+        <EditText
+            android:id="@+id/sdt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Số điện thoại" />
+
+
+        <Button
+            android:id="@+id/btnUpdate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onClickUpdate"
+            android:text="Cập nhật" />
+
+    </LinearLayout>
+</ScrollView>

@@ -18,9 +18,9 @@ import java.util.List;
 
 import vn.edu.ptithcm.bankmanagement.R;
 import vn.edu.ptithcm.bankmanagement.data.model.ThongKeGD;
+import vn.edu.ptithcm.bankmanagement.utility.Helper;
 
 public class RecentTransactionAdapter extends RecyclerView.Adapter<RecentTransactionViewHolder> {
-
     private List<ThongKeGD> items;
     private Context context;
 
@@ -45,9 +45,12 @@ public class RecentTransactionAdapter extends RecyclerView.Adapter<RecentTransac
         TextView tvTransactionValue = holder.tvTransactionValue;
         TextView tvTransactionTitle = holder.tvTransactionTitle;
 
-        tvTransactionTitle.setText(items.get(position).getLoaiGD());
-        tvTransactionValue.setText(String.valueOf(items.get(position).getSoTien())); //Todo: format lại tiền dùm e
-        tvTransactionTime.setText(""); //Todo: ngay giao dich
+        ThongKeGD tk = items.get(position);
+
+        tvTransactionTitle.setText(tk.getLoaiGD());
+        tvTransactionValue.setText(String.valueOf(Helper.showGia(tk.getSoTien()) + "đ"));
+        tvTransactionTime.setText(Helper.getNgayFromEpoch(tk.getNgayGD()));
+
         switch (items.get(position).getLoaiGD()){
             case "Chuyển tiền":
                 isUserImage.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_tranfer));

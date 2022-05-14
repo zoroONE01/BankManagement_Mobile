@@ -83,4 +83,8 @@
     <string name="action_tranfer">Chuyển Tiền</string>
     <string name="trans_history">Lịch sử giao dịch</string>
 
+    <string-array name="phai">
+        <item>Nam</item>
+        <item>Nữ</item>
+    </string-array>
 </resources>
