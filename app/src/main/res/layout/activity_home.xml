@@ -11,11 +11,11 @@
         android:layout_height="match_parent">
 
         <androidx.appcompat.widget.AppCompatImageButton
-            android:layout_marginTop="@dimen/_20dp"
             android:id="@+id/b_menu"
             android:layout_width="@dimen/_47dp"
             android:layout_height="@dimen/_47dp"
             android:layout_marginStart="@dimen/_40dp"
+            android:layout_marginTop="@dimen/_20dp"
             android:background="@drawable/selector_button_small_white"
             android:elevation="@dimen/_40dp"
             android:src="@drawable/ic_menu"
@@ -57,7 +57,7 @@
                 android:layout_marginHorizontal="@dimen/_20dp"
                 android:layout_marginTop="@dimen/_40dp"
                 android:fontFamily="@font/pacifico"
-                android:text="@string/bui_minh_to"
+                android:text=""
                 android:textAlignment="center"
                 android:textColor="@color/black_700"
                 android:textSize="@dimen/_26sp" />
@@ -69,7 +69,7 @@
                 android:layout_marginHorizontal="@dimen/_20dp"
                 android:layout_marginBottom="@dimen/_24dp"
                 android:fontFamily="@font/inter_medium"
-                android:text="@string/tv_user_card_desc"
+                android:text=""
                 android:textAlignment="center"
                 android:textColor="@color/black_500"
                 android:textSize="@dimen/_16sp" />
@@ -90,8 +90,7 @@
                 android:id="@+id/iv_user_avatar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:contentDescription="@string/iv_user_avatar"
-                android:src="@drawable/avatar" />
+                android:contentDescription="@string/iv_user_avatar" />
         </androidx.cardview.widget.CardView>
 
         <androidx.appcompat.widget.AppCompatImageButton
@@ -167,12 +166,12 @@
 
 
         <androidx.cardview.widget.CardView
-            android:layout_marginTop="@dimen/_35dp"
-            android:layout_marginStart="@dimen/_40dp"
-            android:layout_marginEnd="@dimen/_5dp"
             android:id="@+id/cv_balance_value"
             android:layout_width="0dp"
             android:layout_height="@dimen/_65dp"
+            android:layout_marginStart="@dimen/_40dp"
+            android:layout_marginTop="@dimen/_35dp"
+            android:layout_marginEnd="@dimen/_5dp"
             app:cardBackgroundColor="@color/purple_500"
             app:cardCornerRadius="@dimen/_8dp"
             app:cardElevation="@dimen/_40dp"
@@ -189,33 +188,33 @@
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_medium"
                     android:text="@string/so_du"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/_14sp"
-                    android:fontFamily="@font/inter_medium"/>
+                    android:textSize="@dimen/_14sp" />
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:textSize="@dimen/_18sp"
-                    android:fontFamily="@font/poppins_semibold"
-                    android:textColor="@color/white"
                     android:id="@+id/tv_balance_value"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/_10_000_000" />
+                    android:fontFamily="@font/poppins_semibold"
+                    android:text=""
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_18sp" />
             </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:layout_marginStart="@dimen/_5dp"
-            android:layout_marginEnd="@dimen/_40dp"
             android:id="@+id/cv_tranfer_value"
             android:layout_width="0dp"
             android:layout_height="@dimen/_65dp"
+            android:layout_marginStart="@dimen/_5dp"
+            android:layout_marginEnd="@dimen/_40dp"
             app:cardBackgroundColor="@color/purple_700"
             app:cardCornerRadius="@dimen/_8dp"
             app:cardElevation="@dimen/_40dp"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="@id/cv_balance_value"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/cv_balance_value"
             app:layout_constraintTop_toTopOf="@id/cv_balance_value">
 
@@ -228,19 +227,19 @@
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_medium"
                     android:text="@string/giao_dich"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/_14sp"
-                    android:fontFamily="@font/inter_medium"/>
+                    android:textSize="@dimen/_14sp" />
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:textSize="@dimen/_18sp"
-                    android:fontFamily="@font/poppins_semibold"
-                    android:textColor="@color/white"
                     android:id="@+id/tv_tranfer_value"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/_10_000_000" />
+                    android:fontFamily="@font/poppins_semibold"
+                    android:text=""
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_18sp" />
             </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.cardview.widget.CardView>
 
@@ -248,30 +247,31 @@
             android:id="@+id/tv_recent_transaction"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/recent_transaction"
+            android:layout_marginStart="@dimen/_40dp"
             android:layout_marginTop="@dimen/_10dp"
             android:fontFamily="@font/pacifico"
+            android:text="@string/recent_transaction"
             android:textColor="@color/black_700"
             android:textSize="@dimen/_24sp"
-            android:layout_marginStart="@dimen/_40dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cv_balance_value" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_recent_transaction"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_0dp"
-            android:id="@+id/rv_recent_transaction"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_recent_transaction" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-        <com.google.android.material.navigation.NavigationView
-            android:paddingHorizontal="@dimen/_20dp"
-            android:id="@+id/nv_nav_view"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            app:headerLayout="@layout/drawer_header"
-            app:menu="@menu/menu_drawer" />
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nv_nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:paddingHorizontal="@dimen/_20dp"
+        app:headerLayout="@layout/drawer_header"
+        app:menu="@menu/menu_drawer" />
 </androidx.drawerlayout.widget.DrawerLayout>

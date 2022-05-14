@@ -58,7 +58,7 @@ public class ActivityTransactionHistory extends AppCompatActivity {
 
         // get tk list
         if (Utility.LIST_TK.isEmpty()) {
-            Utility.LIST_TK.addAll(doGetAllTk(userStatisticService, Utility.USER_CMND));
+            Utility.LIST_TK.addAll(doGetAllTk(userStatisticService, Utility.USER.getKhachHangID()));
         }
     }
 

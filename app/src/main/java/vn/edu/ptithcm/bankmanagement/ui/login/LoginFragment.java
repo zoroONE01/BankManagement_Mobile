@@ -24,6 +24,7 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import vn.edu.ptithcm.bankmanagement.R;
 import vn.edu.ptithcm.bankmanagement.databinding.FragmentLoginBinding;
+import vn.edu.ptithcm.bankmanagement.ui.home.HomeActivity;
 import vn.edu.ptithcm.bankmanagement.ui.profile.ProfileActivity;
 
 public class LoginFragment extends Fragment {
@@ -139,7 +140,7 @@ public class LoginFragment extends Fragment {
         // TODO : initiate successful logged in experience
         if (getContext() != null && getContext().getApplicationContext() != null) {
             Toast.makeText(getContext().getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
-            Intent i = new Intent(getActivity(), ProfileActivity.class);
+            Intent i = new Intent(getActivity(), HomeActivity.class);
             getActivity().startActivity(i);
         }
     }
