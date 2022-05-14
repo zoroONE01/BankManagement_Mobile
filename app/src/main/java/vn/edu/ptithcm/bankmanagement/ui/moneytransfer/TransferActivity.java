@@ -41,7 +41,7 @@ public class TransferActivity extends AppCompatActivity {
         transferService = apiClient.getMoneyTransferService();
         userStatisticService = apiClient.getUserStatisticService();
 
-        soTk = findViewById(R.id.fieldStk);
+//        soTk = findViewById(R.id.fieldStk);
         soTien = findViewById(R.id.fieldAmount);
         btn = findViewById(R.id.btnTransfer);
 

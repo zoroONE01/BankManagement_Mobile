@@ -16,4 +16,8 @@
         android:id="@+id/action_tranfer"
         android:orderInCategory="1"
         android:title="@string/action_tranfer" />
+    <item
+        android:id="@+id/action_statistic"
+        android:orderInCategory="1"
+        android:title="Thống Kê" />
 </menu>

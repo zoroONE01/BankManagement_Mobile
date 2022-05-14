@@ -1,5 +1,6 @@
 package vn.edu.ptithcm.bankmanagement.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -34,6 +35,7 @@ import vn.edu.ptithcm.bankmanagement.api.UserStatisticService;
 import vn.edu.ptithcm.bankmanagement.data.model.KhachHang;
 import vn.edu.ptithcm.bankmanagement.data.model.TaiKhoan;
 import vn.edu.ptithcm.bankmanagement.data.model.ThongKeGD;
+import vn.edu.ptithcm.bankmanagement.ui.statistic.StatisticActivity;
 import vn.edu.ptithcm.bankmanagement.utility.Helper;
 import vn.edu.ptithcm.bankmanagement.utility.Image;
 import vn.edu.ptithcm.bankmanagement.utility.Utility;
@@ -94,6 +96,13 @@ public class HomeActivity extends AppCompatActivity {
 
                         // Add code here to update the UI based on the item selected
                         // For example, swap UI fragments here
+                        Intent i;
+                        switch (menuItem.getItemId()) {
+                            case R.id.action_statistic:
+                                i = new Intent(HomeActivity.this, StatisticActivity.class);
+                                startActivity(i);
+                                break;
+                        }
 
                         return true;
                     }
