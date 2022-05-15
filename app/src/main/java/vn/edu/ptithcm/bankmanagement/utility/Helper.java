@@ -21,7 +21,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import vn.edu.ptithcm.bankmanagement.api.MoneyTransferService;
 import vn.edu.ptithcm.bankmanagement.api.ProfileService;
-import vn.edu.ptithcm.bankmanagement.api.UserInfoService;
 import vn.edu.ptithcm.bankmanagement.api.UserService;
 import vn.edu.ptithcm.bankmanagement.api.UserStatisticService;
 import vn.edu.ptithcm.bankmanagement.data.model.KhachHang;

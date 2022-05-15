@@ -62,7 +62,7 @@ public class RecentTransactionAdapter extends RecyclerView.Adapter<RecentTransac
                 isUserImage.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_withdraw));
                 break;
         }
-//        holder.itemView.setOnClickListener(view -> { //Todo: click vào chuyển qua chi tiết giao dịch
+//        holder.itemView.setOnClickListener(view -> {
 //        });
     }
 

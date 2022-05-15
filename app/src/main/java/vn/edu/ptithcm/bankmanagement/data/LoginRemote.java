@@ -40,8 +40,6 @@ public class LoginRemote {
     public void login(String username, String password, OnCompleteCallBack<LoggedInUser> onCompleteCallBack) {
         try {
             LoginRequest loginRequest = new LoginRequest(username, password);
-
-            // TODO: handle loggedInUser authentication
             loginService.login(Utility.COOKIE, loginRequest).enqueue(new Callback<LoggedInUser>() {
 
                 @Override
