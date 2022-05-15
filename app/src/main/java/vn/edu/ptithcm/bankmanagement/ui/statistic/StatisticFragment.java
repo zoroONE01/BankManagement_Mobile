@@ -45,6 +45,7 @@ public class StatisticFragment extends Fragment {
 
     LineChart chart;
     int mode;
+    int colorChart = Color.rgb(90, 117, 255);
 
     public StatisticFragment(int mode) {
         this.mode = mode;
@@ -56,6 +57,7 @@ public class StatisticFragment extends Fragment {
 
         // no description text
         chart.getDescription().setEnabled(false);
+
 
         // chart.setDrawHorizontalGrid(false);
         //
@@ -73,7 +75,7 @@ public class StatisticFragment extends Fragment {
         // if disabled, scaling can be done on x- and y-axis separately
         chart.setPinchZoom(false);
 
-        chart.setBackgroundColor(color);
+        chart.setBackgroundColor(Color.WHITE);
 
         // set custom chart offsets (automatic offset calculation is hereby disabled)
         chart.setViewPortOffsets(10, 0, 10, 0);
@@ -106,16 +108,17 @@ public class StatisticFragment extends Fragment {
 
         // create a dataset and give it a type
         LineDataSet set1 = new LineDataSet(values, "DataSet 1");
-        // set1.setFillAlpha(110);
-        // set1.setFillColor(Color.RED);
+         set1.setFillAlpha(110);
+         set1.setFillColor(colorChart);
 
         set1.setLineWidth(1.75f);
         set1.setCircleRadius(5f);
         set1.setCircleHoleRadius(2.5f);
-        set1.setColor(Color.WHITE);
+        set1.setColor(colorChart);
         set1.setCircleColor(Color.WHITE);
-        set1.setHighLightColor(Color.WHITE);
+        set1.setHighLightColor(colorChart);
         set1.setDrawValues(true);
+        set1.setDrawFilled(true);
 
         // create a data object with the data sets
         return new LineData(set1);
@@ -168,7 +171,7 @@ public class StatisticFragment extends Fragment {
 
                     LineData data = getData(list);
                     // add some transparency to the color with "& 0x90FFFFFF"
-                    setupChart(chart, data, Color.rgb(137, 230, 81));
+                    setupChart(chart, data, colorChart);
                 } else if (response.code() == HttpsURLConnection.HTTP_UNAUTHORIZED) {
                     // Handle unauthorized
                     // TODO go back to login

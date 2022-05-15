@@ -270,4 +270,21 @@ public class ProfileActivity extends AppCompatActivity {
         loadCustomer(Utility.USER.getKhachHangID());
         Image.doLoadImage(imageService, Utility.USER.getImageUrl(), avatar);
     }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 1) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                isChangeAvatar = true;
+                Intent i = new Intent(
+                        Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                setResult(Activity.RESULT_OK, i);
+                //alter start activity for result
+                someActivityResultLauncher.launch(i);
+            } else {
+                Toast.makeText(getApplicationContext(), "Permission Denied", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
 }

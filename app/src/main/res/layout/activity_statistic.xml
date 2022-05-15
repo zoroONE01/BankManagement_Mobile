@@ -7,6 +7,24 @@
     android:layout_height="match_parent"
     tools:context=".ui.statistic.StatisticActivity"
     android:orientation="vertical">
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/b_menu"
+        android:layout_width="@dimen/_47dp"
+        android:layout_height="@dimen/_47dp"
+        android:layout_marginStart="@dimen/_40dp"
+        android:layout_marginTop="@dimen/_20dp"
+        android:background="@drawable/selector_button_small_white"
+        android:elevation="@dimen/_40dp"
+        android:src="@drawable/ic_back" />
+    <TextView
+        android:layout_marginTop="@dimen/_10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_40dp"
+        android:fontFamily="@font/pacifico"
+        android:text="Biến động số dư"
+        android:textColor="@color/black_700"
+        android:textSize="@dimen/_37sp" />
     <com.google.android.material.tabs.TabLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -14,6 +32,7 @@
     <androidx.viewpager2.widget.ViewPager2
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="@dimen/_8dp"
         android:id="@+id/pager" />
 
 </LinearLayout>
