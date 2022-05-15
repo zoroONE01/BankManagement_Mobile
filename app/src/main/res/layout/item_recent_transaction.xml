@@ -17,6 +17,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
+            android:padding="@dimen/_10dp"
             android:src="@drawable/ic_tranfer"
             android:id="@+id/iv_item_recent_transaction_img"
             android:layout_width="match_parent"

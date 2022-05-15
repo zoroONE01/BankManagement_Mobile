@@ -270,8 +270,25 @@
         android:id="@+id/nv_nav_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_gravity="start"
         android:paddingHorizontal="@dimen/_20dp"
+        android:layout_gravity="start"
         app:headerLayout="@layout/drawer_header"
-        app:menu="@menu/menu_drawer" />
+        app:menu="@menu/menu_drawer">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/b_logout"
+            style="@style/style_button_switch_mode_authentication"
+            android:layout_width="@dimen/_120dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|bottom"
+            android:layout_marginStart="@dimen/_24dp"
+            android:layout_marginBottom="@dimen/_40dp"
+            android:drawableEnd="@drawable/img_arrow_right_small"
+            android:text="@string/dang_xuat"
+            android:textAlignment="textStart" />
+    </com.google.android.material.navigation.NavigationView>
 </androidx.drawerlayout.widget.DrawerLayout>

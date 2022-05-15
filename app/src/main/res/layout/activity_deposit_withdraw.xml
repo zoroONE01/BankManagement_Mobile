@@ -4,75 +4,106 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.depositwithdraw.DepositWithdrawActivity">
+    android:background="@color/white"
+    tools:context=".ui.moneytransfer.TransferActivity">
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <TextView
         android:id="@+id/title"
-        style="@style/style_tilte_dang_ky_dang_nhap"
+        android:layout_marginStart="@dimen/_40dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/manageBalance"
-        app:layout_constraintBottom_toTopOf="@id/fieldAmount"
+        android:fontFamily="@font/pacifico"
+        android:text="@string/chuyen_tien"
+        android:textColor="@color/black_700"
+        android:textSize="@dimen/_37sp"
+        app:layout_constraintBottom_toTopOf="@+id/cl_transaction_value"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.2"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintTop_toBottomOf="@+id/b_menu" />
 
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/fieldAmount"
-        style="@style/style_text_ipnut"
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:layout_marginTop="@dimen/_20dp"
+        android:id="@+id/b_menu"
+        android:layout_width="@dimen/_47dp"
+        android:layout_height="@dimen/_47dp"
+        android:layout_marginStart="@dimen/_40dp"
+        android:background="@drawable/selector_button_small_white"
+        android:elevation="@dimen/_40dp"
+        android:src="@drawable/ic_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        app:layout_constraintVertical_bias="0.4"
+        app:layout_constraintVertical_chainStyle="packed"
+        android:id="@+id/cl_transaction_value"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_54dp"
-        android:layout_marginTop="@dimen/_10dp"
-        android:hint="@string/soTien"
-        android:inputType="number"
-        android:paddingHorizontal="@dimen/_20dp"
-        app:layout_constraintBottom_toTopOf="@id/btnTransfer"
+        android:layout_height="@dimen/_243dp"
+        android:layout_marginHorizontal="@dimen/_40dp"
+        android:background="@drawable/card_user"
+        android:gravity="center"
+        app:layout_constraintBottom_toTopOf="@+id/b_confirm_transaction"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title" />
+        app:layout_constraintTop_toTopOf="parent">
 
-
-    <RadioGroup
-        android:id="@+id/radioGroup"
-        android:layout_width="fill_parent"
-        android:layout_height="60dp"
-        android:layout_marginTop="@dimen/_10dp"
-        android:orientation="horizontal"
-        android:weightSum="1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fieldAmount">
-
-        <RadioButton
-            android:id="@+id/radioGT"
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/lb_transaction_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:checked="true"
-            android:text="Nạp tiền"
-            android:textSize="25dp" />
+            android:fontFamily="@font/inter_medium"
+            android:text="@string/so_tien_giao_dich"
+            android:textColor="@color/black_500"
+            android:textSize="@dimen/_16sp"
+            app:layout_constraintBottom_toTopOf="@id/et_transaction_value"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
 
-        <RadioButton
-            android:id="@+id/radioRT"
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/et_transaction_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginStart="@dimen/_20dp"
-            android:checked="false"
-            android:text="Rút tiền"
-            android:textSize="25dp" />
+            android:fontFamily="@font/pacifico"
+            android:hint="@string/_0"
+            android:inputType="number"
+            android:maxWidth="@dimen/_222dp"
+            android:paddingHorizontal="@dimen/_10dp"
+            android:textAlignment="center"
+            android:textColor="@color/black_500"
+            android:textSize="@dimen/_60sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/lb_transaction_value"
+            app:layout_constraintStart_toStartOf="@+id/lb_transaction_value"
+            app:layout_constraintTop_toBottomOf="@+id/lb_transaction_value" />
 
-    </RadioGroup>
+        <TextView
+            android:layout_width="@dimen/_50dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/pacifico"
+            android:text="@string/_d"
+            android:textColor="@color/black_500"
+            android:textSize="@dimen/_60sp"
+            app:layout_constraintBottom_toBottomOf="@+id/et_transaction_value"
+            app:layout_constraintStart_toEndOf="@+id/et_transaction_value"
+            app:layout_constraintTop_toBottomOf="@+id/lb_transaction_value" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnTransfer"
+        android:layout_marginHorizontal="@dimen/_40dp"
+        android:id="@+id/b_confirm_transaction"
         style="@style/style_button_large_blue"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="@dimen/_76dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="@dimen/_34dp"
         android:paddingBottom="@dimen/_20dp"
-        android:text="@string/moneyTransfer"
+        android:text="@string/xac_nhan"
+        android:layout_marginBottom="@dimen/_20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+        app:layout_constraintEnd_toEndOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

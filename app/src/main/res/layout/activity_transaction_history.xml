@@ -7,18 +7,33 @@
     android:background="@color/white"
     tools:context=".ui.transactionhistory.ActivityTransactionHistory">
 
-<!--    TODO: giao dien-->
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/b_back"
+        android:layout_width="@dimen/_47dp"
+        android:layout_height="@dimen/_47dp"
+        android:layout_marginStart="@dimen/_40dp"
+        android:layout_marginTop="@dimen/_20dp"
+        android:background="@drawable/selector_button_small_white"
+        android:elevation="@dimen/_40dp"
+        android:src="@drawable/ic_back"
+        app:layout_constraintBottom_toTopOf="@+id/title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.appcompat.widget.AppCompatTextView
+        android:layout_marginTop="@dimen/_20dp"
         android:id="@+id/title"
-        style="@style/style_tilte_dang_ky_dang_nhap"
+        android:fontFamily="@font/pacifico"
+        android:textSize="@dimen/_37sp"
+        android:textColor="@color/black_500"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_40dp"
         android:text="@string/trans_history"
         app:layout_constraintBottom_toTopOf="@id/rv_recent_transaction"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.2"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintTop_toBottomOf="@+id/b_back"
+         />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_recent_transaction"

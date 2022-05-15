@@ -252,6 +252,7 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
         apiClient = new ApiClient();
         imageService = apiClient.getImageService();
         profileService = apiClient.getProfileService();
@@ -269,6 +270,13 @@ public class ProfileActivity extends AppCompatActivity {
 
         loadCustomer(Utility.USER.getKhachHangID());
         Image.doLoadImage(imageService, Utility.USER.getImageUrl(), avatar);
+
+        findViewById(R.id.b_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
     @Override
