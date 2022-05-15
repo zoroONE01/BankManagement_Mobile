@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,6 +40,8 @@ import vn.edu.ptithcm.bankmanagement.data.model.KhachHang;
 import vn.edu.ptithcm.bankmanagement.data.model.TaiKhoan;
 import vn.edu.ptithcm.bankmanagement.data.model.ThongKeGD;
 import vn.edu.ptithcm.bankmanagement.ui.depositwithdraw.DepositWithdrawActivity;
+import vn.edu.ptithcm.bankmanagement.ui.moneytransfer.TransferActivity;
+import vn.edu.ptithcm.bankmanagement.ui.profile.ProfileActivity;
 import vn.edu.ptithcm.bankmanagement.ui.statistic.StatisticActivity;
 import vn.edu.ptithcm.bankmanagement.ui.transactionhistory.ActivityTransactionHistory;
 import vn.edu.ptithcm.bankmanagement.utility.Helper;
@@ -57,6 +61,14 @@ public class HomeActivity extends AppCompatActivity {
     private DrawerLayout dlDrawer;
     private AppCompatImageButton bOpenDrawer;
     private AppCompatImageButton bOpenProfile;
+
+    Button nap, chuyen, rut;
+
+    // drawer
+    View header;
+    TextView name;
+
+    View card;
 
     ApiClient apiClient;
     ProfileService profileService;
@@ -89,14 +101,23 @@ public class HomeActivity extends AppCompatActivity {
         bOpenDrawer = findViewById(R.id.b_menu);
         bOpenProfile = findViewById(R.id.action_show_more);
 
+        nap = findViewById(R.id.b_recharge);
+        chuyen = findViewById(R.id.b_tranfer);
+        rut = findViewById(R.id.b_withdraw);
+
+        card = findViewById(R.id.ll_user_card);
+
+        header = nvNav.getHeaderView(0);
+        name = header.findViewById(R.id.tv_user_card_name);
+        ImageView iv = header.findViewById(R.id.iv_user_avatar);
+
         nvNav.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @SuppressLint("NonConstantResourceId")
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                        menuItem.setChecked(!menuItem.isChecked());
+//                        menuItem.setChecked(!menuItem.isChecked());
 
-                        // close drawer when item is tapped
                         dlDrawer.closeDrawers();
 
                         Intent intent;
@@ -110,6 +131,16 @@ public class HomeActivity extends AppCompatActivity {
                                 break;
                             case R.id.action_recharge:
                                 intent = new Intent(HomeActivity.this, DepositWithdrawActivity.class);
+                                intent.putExtra("INTENT", 0);
+                                startActivity(intent);
+                                break;
+                            case R.id.action_withdraw:
+                                intent = new Intent(HomeActivity.this, DepositWithdrawActivity.class);
+                                intent.putExtra("INTENT", 1);
+                                startActivity(intent);
+                                break;
+                            case R.id.action_tranfer:
+                                intent = new Intent(HomeActivity.this, TransferActivity.class);
                                 startActivity(intent);
                                 break;
                             case R.id.action_statistic:
@@ -122,11 +153,46 @@ public class HomeActivity extends AppCompatActivity {
                 });
         bOpenDrawer.setOnClickListener(v -> dlDrawer.openDrawer(nvNav));
 
+        rut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HomeActivity.this, DepositWithdrawActivity.class);
+                intent.putExtra("INTENT", 1);
+                startActivity(intent);
+            }
+        });
+
+        nap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HomeActivity.this, DepositWithdrawActivity.class);
+                intent.putExtra("INTENT", 0);
+                startActivity(intent);
+            }
+        });
+
+        chuyen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HomeActivity.this, TransferActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        card.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HomeActivity.this, ProfileActivity.class);
+                startActivity(intent);
+            }
+        });
+
         recentTransactionAdapter = new RecentTransactionAdapter(transactions);
         rvRecentTransaction.setLayoutManager(new LinearLayoutManager(this));
         rvRecentTransaction.setAdapter(recentTransactionAdapter);
 
         Image.doLoadImage(apiClient.getImageService(), Utility.USER.getImageUrl(), ivUserAvatar);
+        Image.doLoadImage(apiClient.getImageService(), Utility.USER.getImageUrl(), iv);
     }
 
     void loadCustomer(String cmnd) {
@@ -145,6 +211,8 @@ public class HomeActivity extends AppCompatActivity {
 
                     tvUserCardName.setText(String.valueOf(user.getHo() + " " + user.getTen()));
                     tvUserCardDesc.setText(String.valueOf("account ending with " + user.getCmnd().substring(user.getCmnd().length() - 4, user.getCmnd().length())));
+
+                    name.setText(String.valueOf(user.getHo() + " " + user.getTen()));
                 } else {
                     Log.d(TAG, "get customer response body fail");
                 }

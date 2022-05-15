@@ -1,13 +1,11 @@
 package vn.edu.ptithcm.bankmanagement.ui.depositwithdraw;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioGroup;
-import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -16,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.gson.JsonObject;
 
 import java.util.HashMap;
-import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -32,8 +29,8 @@ import vn.edu.ptithcm.bankmanagement.utility.Utility;
 public class DepositWithdrawActivity extends AppCompatActivity {
     private final String TAG = DepositWithdrawActivity.class.getName();
 
+    TextView title;
     EditText sotien;
-    RadioGroup radioGroup;
     Button btn;
 
     ApiClient apiClient;
@@ -49,8 +46,6 @@ public class DepositWithdrawActivity extends AppCompatActivity {
     }
 
     void doDepositOrWithdraw(String id, String amount, String gd) {
-        DepositWithdrawService depositWithdrawService = apiClient.getDepositWithdrawService();
-
         HashMap<String, String> values = new HashMap<>();
         values.put(DepositWithdrawService.key1, id);
         values.put(DepositWithdrawService.key2, amount);
@@ -62,21 +57,20 @@ public class DepositWithdrawActivity extends AppCompatActivity {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) {
                 if (response.isSuccessful()) {
+                    // TODO show chuyen tien ok
                     Log.d(TAG, "dpwd Response: " + (response.body() != null ? response.body().toString() : "dpwd response ok"));
+                    if (response.body().toString().contains("FOREIGN")) {
+                        Toast.makeText(DepositWithdrawActivity.this, "Tài khoản không tồn tại", Toast.LENGTH_SHORT).show();
+                    } else if (response.body().toString().contains("CHECK")) {
+                        Toast.makeText(DepositWithdrawActivity.this, "Số dư không đủ", Toast.LENGTH_SHORT).show();
+                    }
                 } else if (response.code() == HttpsURLConnection.HTTP_UNAUTHORIZED) {
                     // Handle unauthorized
-                    // TODO go back to login
                     Log.d(TAG, "dpwd 401");
                 } else {
                     try {
-                        Toast.makeText(DepositWithdrawActivity.this, "Chuyển tiền không thành công", Toast.LENGTH_SHORT).show();
-
                         if (response.errorBody() == null) {
                             Log.d(TAG, "transfer Response Error. No message");
-                        } else if (response.errorBody().string().contains("FOREIGN KEY")) {
-                            Toast.makeText(DepositWithdrawActivity.this, "Tài khoản không tồn tại", Toast.LENGTH_SHORT).show();
-                        } else if (response.errorBody().string().contains("CONSTRAINT")) {
-                            Toast.makeText(DepositWithdrawActivity.this, "Số dư không đủ", Toast.LENGTH_SHORT).show();
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -86,7 +80,8 @@ public class DepositWithdrawActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(@NonNull Call call, @NonNull Throwable t) {
-                Log.d(TAG, "dpwd Failure");
+                Log.d(TAG, "Failure");
+                t.printStackTrace();
             }
         });
     }
@@ -96,30 +91,49 @@ public class DepositWithdrawActivity extends AppCompatActivity {
         depositWithdrawService = apiClient.getDepositWithdrawService();
         userStatisticService = apiClient.getUserStatisticService();
 
+        title = findViewById(R.id.title);
         sotien = findViewById(R.id.et_transaction_value);
-        btn = findViewById(R.id.btnTransfer);
+        btn = findViewById(R.id.b_confirm_transaction);
 
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String amount = DepositWithdrawActivity.this.sotien.getText().toString();
+        Intent intent = this.getIntent();
 
-                if (amount.isEmpty()) {
-                    Toast.makeText(view.getContext(), "Hãy nhập số tiền", Toast.LENGTH_SHORT).show();
+        if (intent.getIntExtra("INTENT", 0) == 0) {
+            // intent nap tien
+            title.setText(R.string.action_recharge);
+
+            btn.setOnClickListener(view -> {
+                if (!checkInput()) {
                     return;
                 }
+                String stk = Utility.LIST_TK.get(0).getSoTK();
+                doDepositOrWithdraw(stk, sotien.getText().toString(), "GT");
+            });
+        } else {
+            // intent rut tien
+            title.setText(R.string.action_withdraw);
 
-                if (Double.parseDouble(amount) < 100000) {
-                    Toast.makeText(view.getContext(), "Chỉ chuyển số tiền > 100.000đ", Toast.LENGTH_SHORT).show();
+            btn.setOnClickListener(view -> {
+                if (!checkInput()) {
                     return;
                 }
+                String stk = Utility.LIST_TK.get(0).getSoTK();
+                doDepositOrWithdraw(stk, sotien.getText().toString(), "RT");
+            });
+        }
+    }
 
-                int selectedId = radioGroup.getCheckedRadioButtonId();
+    boolean checkInput() {
+        String amount = sotien.getText().toString();
 
-                String stk = Utility.LIST_TK.get(0).getCmnd();
+        if (amount.isEmpty()) {
+            Toast.makeText(this, "Hãy nhập số tiền", Toast.LENGTH_SHORT).show();
+            return false;
+        }
 
-
-            }
-        });
+        if (Double.parseDouble(amount) < 100000) {
+            Toast.makeText(this, "Chỉ chuyển số tiền > 100.000đ", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
     }
 }
