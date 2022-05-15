@@ -2,18 +2,19 @@ package vn.edu.ptithcm.bankmanagement.ui.moneytransfer;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageButton;
 
 import com.google.gson.JsonObject;
 
 import java.util.HashMap;
 
-import okhttp3.internal.Util;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -30,6 +31,7 @@ public class TransferActivity extends AppCompatActivity {
     EditText soTk;
     EditText soTien;
     Button btn;
+    AppCompatImageButton b_back;
 
     ApiClient apiClient;
     MoneyTransferService transferService;
@@ -48,6 +50,13 @@ public class TransferActivity extends AppCompatActivity {
         transferService = apiClient.getMoneyTransferService();
         userStatisticService = apiClient.getUserStatisticService();
 
+        b_back = findViewById(R.id.b_back);
+        b_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
         soTk = findViewById(R.id.et_send_to);
         soTien = findViewById(R.id.et_transaction_value);
@@ -92,6 +101,15 @@ public class TransferActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     Log.d(TAG, "transfer Response: " + (response.body() != null ? response.body().toString() : "transfer response ok"));
                     // TODO: show transfer success activity
+                    if (response.body().toString().contains("FOREIGN")) {
+                        Toast.makeText(TransferActivity.this, "Tài khoản không tồn tại", Toast.LENGTH_SHORT).show();
+                        Log.d(TAG, "tai khoan k ton tai");
+                    } else if (response.body().toString().contains("CHECK")) {
+                        Toast.makeText(TransferActivity.this, "Tài khoản không đủ số dư", Toast.LENGTH_SHORT).show();
+                        Log.d(TAG, "tai khoan k du tien");
+                    } else {
+                        finish();
+                    }
                 } else if (response.code() == 401) {
                     // TODO go back to login
                     Log.d(TAG, "transfer 401");
@@ -99,14 +117,8 @@ public class TransferActivity extends AppCompatActivity {
                     try {
                         if (response.errorBody() == null) {
                             Log.d(TAG, "transfer Response Error. No message");
-                        } else if (response.errorBody().string().contains("FOREIGN KEY")) {
-                            Toast.makeText(TransferActivity.this, "Tài khoản không tồn tại", Toast.LENGTH_SHORT).show();
-                            Log.d(TAG, "tai khoan k ton tai");
-                        } else if (response.errorBody().string().contains("CONSTRAINT")) {
-                            Toast.makeText(TransferActivity.this, "Tài khoản không đủ số dư", Toast.LENGTH_SHORT).show();
-                            Log.d(TAG, "tai khoan k du tien");
-                        }
-                        Log.d(TAG, "transfer Response Error: " + response.errorBody().charStream());
+                        } else
+                            Log.d(TAG, "transfer Response Error: " + response.errorBody().charStream());
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

@@ -3,6 +3,7 @@ package vn.edu.ptithcm.bankmanagement.ui.home;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -25,6 +27,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -32,6 +35,7 @@ import javax.net.ssl.HttpsURLConnection;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import vn.edu.ptithcm.bankmanagement.BankActivity;
 import vn.edu.ptithcm.bankmanagement.R;
 import vn.edu.ptithcm.bankmanagement.api.ApiClient;
 import vn.edu.ptithcm.bankmanagement.api.ProfileService;
@@ -62,13 +66,16 @@ public class HomeActivity extends AppCompatActivity {
     private AppCompatImageButton bOpenDrawer;
     private AppCompatImageButton bOpenProfile;
 
-    Button nap, chuyen, rut;
+
+    androidx.appcompat.widget.AppCompatImageButton nap, chuyen, rut;
 
     // drawer
     View header;
     TextView name;
 
     View card;
+
+    Button logout;
 
     ApiClient apiClient;
     ProfileService profileService;
@@ -83,10 +90,15 @@ public class HomeActivity extends AppCompatActivity {
         profileService = apiClient.getProfileService();
         userStatisticService = apiClient.getUserStatisticService();
 
+        setUpUi();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
         loadCustomer(Utility.USER.getKhachHangID());
         loadThongTinTaiKhoan(Utility.USER.getKhachHangID());
-
-        setUpUi();
     }
 
     public void setUpUi() {
@@ -104,6 +116,17 @@ public class HomeActivity extends AppCompatActivity {
         nap = findViewById(R.id.b_recharge);
         chuyen = findViewById(R.id.b_tranfer);
         rut = findViewById(R.id.b_withdraw);
+
+        logout = findViewById(R.id.b_logout);
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(HomeActivity.this, BankActivity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NO_HISTORY);
+
+                startActivity(i);
+            }
+        });
 
         card = findViewById(R.id.ll_user_card);
 
@@ -288,6 +311,7 @@ public class HomeActivity extends AppCompatActivity {
         Call<JsonArray> call = userStatisticService.getTransactionHistory(Utility.COOKIE, stk, "2011-1-1", "2031-1-1");
 
         call.enqueue(new Callback<JsonArray>() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) {
                 if (response.isSuccessful()) {
@@ -307,6 +331,14 @@ public class HomeActivity extends AppCompatActivity {
                                 e.get("balanceAfter").getAsDouble());
                         list.add(tk);
                     }
+
+                    list.sort(new Comparator<ThongKeGD>() {
+                        @Override
+                        public int compare(ThongKeGD t, ThongKeGD other) {
+                            return -1*t.getNgayGD().compareTo(other.getNgayGD());
+                        }
+                    });
+
                     transactions = list;
                     rvRecentTransaction.setAdapter(new RecentTransactionAdapter(transactions));
 

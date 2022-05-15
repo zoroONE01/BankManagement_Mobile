@@ -1,17 +1,16 @@
 package vn.edu.ptithcm.bankmanagement.ui.statistic;
 
 import android.graphics.Color;
-import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.fragment.app.Fragment;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
@@ -23,6 +22,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -32,7 +32,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import vn.edu.ptithcm.bankmanagement.R;
 import vn.edu.ptithcm.bankmanagement.api.ApiClient;
-import vn.edu.ptithcm.bankmanagement.api.ProfileService;
 import vn.edu.ptithcm.bankmanagement.api.UserStatisticService;
 import vn.edu.ptithcm.bankmanagement.data.model.ThongKeGD;
 import vn.edu.ptithcm.bankmanagement.utility.Helper;
@@ -100,16 +99,17 @@ public class StatisticFragment extends Fragment {
 
     private LineData getData(List<ThongKeGD> listGD) {
         ArrayList<Entry> values = new ArrayList<>();
-        for (int i = 0; i < listGD.size(); i++) {
-            Log.d("-------", listGD.get(i).getBalanceAfter() + " vnd");
-            double val = listGD.get(i).getBalanceAfter();
-            values.add(new Entry(i, (float) val));
+        int i = 0;
+        for (ThongKeGD gd : listGD) {
+            Log.d("-------", gd.getBalanceAfter() + " vnd");
+            double val = gd.getBalanceAfter();
+            values.add(new Entry(i++, (float) val));
         }
 
         // create a dataset and give it a type
         LineDataSet set1 = new LineDataSet(values, "DataSet 1");
-         set1.setFillAlpha(110);
-         set1.setFillColor(colorChart);
+        set1.setFillAlpha(110);
+        set1.setFillColor(colorChart);
 
         set1.setLineWidth(1.75f);
         set1.setCircleRadius(5f);
@@ -124,23 +124,28 @@ public class StatisticFragment extends Fragment {
         return new LineData(set1);
     }
 
-   @Override
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-       // Inflate the layout for this fragment
-       View view = inflater.inflate(R.layout.fragment_statistic, container, false);
-       apiClient = new ApiClient();
-       userStatisticService = apiClient.getUserStatisticService();
-       chart = view.findViewById(R.id.chart1);
-       if (mode == 0){
-           doGetListTransactions(userStatisticService, Utility.LIST_TK.get(0).getSoTK(), Helper.getDateStringOneMonthEarlier(), Helper.getDateString());
-       } else if (mode == 1) {
-           doGetListTransactions(userStatisticService, Utility.LIST_TK.get(0).getSoTK(), Helper.getDateStringOneWeekEarlier(), Helper.getDateString());
-       } else {
-           doGetListTransactions(userStatisticService, Utility.LIST_TK.get(0).getSoTK(), Helper.getDateStringOneDayEarlier(), Helper.getDateString());
-       }
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_statistic, container, false);
+        apiClient = new ApiClient();
+        userStatisticService = apiClient.getUserStatisticService();
+        chart = view.findViewById(R.id.chart1);
+        if (mode == 0) {
+            doGetListTransactions(userStatisticService, Utility.LIST_TK.get(0).getSoTK(), Helper.getDateStringOneMonthEarlier(), Helper.getDateString());
+        } else if (mode == 1) {
+            doGetListTransactions(userStatisticService, Utility.LIST_TK.get(0).getSoTK(), Helper.getDateStringOneWeekEarlier(), Helper.getDateString());
+        } else {
+            doGetListTransactions(userStatisticService, Utility.LIST_TK.get(0).getSoTK(), Helper.getDateStringOneDayEarlier(), Helper.getDateString());
+        }
 
-       return view;
+        return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     private List<ThongKeGD> doGetListTransactions(UserStatisticService userStatisticService, String stk, String date1, String date2) {
@@ -149,6 +154,7 @@ public class StatisticFragment extends Fragment {
         Call<JsonArray> call = userStatisticService.getTransactionHistory(Utility.COOKIE, stk, date1, date2);
 
         call.enqueue(new Callback<JsonArray>() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) {
                 if (response.isSuccessful()) {
@@ -168,6 +174,15 @@ public class StatisticFragment extends Fragment {
                                 e.get("balanceAfter").getAsDouble());
                         list.add(tk);
                     }
+
+                    list.sort(new Comparator<ThongKeGD>() {
+                        @Override
+                        public int compare(ThongKeGD t, ThongKeGD other) {
+                            return -1 * t.getNgayGD().compareTo(other.getNgayGD());
+                        }
+                    });
+
+                    Log.d(TAG, "list tk" + list);
 
                     LineData data = getData(list);
                     // add some transparency to the color with "& 0x90FFFFFF"

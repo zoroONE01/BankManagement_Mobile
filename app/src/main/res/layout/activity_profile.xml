@@ -12,7 +12,7 @@
         android:orientation="vertical">
 
         <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/b_menu"
+            android:id="@+id/b_back"
             android:layout_width="@dimen/_47dp"
             android:layout_height="@dimen/_47dp"
             android:layout_marginStart="@dimen/_40dp"

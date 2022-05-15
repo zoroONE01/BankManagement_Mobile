@@ -81,6 +81,7 @@ public class LoginFragment extends Fragment {
                     showLoginFailed(loginResult.getError());
                 } else if (loginResult.getSuccess() != null) {
                     updateUiWithUser(loginResult.getSuccess());
+                   // NavHostFragment.findNavController(LoginFragment.this).popBackStack(R.id.SignInFragment,true);
                 }
             }
         });
@@ -138,6 +139,9 @@ public class LoginFragment extends Fragment {
             Toast.makeText(getContext().getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
 
             Intent i = new Intent(getActivity(), HomeActivity.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+
             getActivity().startActivity(i);
         }
     }

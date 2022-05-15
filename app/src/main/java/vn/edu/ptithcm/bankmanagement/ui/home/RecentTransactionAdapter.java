@@ -47,7 +47,13 @@ public class RecentTransactionAdapter extends RecyclerView.Adapter<RecentTransac
 
         ThongKeGD tk = items.get(position);
 
-        tvTransactionTitle.setText(tk.getLoaiGD());
+        String action = tk.getLoaiGD();
+
+        if (action.equals("Gửi tiền")) {
+            action = "Nạp tiền";
+        }
+
+        tvTransactionTitle.setText(action);
         tvTransactionValue.setText(String.valueOf(Helper.showGia(tk.getSoTien()) + "đ"));
         tvTransactionTime.setText(Helper.getNgayFromEpoch(tk.getNgayGD()));
 

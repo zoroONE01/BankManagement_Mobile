@@ -17,11 +17,11 @@
         android:textSize="@dimen/_37sp"
         app:layout_constraintBottom_toTopOf="@+id/cl_transaction_value"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/b_menu" />
+        app:layout_constraintTop_toBottomOf="@+id/b_back" />
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:layout_marginTop="@dimen/_20dp"
-        android:id="@+id/b_menu"
+        android:id="@+id/b_back"
         android:layout_width="@dimen/_47dp"
         android:layout_height="@dimen/_47dp"
         android:layout_marginStart="@dimen/_40dp"
@@ -35,7 +35,7 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        app:layout_constraintVertical_bias="0.4"
+        app:layout_constraintVertical_bias="0.5"
         app:layout_constraintVertical_chainStyle="packed"
         android:id="@+id/cl_transaction_value"
         android:layout_width="match_parent"

@@ -50,9 +50,6 @@
         <activity
             android:name=".ui.transactionhistory.ActivityTransactionHistory"
             android:exported="false" />
-        <activity
-            android:name=".ui.transactionhistory.TransactionItemView"
-            android:exported="false" />
 
         <meta-data
             android:name="preloaded_fonts"

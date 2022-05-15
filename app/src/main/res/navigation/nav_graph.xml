@@ -9,7 +9,9 @@
         android:id="@+id/SignInFragment"
         android:name="vn.edu.ptithcm.bankmanagement.ui.login.LoginFragment"
         android:label="Sign In"
-        tools:layout="@layout/sign_in">
+        tools:layout="@layout/sign_in"
+
+        >
 
         <action
             android:id="@+id/action_SignIn_to_SignUpFragment"

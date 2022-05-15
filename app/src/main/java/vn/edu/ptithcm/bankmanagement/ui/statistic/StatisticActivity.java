@@ -7,6 +7,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.View;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -26,6 +27,13 @@ public class StatisticActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistic);
+
+        findViewById(R.id.b_menu).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
         pagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), getLifecycle());
         pager = findViewById(R.id.pager);

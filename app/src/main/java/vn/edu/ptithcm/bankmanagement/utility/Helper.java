@@ -314,7 +314,10 @@ public class Helper {
     }
 
     public static String getDateString() {
-        return Utility.API_DATE_FORMAT.format(Calendar.getInstance().getTime());
+        Calendar c = Calendar.getInstance();
+        c.add(Calendar.DATE, 1);
+
+        return Utility.API_DATE_FORMAT.format(c.getTime());
     }
 
     public static String getDateStringOneDayEarlier() {

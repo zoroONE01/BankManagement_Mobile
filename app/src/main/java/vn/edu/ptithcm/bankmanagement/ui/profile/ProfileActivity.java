@@ -85,13 +85,14 @@ public class ProfileActivity extends AppCompatActivity {
     DatePicker dpNgayCap;
     EditText txtSdt;
 
+    Button b_back;
+
     public void onLoadPicture(View view) {
         //request permission to stored
         if (MyVersion > Build.VERSION_CODES.LOLLIPOP_MR1) {
             if (!checkIfAlreadyHavePermission()) {
                 ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
             } else {
-                isChangeAvatar = true;
                 Intent i = new Intent(
                         Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 setResult(Activity.RESULT_OK, i);
@@ -125,7 +126,10 @@ public class ProfileActivity extends AppCompatActivity {
                         String picturePath = cursor.getString(columnIndex);
                         cursor.close();
 
-                        avatarPath = picturePath;
+                        if (picturePath!=null) {
+                            avatarPath = picturePath;
+                            isChangeAvatar = true;
+                        }
                         Bitmap bitmap = BitmapFactory.decodeFile(picturePath);
                         avatar.setImageBitmap(bitmap);
                     }
@@ -192,7 +196,11 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) {
                 if (response.isSuccessful()) {
-                    Toast.makeText(ProfileActivity.this, response.body().toString(), Toast.LENGTH_SHORT).show();
+                    JsonObject object = (JsonObject) response.body();
+                    String message = object.get("message").getAsString();
+                    Log.d("-------", "Response: " + object.toString());
+
+                    Toast.makeText(ProfileActivity.this, message, Toast.LENGTH_SHORT).show();
                 } else {
                     try {
                         Toast.makeText(ProfileActivity.this, response.errorBody().toString(), Toast.LENGTH_SHORT).show();
@@ -231,21 +239,29 @@ public class ProfileActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                     if (response.isSuccessful()){
-                        Toast.makeText(ProfileActivity.this, response.body().toString(), Toast.LENGTH_SHORT).show();
+                        JsonObject object = response.body();
+                        String message = object.get("message").getAsString();
+                        Log.d("-------", "Response: " + object.toString());
+
+                        Toast.makeText(ProfileActivity.this, message, Toast.LENGTH_SHORT).show();
                     } else {
+                        Log.d("-------", "Response: " + (response.body() != null ? response.errorBody().toString() : "response ok"));
+
                         Toast.makeText(ProfileActivity.this, response.errorBody().toString(), Toast.LENGTH_SHORT).show();
                     }
                 }
 
                 @Override
                 public void onFailure(Call<JsonObject> call, Throwable t) {
+                    Log.d("-------", "failure: " + t.getMessage());
+
                     Toast.makeText(ProfileActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                    t.printStackTrace();
                 }
             });
         }
-
         updateCustomer(strCmnd, strHo, strTen, strDiaChi, strPhai, strNgayCap, strSdt);
-
+        finish();
     }
 
     @Override
@@ -257,7 +273,6 @@ public class ProfileActivity extends AppCompatActivity {
         imageService = apiClient.getImageService();
         profileService = apiClient.getProfileService();
         userAccountService = apiClient.getLoginService();
-
 
         avatar = findViewById(R.id.avatar);
         tvCmnd = findViewById(R.id.cmnd);
@@ -271,10 +286,11 @@ public class ProfileActivity extends AppCompatActivity {
         loadCustomer(Utility.USER.getKhachHangID());
         Image.doLoadImage(imageService, Utility.USER.getImageUrl(), avatar);
 
-        findViewById(R.id.b_back).setOnClickListener(new View.OnClickListener() {
+        b_back = findViewById(R.id.b_back);
+        b_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                onBackPressed();
             }
         });
     }
@@ -284,7 +300,6 @@ public class ProfileActivity extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == 1) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                isChangeAvatar = true;
                 Intent i = new Intent(
                         Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 setResult(Activity.RESULT_OK, i);

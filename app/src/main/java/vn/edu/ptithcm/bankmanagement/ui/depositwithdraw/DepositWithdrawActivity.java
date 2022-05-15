@@ -3,13 +3,16 @@ package vn.edu.ptithcm.bankmanagement.ui.depositwithdraw;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageButton;
 
 import com.google.gson.JsonObject;
 
@@ -32,6 +35,9 @@ public class DepositWithdrawActivity extends AppCompatActivity {
     TextView title;
     EditText sotien;
     Button btn;
+
+    AppCompatImageButton b_back;
+
 
     ApiClient apiClient;
     DepositWithdrawService depositWithdrawService;
@@ -63,6 +69,8 @@ public class DepositWithdrawActivity extends AppCompatActivity {
                         Toast.makeText(DepositWithdrawActivity.this, "Tài khoản không tồn tại", Toast.LENGTH_SHORT).show();
                     } else if (response.body().toString().contains("CHECK")) {
                         Toast.makeText(DepositWithdrawActivity.this, "Số dư không đủ", Toast.LENGTH_SHORT).show();
+                    } else {
+                        finish();
                     }
                 } else if (response.code() == HttpsURLConnection.HTTP_UNAUTHORIZED) {
                     // Handle unauthorized
@@ -94,6 +102,14 @@ public class DepositWithdrawActivity extends AppCompatActivity {
         title = findViewById(R.id.title);
         sotien = findViewById(R.id.et_transaction_value);
         btn = findViewById(R.id.b_confirm_transaction);
+
+        b_back = findViewById(R.id.b_menu);
+        b_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                        onBackPressed();
+            }
+        });
 
         Intent intent = this.getIntent();
 
