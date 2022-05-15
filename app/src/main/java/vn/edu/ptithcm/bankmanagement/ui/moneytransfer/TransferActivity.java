@@ -42,7 +42,7 @@ public class TransferActivity extends AppCompatActivity {
 
 
         soTk = findViewById(R.id.et_send_to);
-        soTien = findViewById(R.id.fieldAmount);
+        soTien = findViewById(R.id.et_transaction_value);
         btn = findViewById(R.id.btnTransfer);
 
         btn.setOnClickListener(view -> {

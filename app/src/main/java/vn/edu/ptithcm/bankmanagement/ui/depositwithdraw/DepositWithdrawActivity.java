@@ -96,8 +96,7 @@ public class DepositWithdrawActivity extends AppCompatActivity {
         depositWithdrawService = apiClient.getDepositWithdrawService();
         userStatisticService = apiClient.getUserStatisticService();
 
-        sotien = findViewById(R.id.fieldAmount);
-        radioGroup = findViewById(R.id.radioGroup);
+        sotien = findViewById(R.id.et_transaction_value);
         btn = findViewById(R.id.btnTransfer);
 
         btn.setOnClickListener(new View.OnClickListener() {
@@ -119,11 +118,7 @@ public class DepositWithdrawActivity extends AppCompatActivity {
 
                 String stk = Utility.LIST_TK.get(0).getCmnd();
 
-                if (selectedId == R.id.radioGT) {
-                    doDepositOrWithdraw(stk, DepositWithdrawActivity.this.sotien.getText().toString(), "GT");
-                } else {
-                    doDepositOrWithdraw(stk, DepositWithdrawActivity.this.sotien.getText().toString(), "RT");
-                }
+
             }
         });
     }
