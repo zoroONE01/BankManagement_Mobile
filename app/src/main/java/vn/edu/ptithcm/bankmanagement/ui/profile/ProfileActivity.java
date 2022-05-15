@@ -6,6 +6,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -85,7 +86,7 @@ public class ProfileActivity extends AppCompatActivity {
     DatePicker dpNgayCap;
     EditText txtSdt;
 
-    Button b_back;
+    AppCompatImageButton b_back;
 
     public void onLoadPicture(View view) {
         //request permission to stored
