@@ -35,7 +35,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/b_menu"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/b_menu"
-            app:layout_constraintTop_toTopOf="@+id/b_menu" />
+            app:layout_constraintTop_toTopOf="@+id/b_menu"/>
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/ll_user_card"

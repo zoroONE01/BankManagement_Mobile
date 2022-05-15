@@ -341,52 +341,5 @@ public class Helper {
         return Utility.API_DATE_FORMAT.format(c.getTime());
     }
 
-    private void generatePDF(UserStatisticService userStatisticService) {
-        Document document = new Document();
 
-        try {
-            BaseFont bf = BaseFont.createFont("res/font/roboto.xml", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
-            File file = new File(Environment.getExternalStorageDirectory(), "DSKH.pdf");
-            PdfWriter.getInstance(document,
-                    new FileOutputStream(file));
-
-            document.open();
-
-            // Table
-            PdfPTable table = new PdfPTable(5);
-
-            // Header
-            PdfPCell cell1 = new PdfPCell(new Phrase("Số dư trước"));
-            PdfPCell cell2 = new PdfPCell(new Phrase("Ngày giao dịch",new Font(bf, 14)));
-            PdfPCell cell3 = new PdfPCell(new Phrase("Loại giao dịch",new Font(bf, 14)));
-            PdfPCell cell4 = new PdfPCell(new Phrase("Số tiền",new Font(bf, 14)));
-            PdfPCell cell5 = new PdfPCell(new Phrase("Số dư sau"));
-            table.addCell(cell1);
-            table.addCell(cell2);
-            table.addCell(cell3);
-            table.addCell(cell4);
-            table.addCell(cell5);
-
-            List<ThongKeGD> allTransactions = doGetListTransactions(userStatisticService, Utility.LIST_TK.get(0).getSoTK());
-
-            for (ThongKeGD i : allTransactions) {
-                PdfPCell cell1x = new PdfPCell(new Phrase(String.valueOf(i.getBalanceBefore())));
-                PdfPCell cell2x = new PdfPCell(new Phrase(String.valueOf(i.getNgayGD()),new Font(bf, 14)));
-                PdfPCell cell3x = new PdfPCell(new Phrase(i.getLoaiGD(),new Font(bf, 14)));
-                PdfPCell cell4x = new PdfPCell(new Phrase(String.valueOf(i.getSoTien())));
-                PdfPCell cell5x = new PdfPCell(new Phrase(String.valueOf(i.getBalanceAfter())));
-                table.addCell(cell1x);
-                table.addCell(cell2x);
-                table.addCell(cell3x);
-                table.addCell(cell4x);
-                table.addCell(cell5x);
-            }
-            document.add(table);
-
-            document.close();
-//            Toast.makeText(this, "Create PDF successfully", Toast.LENGTH_SHORT).show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 }
