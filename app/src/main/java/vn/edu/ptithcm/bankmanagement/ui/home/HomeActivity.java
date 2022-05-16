@@ -60,7 +60,7 @@ public class HomeActivity extends AppCompatActivity {
     private List<ThongKeGD> transactions = new ArrayList<>();
     private KhachHang user;
     private TextView tvUserCardName, tvUserCardDesc, tvBalanceValue, tvTranferValue;
-    private ImageView ivUserAvatar;
+    private ImageView ivUserAvatar, ivAvatarNav;
     private NavigationView nvNav;
     private DrawerLayout dlDrawer;
     private AppCompatImageButton bOpenDrawer;
@@ -129,7 +129,7 @@ public class HomeActivity extends AppCompatActivity {
 
         header = nvNav.getHeaderView(0);
         name = header.findViewById(R.id.tv_user_card_name);
-        ImageView iv = header.findViewById(R.id.iv_user_avatar);
+        ivAvatarNav = header.findViewById(R.id.iv_user_avatar);
 
         nvNav.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
@@ -194,8 +194,7 @@ public class HomeActivity extends AppCompatActivity {
         rvRecentTransaction.setLayoutManager(new LinearLayoutManager(this));
         rvRecentTransaction.setAdapter(recentTransactionAdapter);
 
-        Image.doLoadImage(apiClient.getImageService(), Utility.USER.getImageUrl(), ivUserAvatar);
-        Image.doLoadImage(apiClient.getImageService(), Utility.USER.getImageUrl(), iv);
+
     }
 
     void loadCustomer(String cmnd) {
@@ -212,6 +211,8 @@ public class HomeActivity extends AppCompatActivity {
                 if (response.body() != null) {
                     user = response.body();
 
+                    Image.doLoadImage(apiClient.getImageService(), Utility.USER.getImageUrl(), ivUserAvatar);
+                    Image.doLoadImage(apiClient.getImageService(), Utility.USER.getImageUrl(), ivAvatarNav);
                     tvUserCardName.setText(String.valueOf(user.getHo() + " " + user.getTen()));
                     tvUserCardDesc.setText(String.valueOf("account ending with " + user.getCmnd().substring(user.getCmnd().length() - 4, user.getCmnd().length())));
 

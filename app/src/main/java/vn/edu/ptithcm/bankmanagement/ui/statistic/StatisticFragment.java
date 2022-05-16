@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -17,6 +18,7 @@ import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.listener.ChartTouchListener;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -63,7 +65,6 @@ public class StatisticFragment extends Fragment {
         // enable / disable grid background
         chart.setDrawGridBackground(false);
 //        chart.getRenderer().getGridPaint().setGridColor(Color.WHITE & 0x70FFFFFF);
-
         // enable touch gestures
         chart.setTouchEnabled(true);
 
@@ -77,7 +78,7 @@ public class StatisticFragment extends Fragment {
         chart.setBackgroundColor(Color.WHITE);
 
         // set custom chart offsets (automatic offset calculation is hereby disabled)
-        chart.setViewPortOffsets(10, 0, 10, 0);
+//        chart.setViewPortOffsets(50, 0, 50, 0);
 
         // add data
         chart.setData(data);
@@ -86,12 +87,14 @@ public class StatisticFragment extends Fragment {
         Legend l = chart.getLegend();
         l.setEnabled(false);
 
-        chart.getAxisLeft().setEnabled(false);
+        chart.getAxisLeft().setEnabled(true);
         chart.getAxisLeft().setSpaceTop(40);
         chart.getAxisLeft().setSpaceBottom(40);
         chart.getAxisRight().setEnabled(false);
-
         chart.getXAxis().setEnabled(false);
+
+        chart.setVerticalScrollBarEnabled(true);
+
 
         // animate calls invalidate()...
         chart.animateX(2500);
@@ -102,8 +105,13 @@ public class StatisticFragment extends Fragment {
         int i = 0;
         for (ThongKeGD gd : listGD) {
             Log.d("-------", gd.getBalanceAfter() + " vnd");
-            double val = gd.getBalanceAfter();
+            double val = gd.getBalanceBefore();
             values.add(new Entry(i++, (float) val));
+
+            if (i==listGD.size()){
+                val = gd.getBalanceAfter();
+                values.add(new Entry(i++, (float) val));
+            }
         }
 
         // create a dataset and give it a type
@@ -178,7 +186,7 @@ public class StatisticFragment extends Fragment {
                     list.sort(new Comparator<ThongKeGD>() {
                         @Override
                         public int compare(ThongKeGD t, ThongKeGD other) {
-                            return -1 * t.getNgayGD().compareTo(other.getNgayGD());
+                            return t.getNgayGD().compareTo(other.getNgayGD());
                         }
                     });
 
