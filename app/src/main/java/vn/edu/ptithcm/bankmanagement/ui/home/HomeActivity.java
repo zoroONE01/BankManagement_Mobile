@@ -26,6 +26,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -97,8 +98,8 @@ public class HomeActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        loadCustomer(Utility.USER.getKhachHangID());
         loadThongTinTaiKhoan(Utility.USER.getKhachHangID());
+        loadCustomer(Utility.USER.getKhachHangID());
     }
 
     public void setUpUi() {
@@ -234,7 +235,7 @@ public class HomeActivity extends AppCompatActivity {
                     Image.doLoadImage(apiClient.getImageService(), Utility.USER.getImageUrl(), ivUserAvatar);
                     Image.doLoadImage(apiClient.getImageService(), Utility.USER.getImageUrl(), ivAvatarNav);
                     tvUserCardName.setText(String.valueOf(user.getHo() + " " + user.getTen()));
-                    tvUserCardDesc.setText(String.valueOf("account ending with " + user.getCmnd().substring(user.getCmnd().length() - 4, user.getCmnd().length())));
+                    tvUserCardDesc.setText(String.valueOf("Số tài khoản: " + Utility.LIST_TK.get(0).getSoTK()));
 
                     name.setText(String.valueOf(user.getHo() + " " + user.getTen()));
                 } else {
@@ -304,6 +305,54 @@ public class HomeActivity extends AppCompatActivity {
                 t.printStackTrace();
             }
         });
+
+//        try {
+//            Response<JsonArray> response = call.execute();
+//
+//            if (response.isSuccessful()) {
+//                Log.d(TAG, "list tk Response: " + (response.body() != null ? response.body().toString() : "list tk response ok"));
+//
+//                JsonArray listTK = (JsonArray) response.body();
+//                Utility.LIST_TK.clear();
+//
+//                for (JsonElement ele : listTK) {
+//                    JsonObject e = ele.getAsJsonObject();
+//                    Log.d(TAG, "tk: " + e.toString());
+//
+//                    TaiKhoan tk = new TaiKhoan(e.get("soTK").getAsString(),
+//                            e.get("cmnd").getAsString(),
+//                            e.get("soDu").getAsDouble(),
+//                            e.get("maCN").getAsString().trim(),
+//                            e.get("ngayMoTK").getAsLong());
+//
+//                    Utility.LIST_TK.add(tk);
+//                    Log.d(TAG, tk.toString());
+//                }
+//
+//                if (!Utility.LIST_TK.isEmpty()) {
+//                    String sodu = Helper.showGia(Utility.LIST_TK.get(0).getSoDu());
+//                    tvBalanceValue.setText(String.valueOf(sodu + " đ"));
+//
+//                    doGetListTransactions(userStatisticService, Utility.LIST_TK.get(0).getSoTK());
+//                }
+//            } else if (response.code() == HttpsURLConnection.HTTP_UNAUTHORIZED) {
+//                // Handle unauthorized
+//                // TODO go back to login
+//                Log.d(TAG, "list tk 401");
+//            } else {
+//                try {
+//                    if (response.errorBody() == null) {
+//                        Log.d(TAG, "list tk Response Error. No message");
+//                    } else if (response.errorBody().string().contains("FOREIGN")) {
+//                        Log.d(TAG, "list tk k ton tai");
+//                    }
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 
     void doGetListTransactions(UserStatisticService userStatisticService, String stk) {
