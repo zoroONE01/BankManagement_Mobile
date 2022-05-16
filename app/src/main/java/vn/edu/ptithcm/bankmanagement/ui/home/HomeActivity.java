@@ -118,14 +118,11 @@ public class HomeActivity extends AppCompatActivity {
         rut = findViewById(R.id.b_withdraw);
 
         logout = findViewById(R.id.b_logout);
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(HomeActivity.this, BankActivity.class);
-                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NO_HISTORY);
+        logout.setOnClickListener(view -> {
+            Intent i = new Intent(HomeActivity.this, BankActivity.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NO_HISTORY);
 
-                startActivity(i);
-            }
+            startActivity(i);
         });
 
         card = findViewById(R.id.ll_user_card);
@@ -139,15 +136,10 @@ public class HomeActivity extends AppCompatActivity {
                     @SuppressLint("NonConstantResourceId")
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-//                        menuItem.setChecked(!menuItem.isChecked());
-
                         dlDrawer.closeDrawers();
 
                         Intent intent;
                         switch (menuItem.getItemId()) {
-                            case R.id.action_show_home:
-                                // TODO: show home?
-                                break;
                             case R.id.action_trans_history:
                                 intent = new Intent(HomeActivity.this, ActivityTransactionHistory.class);
                                 startActivity(intent);
@@ -176,38 +168,26 @@ public class HomeActivity extends AppCompatActivity {
                 });
         bOpenDrawer.setOnClickListener(v -> dlDrawer.openDrawer(nvNav));
 
-        rut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(HomeActivity.this, DepositWithdrawActivity.class);
-                intent.putExtra("INTENT", 1);
-                startActivity(intent);
-            }
+        rut.setOnClickListener(view -> {
+            Intent intent = new Intent(HomeActivity.this, DepositWithdrawActivity.class);
+            intent.putExtra("INTENT", 1);
+            startActivity(intent);
         });
 
-        nap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(HomeActivity.this, DepositWithdrawActivity.class);
-                intent.putExtra("INTENT", 0);
-                startActivity(intent);
-            }
+        nap.setOnClickListener(view -> {
+            Intent intent = new Intent(HomeActivity.this, DepositWithdrawActivity.class);
+            intent.putExtra("INTENT", 0);
+            startActivity(intent);
         });
 
-        chuyen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(HomeActivity.this, TransferActivity.class);
-                startActivity(intent);
-            }
+        chuyen.setOnClickListener(view -> {
+            Intent intent = new Intent(HomeActivity.this, TransferActivity.class);
+            startActivity(intent);
         });
 
-        card.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(HomeActivity.this, ProfileActivity.class);
-                startActivity(intent);
-            }
+        card.setOnClickListener(view -> {
+            Intent intent = new Intent(HomeActivity.this, ProfileActivity.class);
+            startActivity(intent);
         });
 
         recentTransactionAdapter = new RecentTransactionAdapter(transactions);
@@ -281,8 +261,6 @@ public class HomeActivity extends AppCompatActivity {
                         doGetListTransactions(userStatisticService, Utility.LIST_TK.get(0).getSoTK());
                     }
                 } else if (response.code() == HttpsURLConnection.HTTP_UNAUTHORIZED) {
-                    // Handle unauthorized
-                    // TODO go back to login
                     Log.d(TAG, "list tk 401");
                 } else {
                     try {
@@ -332,21 +310,19 @@ public class HomeActivity extends AppCompatActivity {
                         list.add(tk);
                     }
 
-                    list.sort(new Comparator<ThongKeGD>() {
-                        @Override
-                        public int compare(ThongKeGD t, ThongKeGD other) {
-                            return -1*t.getNgayGD().compareTo(other.getNgayGD());
-                        }
-                    });
+                    list.sort((t, other) -> -1 * t.getNgayGD().compareTo(other.getNgayGD()));
 
-                    transactions = list;
+                    if (list.size() > 3) {
+                        transactions = list.subList(0, 3);
+                    } else {
+                        transactions = list;
+                    }
+
                     rvRecentTransaction.setAdapter(new RecentTransactionAdapter(transactions));
 
                     String tongtien = Helper.showGia(Helper.getTongTienGiaoDich(list));
                     tvTranferValue.setText(String.valueOf(tongtien + " đ"));
                 } else if (response.code() == HttpsURLConnection.HTTP_UNAUTHORIZED) {
-                    // Handle unauthorized
-                    // TODO go back to login
                     Log.d(TAG, "list tk 401");
                 } else {
                     try {
