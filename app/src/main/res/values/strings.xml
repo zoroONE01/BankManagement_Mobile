@@ -46,11 +46,7 @@
 
     <string name="title_activity_bank">BankActivity</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
     <string name="previous">Previous</string>
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
@@ -72,11 +68,8 @@
     <string name="chuyen_tien">Chuyển tiền</string>
     <string name="so_du">Số dư</string>
     <string name="_1_000_000_000">1.000.000.000 VNĐ</string>
-    <string name="giao_dich">Giao dịch</string>
-    <string name="_10_000_000">10.000.000 VNĐ</string>
+    <string name="giao_dich">Tổng giao dịch</string>
     <string name="recent_transaction">Giao dịch gần đây</string>
-    <string name="chuyen_0921">Chuyển - 0921</string>
-    <string name="_14_08_2022_04_29_pm">14/08/2022 04:29 PM</string>
     <string name="action_show_home">Trang Chủ</string>
     <string name="action_recharge">Nạp Tiền</string>
     <string name="action_withdraw">Rút Tiền</string>
@@ -100,6 +93,5 @@
         <item>Nam</item>
         <item>Nữ</item>
     </string-array>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="dang_xuat">Đăng xuất</string>
 </resources>

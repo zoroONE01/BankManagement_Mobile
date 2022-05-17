@@ -18,7 +18,6 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import vn.edu.ptithcm.bankmanagement.api.ApiClient;
 import vn.edu.ptithcm.bankmanagement.api.ImageService;
 
 public class Image {
@@ -49,16 +48,16 @@ public class Image {
         });
     }
 
-    public static String save(ImageService imageService, String folderToSave, String fileName, String realPath){
+    public static String save(ImageService imageService, String folderToSave, String fileName, String realPath) {
         //  folderToSave     avatar
         //  fileName         111111111
         File file = new File(realPath);
         // convert the file name into string
         String realFileName = file.getName();
-        String extension=""; //đuôi file
+        String extension = ""; //đuôi file
 
         int index = realFileName.lastIndexOf('.');
-        if(index > 0) {
+        if (index > 0) {
             extension = realFileName.substring(index);
         }
 
@@ -66,8 +65,7 @@ public class Image {
                 RequestBody.create(file, MediaType.parse("image/*"));
 
         MultipartBody.Part body =
-                MultipartBody.Part.createFormData("picture", fileName + extension , requestFile);
-
+                MultipartBody.Part.createFormData("picture", fileName + extension, requestFile);
 
         Call<JsonObject> call = imageService.saveImage(folderToSave, body);
         call.enqueue(new Callback<JsonObject>() {
@@ -82,6 +80,6 @@ public class Image {
             }
         });
 
-        return "/"+folderToSave+"/"+fileName+ extension;
+        return "/" + folderToSave + "/" + fileName + extension;
     }
 }

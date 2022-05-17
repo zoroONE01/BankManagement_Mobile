@@ -19,6 +19,7 @@ import java.util.List;
 import vn.edu.ptithcm.bankmanagement.R;
 import vn.edu.ptithcm.bankmanagement.data.model.ThongKeGD;
 import vn.edu.ptithcm.bankmanagement.utility.Helper;
+import vn.edu.ptithcm.bankmanagement.utility.Utility;
 
 public class RecentTransactionAdapter extends RecyclerView.Adapter<RecentTransactionViewHolder> {
     private List<ThongKeGD> items;
@@ -37,7 +38,7 @@ public class RecentTransactionAdapter extends RecyclerView.Adapter<RecentTransac
         return new RecentTransactionViewHolder(item);
     }
 
-    @SuppressLint("UseCompatLoadingForDrawables")
+    @SuppressLint({"UseCompatLoadingForDrawables", "SetTextI18n"})
     @Override
     public void onBindViewHolder(@NonNull RecentTransactionViewHolder holder, int position) {
         ImageView isUserImage = holder.isUserImage;
@@ -47,29 +48,26 @@ public class RecentTransactionAdapter extends RecyclerView.Adapter<RecentTransac
 
         ThongKeGD tk = items.get(position);
 
-        String action = tk.getLoaiGD();
-
-        if (action.equals("Gửi tiền")) {
-            action = "Nạp tiền";
-        }
-
-        tvTransactionTitle.setText(action);
         tvTransactionValue.setText(String.valueOf(Helper.showGia(tk.getSoTien()) + "đ"));
         tvTransactionTime.setText(Helper.getNgayFromEpoch(tk.getNgayGD()));
 
-        switch (items.get(position).getLoaiGD()){
-            case "Chuyển tiền":
+        switch (tk.getLoaiGD()){
+            case "CT":
+                tvTransactionTitle.setText("Chuyển tiền");
+
                 isUserImage.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_tranfer));
                 break;
-            case "Gửi tiền":
+            case "GT":
+                tvTransactionTitle.setText("Nạp tiền");
+
                 isUserImage.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_recharge));
                 break;
-            case "Rút tiền":
+            case "RT":
+                tvTransactionTitle.setText("Rút tiền");
+
                 isUserImage.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_withdraw));
                 break;
         }
-//        holder.itemView.setOnClickListener(view -> {
-//        });
     }
 
     @Override
@@ -77,4 +75,10 @@ public class RecentTransactionAdapter extends RecyclerView.Adapter<RecentTransac
         return this.items.size();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
+    public void setList(List<ThongKeGD> list) {
+        items.clear();
+        items.addAll(list);
+        notifyDataSetChanged();
+    }
 }

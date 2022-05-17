@@ -5,6 +5,9 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class ThongKeGD {
+    @SerializedName("balanceAfter")
+    @Expose
+    private String source;
 
     @SerializedName("balanceBefore")
     @Expose
@@ -26,7 +29,8 @@ public class ThongKeGD {
     @Expose
     private Double balanceAfter;
 
-    public ThongKeGD(Double balanceBefore, Long ngayGD, String loaiGD, Double soTien, Double balanceAfter) {
+    public ThongKeGD(String source, Double balanceBefore, Long ngayGD, String loaiGD, Double soTien, Double balanceAfter) {
+        this.source = source;
         this.balanceBefore = balanceBefore;
         this.ngayGD = ngayGD;
         this.loaiGD = loaiGD;
@@ -74,13 +78,22 @@ public class ThongKeGD {
         this.balanceAfter = balanceAfter;
     }
 
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
+    }
+
     @Override
     public String toString() {
         return "ThongKeGD{" +
-                "ngayGD=" + ngayGD +
+                "source='" + source + '\'' +
+                ", balanceBefore=" + balanceBefore +
+                ", ngayGD=" + ngayGD +
                 ", loaiGD='" + loaiGD + '\'' +
                 ", soTien=" + soTien +
-                ", balanceBefore=" + balanceBefore +
                 ", balanceAfter=" + balanceAfter +
                 '}';
     }

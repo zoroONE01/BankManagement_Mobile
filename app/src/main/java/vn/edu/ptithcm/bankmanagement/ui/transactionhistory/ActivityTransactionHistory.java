@@ -129,6 +129,7 @@ public class ActivityTransactionHistory extends AppCompatActivity implements Pop
                         Log.d(TAG, "tk: " + e.toString());
 
                         ThongKeGD tk = new ThongKeGD(
+                                e.get("source").getAsString(),
                                 e.get("balanceBefore").getAsDouble(),
                                 e.get("ngayGD").getAsLong(),
                                 e.get("loaiGD").getAsString(),
