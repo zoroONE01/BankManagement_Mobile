@@ -14,7 +14,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
-    private static final String BASE_URL = "http://localhost:8080/web_forbank/";
+//    private static final String BASE_URL = "http://localhost:8080/web_forbank/";
+    private static final String BASE_URL = "http://192.168.43.31:8080/web_forbank/";
 //    private static final String BASE_URL = "https://3ab6-171-253-131-238.ap.ngrok.io/web_forbank/";
 
     Retrofit retrofit;

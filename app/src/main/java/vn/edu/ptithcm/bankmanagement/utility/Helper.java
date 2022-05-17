@@ -24,6 +24,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.TimeZone;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -307,6 +308,7 @@ public class Helper {
     }
 
     public static String getNgayFromEpoch(long epoch) {
+        Utility.DATE_TIME_FORMAT.setTimeZone(TimeZone.getTimeZone("GMT"));
         Calendar c = Calendar.getInstance();
         c.setTimeInMillis(epoch);
 
@@ -314,6 +316,7 @@ public class Helper {
     }
 
     public static String getDateString() {
+        Utility.API_DATE_FORMAT.setTimeZone(TimeZone.getTimeZone("GMT"));
         Calendar c = Calendar.getInstance();
         c.add(Calendar.DATE, 1);
 
@@ -321,6 +324,7 @@ public class Helper {
     }
 
     public static String getDateStringOneDayEarlier() {
+        Utility.API_DATE_FORMAT.setTimeZone(TimeZone.getTimeZone("GMT"));
         Calendar c = Calendar.getInstance();
         c.add(Calendar.DATE, -1);
 
@@ -328,6 +332,7 @@ public class Helper {
     }
 
     public static String getDateStringOneWeekEarlier() {
+        Utility.API_DATE_FORMAT.setTimeZone(TimeZone.getTimeZone("GMT"));
         Calendar c = Calendar.getInstance();
         c.add(Calendar.DATE, -7);
 
@@ -335,6 +340,7 @@ public class Helper {
     }
 
     public static String getDateStringOneMonthEarlier() {
+        Utility.API_DATE_FORMAT.setTimeZone(TimeZone.getTimeZone("GMT"));
         Calendar c = Calendar.getInstance();
         c.add(Calendar.MONTH, -1);
 
