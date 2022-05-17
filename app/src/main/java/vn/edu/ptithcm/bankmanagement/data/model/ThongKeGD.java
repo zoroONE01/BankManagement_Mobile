@@ -1,6 +1,5 @@
 package vn.edu.ptithcm.bankmanagement.data.model;
 
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

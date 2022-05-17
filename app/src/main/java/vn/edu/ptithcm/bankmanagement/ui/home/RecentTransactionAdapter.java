@@ -48,23 +48,24 @@ public class RecentTransactionAdapter extends RecyclerView.Adapter<RecentTransac
 
         ThongKeGD tk = items.get(position);
 
-        tvTransactionValue.setText(String.valueOf(Helper.showGia(tk.getSoTien()) + "đ"));
+        tvTransactionValue.setText(Helper.showGia(tk.getSoTien()) + "đ");
         tvTransactionTime.setText(Helper.getNgayFromEpoch(tk.getNgayGD()));
 
         switch (tk.getLoaiGD()){
             case "CT":
-                tvTransactionTitle.setText("Chuyển tiền");
-
+                tvTransactionTitle.setText(String.format("Chuyển tiền - %s", tk.getSource()));
+                isUserImage.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_tranfer));
+                break;
+            case "NT":
+                tvTransactionTitle.setText(String.format("Nhận tiền - %s", tk.getSource()));
                 isUserImage.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_tranfer));
                 break;
             case "GT":
                 tvTransactionTitle.setText("Nạp tiền");
-
                 isUserImage.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_recharge));
                 break;
             case "RT":
                 tvTransactionTitle.setText("Rút tiền");
-
                 isUserImage.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_withdraw));
                 break;
         }
@@ -72,7 +73,7 @@ public class RecentTransactionAdapter extends RecyclerView.Adapter<RecentTransac
 
     @Override
     public int getItemCount() {
-        return this.items.size();
+        return items.size();
     }
 
     @SuppressLint("NotifyDataSetChanged")
