@@ -2,16 +2,13 @@ package vn.edu.ptithcm.bankmanagement.ui.home;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -19,7 +16,6 @@ import java.util.List;
 import vn.edu.ptithcm.bankmanagement.R;
 import vn.edu.ptithcm.bankmanagement.data.model.ThongKeGD;
 import vn.edu.ptithcm.bankmanagement.utility.Helper;
-import vn.edu.ptithcm.bankmanagement.utility.Utility;
 
 public class RecentTransactionAdapter extends RecyclerView.Adapter<RecentTransactionViewHolder> {
     private List<ThongKeGD> items;
@@ -51,7 +47,7 @@ public class RecentTransactionAdapter extends RecyclerView.Adapter<RecentTransac
         tvTransactionValue.setText(Helper.showGia(tk.getSoTien()) + "đ");
         tvTransactionTime.setText(Helper.getNgayFromEpoch(tk.getNgayGD()));
 
-        switch (tk.getLoaiGD()){
+        switch (tk.getLoaiGD()) {
             case "CT":
                 tvTransactionTitle.setText(String.format("Chuyển tiền - %s", tk.getSource()));
                 isUserImage.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_tranfer));

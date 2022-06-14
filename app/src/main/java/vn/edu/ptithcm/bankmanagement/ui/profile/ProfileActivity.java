@@ -1,5 +1,25 @@
 package vn.edu.ptithcm.bankmanagement.ui.profile;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Log;
+import android.view.View;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
@@ -10,61 +30,22 @@ import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import android.Manifest;
-import android.app.Activity;
-import android.content.Context;
-import android.content.ContextWrapper;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteException;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
-import android.os.Build;
-import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.provider.MediaStore;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import com.google.gson.JsonObject;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.sql.Timestamp;
 import java.sql.Date;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 
-import javax.net.ssl.HttpsURLConnection;
-
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import vn.edu.ptithcm.bankmanagement.R;
 import vn.edu.ptithcm.bankmanagement.api.ApiClient;
-import vn.edu.ptithcm.bankmanagement.api.DepositWithdrawService;
 import vn.edu.ptithcm.bankmanagement.api.ImageService;
 import vn.edu.ptithcm.bankmanagement.api.LoginService;
 import vn.edu.ptithcm.bankmanagement.api.ProfileService;
 import vn.edu.ptithcm.bankmanagement.data.model.KhachHang;
-import vn.edu.ptithcm.bankmanagement.data.model.LoggedInUser;
-import vn.edu.ptithcm.bankmanagement.ui.depositwithdraw.DepositWithdrawActivity;
 import vn.edu.ptithcm.bankmanagement.utility.Image;
 import vn.edu.ptithcm.bankmanagement.utility.Utility;
 
@@ -127,7 +108,7 @@ public class ProfileActivity extends AppCompatActivity {
                         String picturePath = cursor.getString(columnIndex);
                         cursor.close();
 
-                        if (picturePath!=null) {
+                        if (picturePath != null) {
                             avatarPath = picturePath;
                             isChangeAvatar = true;
                         }
@@ -137,7 +118,7 @@ public class ProfileActivity extends AppCompatActivity {
                 }
             });
 
-    void loadCustomer(String cmnd){
+    void loadCustomer(String cmnd) {
         Log.d("-----customer", "cmnd: " + cmnd);
         if (Utility.COOKIE.isEmpty()) {
             Toast.makeText(this, "Error: no session id", Toast.LENGTH_SHORT).show();
@@ -154,9 +135,9 @@ public class ProfileActivity extends AppCompatActivity {
                     txtHo.setText(cus.getHo());
                     txtTen.setText(cus.getTen());
                     txtDiaChi.setText(cus.getDiachi());
-                    snPhai.setSelection(cus.getPhai().equals("Nam") ? 0:1);
+                    snPhai.setSelection(cus.getPhai().equals("Nam") ? 0 : 1);
 
-                    Date temp =new Date(cus.getNgayCap().getTime());
+                    Date temp = new Date(cus.getNgayCap().getTime());
                     Calendar calendar = new GregorianCalendar();
                     calendar.setTime(temp);
                     dpNgayCap.updateDate(calendar.get(Calendar.YEAR),
@@ -224,7 +205,7 @@ public class ProfileActivity extends AppCompatActivity {
         String strTen = txtTen.getText().toString();
         String strDiaChi = txtDiaChi.getText().toString();
         String strPhai = snPhai.getSelectedItem().toString();
-        String strNgayCap = dpNgayCap.getDayOfMonth()+"-"+ (dpNgayCap.getMonth()+1) +"-" +dpNgayCap.getYear() ;
+        String strNgayCap = dpNgayCap.getDayOfMonth() + "-" + (dpNgayCap.getMonth() + 1) + "-" + dpNgayCap.getYear();
         String strSdt = txtSdt.getText().toString();
 
         //replace old image
@@ -239,7 +220,7 @@ public class ProfileActivity extends AppCompatActivity {
             call.enqueue(new Callback<JsonObject>() {
                 @Override
                 public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                    if (response.isSuccessful()){
+                    if (response.isSuccessful()) {
                         JsonObject object = response.body();
                         String message = object.get("message").getAsString();
                         Log.d("-------", "Response: " + object.toString());

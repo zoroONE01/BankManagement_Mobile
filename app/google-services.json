@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "917260150782",
+    "project_id": "bank-75e3c",
+    "storage_bucket": "bank-75e3c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:917260150782:android:94a8705826d952609342af",
+        "android_client_info": {
+          "package_name": "vn.edu.ptithcm.bankmanagement"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "917260150782-t7u9sosh80h4v3k06s64c9i2rlbai1rj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "vn.edu.ptithcm.bankmanagement",
+            "certificate_hash": "e693cd38dd613eafbef711f59e71a66398877dc8"
+          }
+        },
+        {
+          "client_id": "917260150782-voiko8j72gegt5i8338rlupc6gpbr1j5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDspP7QnTF3O0eh3mZ13xWA6KRfOM9tCf4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "917260150782-voiko8j72gegt5i8338rlupc6gpbr1j5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

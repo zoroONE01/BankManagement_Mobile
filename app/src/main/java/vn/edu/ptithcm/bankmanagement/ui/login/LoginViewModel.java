@@ -49,7 +49,7 @@ public class LoginViewModel extends ViewModel {
         return registerResult;
     }
 
-    public void login(String username, String password) {
+    public void login(String username, String password, String firebaseToken) {
         // can be launched in a separate asynchronous job
         loginRepository.login(username, password, new OnCompleteCallBack() {
             @Override
@@ -61,14 +61,14 @@ public class LoginViewModel extends ViewModel {
                     loginResult.setValue(new LoginResult(R.string.login_failed));
                 }
             }
-        });
+        }, firebaseToken);
 
 
     }
 
-    public void register(String cmnd, String ho, String ten, String taiKhoan, String matKhau) {
+    public void register(String cmnd, String ho, String ten, String taiKhoan, String matKhau, String imageUrl) {
         // can be launched in a separate asynchronous job
-        loginRepository.register(cmnd, ho, ten, taiKhoan, matKhau, new OnCompleteCallBack() {
+        loginRepository.register(cmnd, ho, ten, taiKhoan, matKhau, imageUrl, new OnCompleteCallBack() {
             @Override
             public void done(Object o) {
                 LoggedInUser logged = (LoggedInUser) o;

@@ -5,7 +5,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -18,7 +17,6 @@ import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.listener.ChartTouchListener;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -108,7 +106,7 @@ public class StatisticFragment extends Fragment {
             double val = gd.getBalanceBefore();
             values.add(new Entry(i++, (float) val));
 
-            if (i==listGD.size()){
+            if (i == listGD.size()) {
                 val = gd.getBalanceAfter();
                 values.add(new Entry(i++, (float) val));
             }

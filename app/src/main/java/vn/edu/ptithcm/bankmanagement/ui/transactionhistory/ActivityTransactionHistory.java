@@ -8,11 +8,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -39,7 +36,6 @@ import com.itextpdf.text.pdf.PdfWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.sql.Date;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -54,7 +50,6 @@ import vn.edu.ptithcm.bankmanagement.api.ApiClient;
 import vn.edu.ptithcm.bankmanagement.api.UserStatisticService;
 import vn.edu.ptithcm.bankmanagement.data.model.ThongKeGD;
 import vn.edu.ptithcm.bankmanagement.ui.home.RecentTransactionAdapter;
-import vn.edu.ptithcm.bankmanagement.utility.Helper;
 import vn.edu.ptithcm.bankmanagement.utility.Utility;
 
 public class ActivityTransactionHistory extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
@@ -102,7 +97,6 @@ public class ActivityTransactionHistory extends AppCompatActivity implements Pop
                 popup.show();
             }
         });
-
 
 
         if (!Utility.LIST_TK.isEmpty()) {
@@ -194,16 +188,16 @@ public class ActivityTransactionHistory extends AppCompatActivity implements Pop
 
             document.open();
 
-            Phrase soTK = new Phrase("Số tài khoản: "+ Utility.LIST_TK.get(0).getSoTK(),new Font(bf, 16));
+            Phrase soTK = new Phrase("Số tài khoản: " + Utility.LIST_TK.get(0).getSoTK(), new Font(bf, 16));
             // Table
             PdfPTable table = new PdfPTable(5);
 
             // Header
-            PdfPCell cell1 = new PdfPCell(new Phrase("Số dư trước",new Font(bf, 14)));
-            PdfPCell cell2 = new PdfPCell(new Phrase("Ngày giao dịch",new Font(bf, 14)));
-            PdfPCell cell3 = new PdfPCell(new Phrase("Loại giao dịch",new Font(bf, 14)));
-            PdfPCell cell4 = new PdfPCell(new Phrase("Số tiền",new Font(bf, 14)));
-            PdfPCell cell5 = new PdfPCell(new Phrase("Số dư sau",new Font(bf, 14)));
+            PdfPCell cell1 = new PdfPCell(new Phrase("Số dư trước", new Font(bf, 14)));
+            PdfPCell cell2 = new PdfPCell(new Phrase("Ngày giao dịch", new Font(bf, 14)));
+            PdfPCell cell3 = new PdfPCell(new Phrase("Loại giao dịch", new Font(bf, 14)));
+            PdfPCell cell4 = new PdfPCell(new Phrase("Số tiền", new Font(bf, 14)));
+            PdfPCell cell5 = new PdfPCell(new Phrase("Số dư sau", new Font(bf, 14)));
             table.addCell(cell1);
             table.addCell(cell2);
             table.addCell(cell3);
@@ -212,8 +206,8 @@ public class ActivityTransactionHistory extends AppCompatActivity implements Pop
 
             for (ThongKeGD i : transactions) {
                 PdfPCell cell1x = new PdfPCell(new Phrase(String.valueOf(i.getBalanceBefore())));
-                PdfPCell cell2x = new PdfPCell(new Phrase(String.valueOf(new Date(i.getNgayGD())),new Font(bf, 14)));
-                PdfPCell cell3x = new PdfPCell(new Phrase(i.getLoaiGD(),new Font(bf, 14)));
+                PdfPCell cell2x = new PdfPCell(new Phrase(String.valueOf(new Date(i.getNgayGD())), new Font(bf, 14)));
+                PdfPCell cell3x = new PdfPCell(new Phrase(i.getLoaiGD(), new Font(bf, 14)));
                 PdfPCell cell4x = new PdfPCell(new Phrase(String.valueOf(i.getSoTien())));
                 PdfPCell cell5x = new PdfPCell(new Phrase(String.valueOf(i.getBalanceAfter())));
                 table.addCell(cell1x);

@@ -62,15 +62,15 @@ public class LoginRepository {
         // @see https://developer.android.com/training/articles/keystore
     }
 
-    public Result<LoggedInUser> login(String username, String password, OnCompleteCallBack onCompleteCallBack) {
+    public Result<LoggedInUser> login(String username, String password, OnCompleteCallBack onCompleteCallBack, String firebaseToken) {
         // handle login
-        loginRemote.login(username, password, onCompleteCallBack);
+        loginRemote.login(username, password, onCompleteCallBack, firebaseToken);
         return null;
     }
 
-    public Result<LoggedInUser> register(String cmnd, String ho, String ten, String taiKhoan, String matKhau, OnCompleteCallBack onCompleteCallBack) {
+    public Result<LoggedInUser> register(String cmnd, String ho, String ten, String taiKhoan, String matKhau, String imageUrl, OnCompleteCallBack onCompleteCallBack) {
         // handle login
-        loginRemote.register(cmnd, ho, ten, taiKhoan, matKhau, onCompleteCallBack);
+        loginRemote.register(cmnd, ho, ten, taiKhoan, matKhau, imageUrl, onCompleteCallBack);
         return null;
        /* Result<LoggedInUser> result ;
 

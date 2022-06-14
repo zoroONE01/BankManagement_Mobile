@@ -5,8 +5,13 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
+import com.google.gson.JsonObject;
+
+import java.util.HashMap;
+
 import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.Response;
 import vn.edu.ptithcm.bankmanagement.api.ApiClient;
 import vn.edu.ptithcm.bankmanagement.api.LoginService;
 import vn.edu.ptithcm.bankmanagement.data.model.LoggedInUser;
@@ -37,7 +42,7 @@ public class LoginRemote {
         return loginService;
     }
 
-    public void login(String username, String password, OnCompleteCallBack<LoggedInUser> onCompleteCallBack) {
+    public void login(String username, String password, OnCompleteCallBack<LoggedInUser> onCompleteCallBack, String firebaseToken) {
         try {
             LoginRequest loginRequest = new LoginRequest(username, password);
             loginService.login(Utility.COOKIE, loginRequest).enqueue(new Callback<LoggedInUser>() {
@@ -51,6 +56,21 @@ public class LoginRemote {
                         Utility.USER.setUserId(logged.getUserId());
                         Utility.USER.setImageUrl(logged.getImageUrl());
                         Utility.USER.setKhachHangID(logged.getKhachHangID());
+
+                        HashMap<String, String> values = new HashMap<>();
+                        values.put("firebaseToken", firebaseToken);
+                        values.put("userId", Utility.USER.getUserId());
+                        loginService.updateFirebaseToken(Utility.COOKIE, "updateFirebaseToken", values).enqueue(new Callback<JsonObject>() {
+                            @Override
+                            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                                Log.d("----updateFirebaseToken", "thanh cong");
+                            }
+
+                            @Override
+                            public void onFailure(Call<JsonObject> call, Throwable t) {
+                                Log.e("----updateFirebaseToken", t.getMessage());
+                            }
+                        });
 
                         loginInUser.setValue(logged);
                         onCompleteCallBack.done(logged);
@@ -71,9 +91,9 @@ public class LoginRemote {
         }
     }
 
-    public void register(String cmnd, String ho, String ten, String username, String password, OnCompleteCallBack<LoggedInUser> onCompleteCallBack) {
+    public void register(String cmnd, String ho, String ten, String username, String password, String imageUrl, OnCompleteCallBack<LoggedInUser> onCompleteCallBack) {
         try {
-            RegisterRequest registerRequest = new RegisterRequest(cmnd, ho, ten, username, password);
+            RegisterRequest registerRequest = new RegisterRequest(cmnd, ho, ten, username, password, imageUrl);
 
             loginService.register(Utility.COOKIE, registerRequest).enqueue(new Callback<LoggedInUser>() {
                 @Override

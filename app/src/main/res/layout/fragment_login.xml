@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -92,6 +93,26 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_password" />
+
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/bt_sign_in"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        app:layout_constraintTop_toBottomOf="@+id/b_sign_in"
+        tools:layout_editor_absoluteX="40dp"
+        android:layout_gravity="center"
+        />
+
+    <ProgressBar
+        android:id="@+id/progressbar"
+        android:layout_width="46dp"
+        android:layout_height="45dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/tv_change_login"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bt_sign_in" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_change_login"

@@ -20,7 +20,13 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -115,6 +121,23 @@ public class HomeActivity extends AppCompatActivity {
 
         logout = findViewById(R.id.b_logout);
         logout.setOnClickListener(view -> {
+            FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+            if (firebaseAuth != null) {
+                GoogleSignInClient googleSignInClient = GoogleSignIn.getClient(HomeActivity.this
+                        , GoogleSignInOptions.DEFAULT_SIGN_IN);
+                googleSignInClient.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        // Check condition
+                        if (task.isSuccessful()) {
+                            // When task is successful
+                            // Sign out from firebase
+                            firebaseAuth.signOut();
+                            Utility.verifiedBy = "";
+                        }
+                    }
+                });
+            }
             Intent i = new Intent(HomeActivity.this, BankActivity.class);
             i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NO_HISTORY);
 
