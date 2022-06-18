@@ -16,6 +16,9 @@
         android:theme="@style/Theme.BankManagement"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ui.game.MiniGame"
+            android:exported="false" />
+        <activity
             android:name=".ui.statistic.StatisticActivity"
             android:exported="true" />
         <activity
@@ -24,7 +27,6 @@
         <activity
             android:name=".ui.home.HomeActivity"
             android:exported="true" />
-
         <activity
             android:name=".ui.changepassword.ChangePasswordActivity"
             android:exported="false" />
@@ -39,21 +41,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ui.depositwithdraw.DepositWithdrawActivity"
             android:exported="false" />
         <activity
             android:name=".ui.moneytransfer.TransferActivity"
             android:exported="true" />
-
         <activity
             android:name=".ui.transactionhistory.ActivityTransactionHistory"
             android:exported="false" />
+
         <service
             android:name=".firebase.MyFirebaseMessagingService"
-            android:exported="false"
-            android:directBootAware="true">
+            android:directBootAware="true"
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>

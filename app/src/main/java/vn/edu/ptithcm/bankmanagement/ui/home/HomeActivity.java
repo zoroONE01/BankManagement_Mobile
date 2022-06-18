@@ -48,6 +48,7 @@ import vn.edu.ptithcm.bankmanagement.data.model.KhachHang;
 import vn.edu.ptithcm.bankmanagement.data.model.TaiKhoan;
 import vn.edu.ptithcm.bankmanagement.data.model.ThongKeGD;
 import vn.edu.ptithcm.bankmanagement.ui.depositwithdraw.DepositWithdrawActivity;
+import vn.edu.ptithcm.bankmanagement.ui.game.MiniGame;
 import vn.edu.ptithcm.bankmanagement.ui.moneytransfer.TransferActivity;
 import vn.edu.ptithcm.bankmanagement.ui.profile.ProfileActivity;
 import vn.edu.ptithcm.bankmanagement.ui.statistic.StatisticActivity;
@@ -179,6 +180,10 @@ public class HomeActivity extends AppCompatActivity {
                                 break;
                             case R.id.action_statistic:
                                 intent = new Intent(HomeActivity.this, StatisticActivity.class);
+                                startActivity(intent);
+                                break;
+                            case R.id.action_minigame:
+                                intent = new Intent(HomeActivity.this, MiniGame.class);
                                 startActivity(intent);
                                 break;
                         }

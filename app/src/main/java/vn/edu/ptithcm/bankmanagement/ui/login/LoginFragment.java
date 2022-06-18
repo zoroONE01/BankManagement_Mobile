@@ -316,7 +316,11 @@ public class LoginFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 loadingProgressBar.setVisibility(View.VISIBLE);
-                firebaseAuth.signInWithEmailAndPassword(usernameEditText.getText().toString(), passwordEditText.getText().toString())
+                if (usernameEditText.getText().toString().isEmpty() || passwordEditText.getText().toString().isEmpty()) {
+                    return;
+                }
+                firebaseAuth
+                        .signInWithEmailAndPassword(usernameEditText.getText().toString(), passwordEditText.getText().toString())
                         .addOnCompleteListener(
                                 new OnCompleteListener<AuthResult>() {
                                     @Override
@@ -326,12 +330,8 @@ public class LoginFragment extends Fragment {
                                             loadingProgressBar.setVisibility(View.GONE);
                                             loginViewModel.login(usernameEditText.getText().toString(), "", firebaseToken);
                                         } else {
-
                                             // sign-in failed
-                                            Toast.makeText(getActivity(),
-                                                    "Login firebase failed!!",
-                                                    Toast.LENGTH_LONG)
-                                                    .show();
+                                            Toast.makeText(getActivity(), "Login firebase failed!!", Toast.LENGTH_LONG).show();
                                         }
                                     }
                                 });

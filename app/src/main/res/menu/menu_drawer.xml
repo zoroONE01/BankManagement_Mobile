@@ -24,4 +24,8 @@
         android:id="@+id/action_statistic"
         android:orderInCategory="1"
         android:title="Thống Kê" />
+    <item
+        android:id="@+id/action_minigame"
+        android:orderInCategory="1"
+        android:title="Crappy Bird" />
 </menu>
